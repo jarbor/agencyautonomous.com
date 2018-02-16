@@ -1,0 +1,24 @@
+html
+	head
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300", rel="stylesheet")
+		link(href="./css/index.css", rel="stylesheet")
+		script(src="./es5/index.js", async)
+	body
+		.body
+			.content
+				a.focus(href='javascript:void(0);', tabindex='-1') &nbsp;
+				include ./company.pug
+				include ./services.pug
+				include ./open-source.pug
+		.cover
+			a(href='/company', data-navigo)
+				include images/logos/logo-animate.svg
+		.header
+			a(href='/company', data-navigo) Company
+			a(href='/services', data-navigo) Services
+			//- a(href='/blog', data-navigo) Blog
+			a(href='/open-source', data-navigo) Open&nbsp;Source
+		.footer
+			a(href='/', data-navigo)
+				include images/logos/logo-white-transparent.svg

@@ -1,0 +1,41 @@
+@import "reset";
+@import "globals";
+@import "typography";
+@import "layout";
+
+body {
+	background-color: $primary-color;
+
+	&:not([class*="open"]) {
+		cursor: pointer;
+	}
+}
+
+[data-page] {
+	display: none;
+}
+
+[data-active-page='company'] [data-page='company'] {
+	display: block;
+}
+[data-active-page='services'] [data-page='services'] {
+	display: block;
+}
+[data-active-page='blog'] [data-page='blog'] {
+	display: block;
+}
+[data-active-page='open-source'] [data-page='open-source'] {
+	display: block;
+}
+
+.headshot {
+	// width: 20%;
+	height: 12rem;
+	float: left;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+}
+
+@media only screen and (max-width : $break-mobile) {
+
+}

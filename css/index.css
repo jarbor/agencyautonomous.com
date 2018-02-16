@@ -1,0 +1,224 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font-family: "Roboto", sans-serif; }
+
+h1, h2, h3, h4 {
+  font-family: "Archivo Narrow", sans-serif;
+  font-weight: 500; }
+
+h1 {
+  font-size: 36pt;
+  padding-top: 1rem;
+  margin-bottom: 1rem; }
+
+h2 {
+  font-size: 20pt;
+  padding-top: 1rem;
+  margin-bottom: 1rem; }
+
+h3 {
+  font-size: 13pt;
+  padding-top: 0.5rem;
+  margin-bottom: 0.5rem; }
+
+p {
+  margin-bottom: 1rem;
+  line-height: 1.5rem; }
+
+li {
+  list-style-type: square;
+  margin-left: 1.5rem;
+  line-height: 1.5rem; }
+
+blockquote {
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 16pt;
+  font-weight: 500;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-style: italic; }
+
+a {
+  color: #9F9F9F; }
+
+.cover {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  float: left; }
+  .cover .logo {
+    height: 100vh;
+    width: 100%; }
+  .open .cover {
+    display: none; }
+
+.focus {
+  display: inline-block;
+  height: 0;
+  opacity: 0; }
+
+.body {
+  position: absolute;
+  top: 83px;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100vh - 166px);
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #FFF;
+  color: #2E2E2E; }
+
+.content {
+  max-width: 35rem;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0; }
+
+.frame, .header, .footer {
+  position: absolute;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 83px;
+  color: #FFF;
+  opacity: 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; }
+  .frame a, .header a, .footer a {
+    color: #FFF; }
+
+.header {
+  top: 0;
+  padding-top: 2rem; }
+  .header a {
+    text-decoration: none;
+    font-size: 20pt;
+    font-family: "Archivo Narrow", sans-serif;
+    margin-left: 5rem; }
+    .header a:first-child {
+      margin-left: 0; }
+    .header a.active {
+      border-bottom: 1px solid #FFF; }
+
+.footer {
+  bottom: 0; }
+  .footer svg {
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer; }
+  .footer .text {
+    opacity: 0; }
+
+.columns {
+  margin-bottom: 1rem; }
+  .columns:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.column {
+  width: 50%;
+  float: left; }
+
+@media (max-width: 480px) {
+  .body {
+    padding: 0 1rem 1rem 1rem; }
+
+  .content {
+    max-width: unset; }
+
+  .header {
+    height: 45px;
+    padding-top: 0.5rem; }
+    .header a {
+      font-size: 18pt;
+      margin-left: 1.5rem; }
+
+  .footer {
+    height: 45px; }
+
+  .body {
+    height: calc(100vh - 90px);
+    top: 45px; }
+
+  .column {
+    width: 100%; }
+    .column:not(:first-child) {
+      padding-top: 1rem; } }
+body {
+  background-color: #2E2E2E; }
+  body:not([class*="open"]) {
+    cursor: pointer; }
+
+[data-page] {
+  display: none; }
+
+[data-active-page='company'] [data-page='company'] {
+  display: block; }
+
+[data-active-page='services'] [data-page='services'] {
+  display: block; }
+
+[data-active-page='blog'] [data-page='blog'] {
+  display: block; }
+
+[data-active-page='open-source'] [data-page='open-source'] {
+  display: block; }
+
+.headshot {
+  height: 12rem;
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 1rem; }
+
+/*# sourceMappingURL=index.css.map */
