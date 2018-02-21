@@ -11,14 +11,20 @@ html
 				include ./company.pug
 				include ./services.pug
 				include ./open-source.pug
+
 		.cover
 			a(href='/company', data-navigo)
 				include images/logos/logo-animate.svg
+
 		.header
 			a(href='/company', data-navigo) Company
 			a(href='/services', data-navigo) Services
 			//- a(href='/blog', data-navigo) Blog
 			a(href='/open-source', data-navigo) Open&nbsp;Source
+
+			svg(class="active-tracker", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", style="isolation:isolate", viewBox="0 0 100 2")
+				path(class='active-indicator' d='M 0 0 L 100 0 L 100 2 L 0 2 L 0 0 Z')
+
 		.footer
 			a(href='/', data-navigo)
 				include images/logos/logo-white-transparent.svg

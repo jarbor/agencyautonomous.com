@@ -1,8 +1,12 @@
 import {Path, Point} from '../../svg-path-transform/src/svg-path-transform';
 // import SvgViewboxMaximize from '../../svg-viewbox-maximize/svg-viewbox-maximize';
 import SvgViewboxMaximize from 'svg-viewbox-maximize';
-// import Velocity from 'velocity';
+// import ElementCoordinates from '../../element-coordinates/element-coordinates';
+import ElementCoordinates from 'element-coordinates';
+// import promiseFont from '../../promise-font/promise-font';
+import promiseFont from 'promise-font';
 import Velocity from './modules/velocity';
+// import Velocity from 'velocity';
 import Navigo from 'navigo';
 
 let $ = document.querySelector.bind(document);
@@ -12,6 +16,41 @@ let DELTA = 300;
 let originalBarPaths;
 let originalBackgroundPath;
 let easing = 'easeInOutCubic';
+let backgroundPath = Path.make($('.background'));
+let activeIndicatorPath = Path.make($('.active-indicator')); 
+
+let getActiveLink = (page) => {
+	if (!page) {
+		page = window.location.pathname.substring(1);
+	}
+	return $(`.header a[href='/${page}']`);
+};
+
+let makeActiveIndicatorPath = (svgElement, link) => {
+	let linkCoordinates = new ElementCoordinates(link).contentBox;
+	let active = {
+		left: svgElement.svgX(linkCoordinates.left),
+		right: svgElement.svgX(linkCoordinates.right)
+	};
+
+	return Path.make(` M ${active.left} 0 L ${active.right} 0 L ${active.right} 2 L ${active.left} 2 L ${active.left} 0 Z `);
+};
+
+let moveActiveIndicator = (page) => {
+	let link = getActiveLink(page);
+	let startPath = Path.make(activeIndicatorPath);
+	let endPath = makeActiveIndicatorPath(activeTrackerSvg, link);
+
+	let progress = (elements, complete, remaining, start, tween) => {
+		activeIndicatorPath.interpolate(startPath, endPath, tween).paint();
+	};
+
+	return Velocity($('.header'), { tween: 1 }, {
+		duration: 600,
+		easing,
+		progress
+	});
+};
 
 let toggleOpen = () => Promise.resolve().then(() => {
 	$('body').classList.toggle('open');
@@ -19,19 +58,15 @@ let toggleOpen = () => Promise.resolve().then(() => {
 
 let isOpen = () => $('body').classList.contains('open');
 
-let moveActiveIndicator = () => {
-
-};
-
-let getBackgroundPath = (svgElement, isOpen) => {
+let makeBackgroundPath = (svgElement, isOpen) => {
 	let s = svgElement.current;
 	let background = ` M ${s.left} ${s.top} L ${s.left} ${s.bottom} L ${s.right} ${s.bottom} L ${s.right} ${s.top} L ${s.left} ${s.top} `;
 	let left;
 	let right;
 
 	if (isOpen) {
-		let midX = svg.current.width / 2 + svg.current.left;
-		let r = svg.rectangle($('.body'));
+		let midX = s.width / 2 + s.left;
+		let r = svgElement.rectangle($('.body'));
 		left = ` M ${r.left} ${r.bottom} L ${r.left} ${r.top} L ${midX} ${r.top} L ${midX} ${r.bottom} L ${r.left} ${r.bottom} `;
 		right = ` M ${r.right} ${r.bottom} L ${r.right} ${r.top} L ${midX} ${r.top} L ${midX} ${r.bottom} L ${r.right} ${r.bottom} `;
 	}
@@ -100,7 +135,6 @@ let toggleCover = () => {
 	});
 
 	let animateMiddle = () => {
-		let backgroundPath = Path.make($('.background'));
 
 		if (originalBackgroundPath === undefined) {
 			originalBackgroundPath = Path.make(backgroundPath);
@@ -110,7 +144,7 @@ let toggleCover = () => {
 		let endPath;
 
 		if (alternator > 0) {
-			endPath = Object.values(getBackgroundPath(svg, true));
+			endPath = Object.values(makeBackgroundPath(coverSvg, true));
 		}
 		else {
 			endPath = originalBackgroundPath;
@@ -146,12 +180,34 @@ let toggleCover = () => {
 	;
 };
 
-// Ensure the SVG is always maximized
-let svg = new SvgViewboxMaximize({
+// Ensure the SVGs are always maximized to their containers
+let coverSvg = new SvgViewboxMaximize({
 	element: $('.cover svg.logo'),
 	container: $('.cover'),
 	resized: function() {
-		Path.make($('.background')).transform(getBackgroundPath(this, isOpen())).paint();
+		let path = makeBackgroundPath(this, isOpen());
+		backgroundPath.transform(path).paint();
+	}
+});
+
+let activeTrackerSvg = new SvgViewboxMaximize({
+	element: $('.header svg'),
+	container: $('.header svg'),
+	resized: function() {
+		let link = getActiveLink();
+		if (link) {
+			let path = makeActiveIndicatorPath(this, link);
+			activeIndicatorPath.transform(path).paint();
+		}
+	}
+});
+
+// Resize the active indicator after the font completes loading
+promiseFont('Archivo Narrow').then(() => {
+	let link = getActiveLink();
+	if (link) {
+		let path = makeActiveIndicatorPath(activeTrackerSvg, link);
+		activeIndicatorPath.transform(path).paint();
 	}
 });
 
@@ -168,7 +224,7 @@ router.on({
 
 		console.log('Navigating to: /'+ page);
 
-		moveActiveIndicator();
+		moveActiveIndicator(page);
 
 		if (!isOpen()) {
 			toggleCover();
