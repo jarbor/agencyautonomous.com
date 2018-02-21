@@ -183,7 +183,7 @@ let toggleCover = () => {
 // Ensure the SVGs are always maximized to their containers
 let coverSvg = new SvgViewboxMaximize({
 	element: $('.cover svg.logo'),
-	container: $('.cover'),
+	// container: $('.cover'),
 	resized: function() {
 		let path = makeBackgroundPath(this, isOpen());
 		backgroundPath.transform(path).paint();
@@ -192,7 +192,7 @@ let coverSvg = new SvgViewboxMaximize({
 
 let activeTrackerSvg = new SvgViewboxMaximize({
 	element: $('.header svg'),
-	container: $('.header svg'),
+	// container: $('.header svg'),
 	resized: function() {
 		let link = getActiveLink();
 		if (link) {

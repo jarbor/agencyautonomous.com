@@ -280,7 +280,7 @@ var toggleCover = function toggleCover() {
 
 var coverSvg = new _svgViewboxMaximize.default({
   element: $('.cover svg.logo'),
-  container: $('.cover'),
+  // container: $('.cover'),
   resized: function resized() {
     var path = makeBackgroundPath(this, isOpen());
     backgroundPath.transform(path).paint();
@@ -288,7 +288,7 @@ var coverSvg = new _svgViewboxMaximize.default({
 });
 var activeTrackerSvg = new _svgViewboxMaximize.default({
   element: $('.header svg'),
-  container: $('.header svg'),
+  // container: $('.header svg'),
   resized: function resized() {
     var link = getActiveLink();
 
@@ -746,7 +746,7 @@ function () {
     _classCallCheck(this, SvgMaximize);
 
     this.element = config.element;
-    this.container = config.container || config.element.parentElement;
+    this.container = config.container || config.element;
     this.resized = config.resized;
     this.original = {};
 
