@@ -1,4 +1,5 @@
-import {Path, Point} from '../../svg-path-transform/src/svg-path-transform';
+// import {Path, Point} from '../../svg-path-transform/svg-path-transform';
+import {Path, Point} from 'svg-path-transform';
 // import SvgViewboxMaximize from '../../svg-viewbox-maximize/svg-viewbox-maximize';
 import SvgViewboxMaximize from 'svg-viewbox-maximize';
 // import ElementCoordinates from '../../element-coordinates/element-coordinates';

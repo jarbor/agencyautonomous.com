@@ -12,6 +12,7 @@
     "element-coordinates": "^1.0.4",
     "navigo": "^7.0.0",
     "promise-font": "^1.0.0",
+    "svg-path-transform": "^1.0.0",
     "svg-viewbox-maximize": "~1.1.0",
     "velocity": "^0.7.2"
   },

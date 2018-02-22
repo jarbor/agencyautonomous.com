@@ -2552,6 +2552,10 @@ supports-color@^5.2.0:
   dependencies:
     has-flag "^3.0.0"
 
+svg-path-transform@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svg-path-transform/-/svg-path-transform-1.0.0.tgz#bc844f13f0abc92af276af58b1e241dccf9b0a32"
+
 svg-viewbox-maximize@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/svg-viewbox-maximize/-/svg-viewbox-maximize-1.1.0.tgz#aee3f6af731ec8d2f56acd80f3b36889ad23638c"
