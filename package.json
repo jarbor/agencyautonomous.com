@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "element-coordinates": ">=1.0.4",
+    "metamorpher": ">=1.0.2",
+    "navigo": "^7.1.1",
+    "promise-font": ">=1.0.0",
+    "svg-viewbox-maximize": ">=1.1.1",
+    "velocity-animate": "^1.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "babel-loader": "8.0.0-beta.0",
+    "webpack": "^3.11.0"
+  }
+}

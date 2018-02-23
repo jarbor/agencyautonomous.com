@@ -2,8 +2,8 @@ html
 	head
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 		link(href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300", rel="stylesheet")
-		link(href="./css/index.css", rel="stylesheet")
-		script(src="./es5/index.js", async)
+		link(href="/css/index.css", rel="stylesheet")
+		script(src="/es5/index.js", async)
 	body
 		.body
 			.content
@@ -14,17 +14,7 @@ html
 
 		.cover
 			a(href='/company', data-navigo)
-				include images/logos/logo-animate.svg
+				include ../images/logos/logo-animate.svg
 
-		.header
-			a(href='/company', data-navigo) Company
-			a(href='/services', data-navigo) Services
-			//- a(href='/blog', data-navigo) Blog
-			a(href='/open-source', data-navigo) Open&nbsp;Source
-
-			svg(class="active-tracker", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", style="isolation:isolate", viewBox="0 0 100 2")
-				path(class='active-indicator' d='M 0 0 L 100 0 L 100 2 L 0 2 L 0 0 Z')
-
-		.footer
-			a(href='/', data-navigo)
-				include images/logos/logo-white-transparent.svg
+		include ./header.pug
+		include ./footer.pug

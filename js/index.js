@@ -1,5 +1,5 @@
-// import {Path, Point} from '../../svg-path-transform/svg-path-transform';
-import {Path, Point} from 'svg-path-transform';
+// import {Path, Point} from '../../metamorpher/metamorpher';
+import {Path, Point} from 'metamorpher';
 // import SvgViewboxMaximize from '../../svg-viewbox-maximize/svg-viewbox-maximize';
 import SvgViewboxMaximize from 'svg-viewbox-maximize';
 // import ElementCoordinates from '../../element-coordinates/element-coordinates';
@@ -36,6 +36,19 @@ let makeActiveIndicatorPath = (svgElement, link) => {
 
 	return Path.make(` M ${active.left} 0 L ${active.right} 0 L ${active.right} 2 L ${active.left} 2 L ${active.left} 0 Z `);
 };
+
+let resizeActiveIndicator = (svg) => {
+	let link = getActiveLink();
+	if (link) {
+
+		// Need to stop any animation of the active indicator because moveActiveIndicator might have setup an
+		// animation to a location that's no longer valid.
+		Velocity($('.header'), 'stop');
+
+		let path = makeActiveIndicatorPath(svg, link);
+		activeIndicatorPath.transform(path).paint();
+	}
+}
 
 let moveActiveIndicator = (page) => {
 	let link = getActiveLink(page);
@@ -183,34 +196,23 @@ let toggleCover = () => {
 
 // Ensure the SVGs are always maximized to their containers
 let coverSvg = new SvgViewboxMaximize({
-	element: $('.cover svg.logo'),
-	// container: $('.cover'),
+	svg: $('.cover svg.logo'),
 	resized: function() {
 		let path = makeBackgroundPath(this, isOpen());
 		backgroundPath.transform(path).paint();
 	}
 });
 
+// Resize the active indicator after the window resizes
 let activeTrackerSvg = new SvgViewboxMaximize({
-	element: $('.header svg'),
-	// container: $('.header svg'),
+	svg: $('.header svg'),
 	resized: function() {
-		let link = getActiveLink();
-		if (link) {
-			let path = makeActiveIndicatorPath(this, link);
-			activeIndicatorPath.transform(path).paint();
-		}
+		resizeActiveIndicator(this);
 	}
 });
 
 // Resize the active indicator after the font completes loading
-promiseFont('Archivo Narrow').then(() => {
-	let link = getActiveLink();
-	if (link) {
-		let path = makeActiveIndicatorPath(activeTrackerSvg, link);
-		activeIndicatorPath.transform(path).paint();
-	}
-});
+promiseFont('Archivo Narrow').then(() => resizeActiveIndicator(activeTrackerSvg));
 
 // Attach the router
 let router = new Navigo(window.location.origin);

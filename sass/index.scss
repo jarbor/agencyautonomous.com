@@ -5,8 +5,6 @@
 @import "active-tracker";
 
 body {
-	background-color: $primary-color;
-
 	&:not([class*="open"]) {
 		cursor: pointer;
 	}

@@ -2,6 +2,10 @@
 
 $frame-height: 83px;
 
+body {
+	background-color: $primary-color;
+}
+
 .cover {
 	position: absolute;
 	width: 100%;

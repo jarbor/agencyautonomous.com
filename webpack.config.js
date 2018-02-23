@@ -4,7 +4,8 @@ const webpack = require('webpack');
 module.exports = {
 	entry: {
 		'index': './js/index.js',
-		'index.min': './js/index.js'
+		'index.min': './js/index.js',
+		'svg-path-animation': './js/svg-path-animation.js'
 	},
 	output: {
 		filename: '[name].js',
