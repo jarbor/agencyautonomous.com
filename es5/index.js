@@ -5371,7 +5371,7 @@ var getActiveLink = function getActiveLink(page) {
     page = window.location.pathname.substring(1);
   }
 
-  return $(".header a[href='/".concat(page, "']"));
+  return $("header a[href='/".concat(page, "']"));
 };
 
 var makeActiveIndicatorPath = function makeActiveIndicatorPath(svgElement, link) {
@@ -5389,7 +5389,7 @@ var resizeActiveIndicator = function resizeActiveIndicator(svg) {
   if (link) {
     // Need to stop any animation of the active indicator because moveActiveIndicator might have setup an
     // animation to a location that's no longer valid.
-    (0, _velocityAnimate.default)($('.header'), 'stop');
+    (0, _velocityAnimate.default)($('header'), 'stop');
     var path = makeActiveIndicatorPath(svg, link);
     activeIndicatorPath.transform(path).paint();
   }
@@ -5406,7 +5406,7 @@ var moveActiveIndicator = function moveActiveIndicator(page) {
     activeIndicatorPath.interpolate(startPath, endPath, tween).paint();
   };
 
-  return (0, _velocityAnimate.default)($('.header'), {
+  return (0, _velocityAnimate.default)($('header'), {
     tween: 1
   }, {
     duration: 600,
@@ -5481,7 +5481,7 @@ var toggleCover = function toggleCover() {
   };
 
   var fadeHeader = function fadeHeader() {
-    return (0, _velocityAnimate.default)($('.header'), {
+    return (0, _velocityAnimate.default)($('header'), {
       opacity: alternator > 0 ? 1 : 0
     }, {
       duration: 600,
@@ -5490,7 +5490,7 @@ var toggleCover = function toggleCover() {
   };
 
   var fadeFooter = function fadeFooter() {
-    return (0, _velocityAnimate.default)($('.footer'), {
+    return (0, _velocityAnimate.default)($('footer'), {
       opacity: alternator > 0 ? 1 : 0
     }, {
       duration: 600,
@@ -5561,7 +5561,7 @@ var coverSvg = new _svgViewboxMaximize.default({
 }); // Resize the active indicator after the window resizes
 
 var activeTrackerSvg = new _svgViewboxMaximize.default({
-  svg: $('.header svg'),
+  svg: $('header svg'),
   resized: function resized() {
     resizeActiveIndicator(this);
   }

@@ -35,7 +35,7 @@ body {
   margin-right: auto;
   opacity: 0; }
 
-.frame, .header, .footer {
+.frame, header, footer {
   position: absolute;
   overflow: hidden;
   box-sizing: border-box;
@@ -46,30 +46,30 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center; }
-  .frame a, .header a, .footer a {
+  .frame a, header a, footer a {
     color: #FFF; }
 
-.header {
+header {
   top: 0;
   padding-top: 2rem; }
-  .header a {
+  header a {
     text-decoration: none;
     font-size: 20pt;
     font-family: "Archivo Narrow", sans-serif;
     margin-left: 5rem; }
-    .header a:first-child {
+    header a:first-child {
       margin-left: 0; }
-    .header a.active {
+    header a.active {
       border-bottom: 1px solid #FFF; }
 
-.footer {
+footer {
   bottom: 0; }
-  .footer svg {
+  footer svg {
     height: 100%;
     margin-left: auto;
     margin-right: auto;
     cursor: pointer; }
-  .footer .text {
+  footer .text {
     opacity: 0; }
 
 .columns {

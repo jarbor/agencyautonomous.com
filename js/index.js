@@ -23,7 +23,7 @@ let getActiveLink = (page) => {
 	if (!page) {
 		page = window.location.pathname.substring(1);
 	}
-	return $(`.header a[href='/${page}']`);
+	return $(`header a[href='/${page}']`);
 };
 
 let makeActiveIndicatorPath = (svgElement, link) => {
@@ -42,7 +42,7 @@ let resizeActiveIndicator = (svg) => {
 
 		// Need to stop any animation of the active indicator because moveActiveIndicator might have setup an
 		// animation to a location that's no longer valid.
-		Velocity($('.header'), 'stop');
+		Velocity($('header'), 'stop');
 
 		let path = makeActiveIndicatorPath(svg, link);
 		activeIndicatorPath.transform(path).paint();
@@ -58,7 +58,7 @@ let moveActiveIndicator = (page) => {
 		activeIndicatorPath.interpolate(startPath, endPath, tween).paint();
 	};
 
-	return Velocity($('.header'), { tween: 1 }, {
+	return Velocity($('header'), { tween: 1 }, {
 		duration: 600,
 		easing,
 		progress
@@ -127,12 +127,12 @@ let toggleCover = () => {
 		easing
 	});
 
-	let fadeHeader = () => Velocity($('.header'), { opacity: alternator > 0 ? 1 : 0 }, {
+	let fadeHeader = () => Velocity($('header'), { opacity: alternator > 0 ? 1 : 0 }, {
 		duration: 600,
 		easing
 	});
 
-	let fadeFooter = () => Velocity($('.footer'), { opacity: alternator > 0 ? 1 : 0 }, {
+	let fadeFooter = () => Velocity($('footer'), { opacity: alternator > 0 ? 1 : 0 }, {
 		duration: 600,
 		easing
 	});
@@ -204,7 +204,7 @@ let coverSvg = new SvgViewboxMaximize({
 
 // Resize the active indicator after the window resizes
 let activeTrackerSvg = new SvgViewboxMaximize({
-	svg: $('.header svg'),
+	svg: $('header svg'),
 	resized: function() {
 		resizeActiveIndicator(this);
 	}
