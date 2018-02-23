@@ -6,8 +6,7 @@ import SvgViewboxMaximize from 'svg-viewbox-maximize';
 import ElementCoordinates from 'element-coordinates';
 // import promiseFont from '../../promise-font/promise-font';
 import promiseFont from 'promise-font';
-import Velocity from './modules/velocity';
-// import Velocity from 'velocity';
+import Velocity from 'velocity-animate';
 import Navigo from 'navigo';
 
 let $ = document.querySelector.bind(document);
