@@ -83,30 +83,71 @@ footer {
   width: 50%;
   float: left; }
 
+figure {
+  margin-bottom: 1.5rem;
+  text-align: center; }
+
+figcaption {
+  margin-top: 0.5rem;
+  text-align: left;
+  line-height: 1.25em;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 13px;
+  font-weight: 600; }
+
+figure {
+  margin-bottom: 1.5rem;
+  text-align: center; }
+
+figcaption {
+  margin-top: 0.5rem;
+  text-align: left;
+  line-height: 1.25em;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 13px;
+  font-weight: 600; }
+
 @media (max-width: 480px) {
   .body {
+    height: calc(100vh - 90px);
+    top: 45px;
     padding: 0 1rem 1rem 1rem; }
 
   .content {
     max-width: unset; }
 
-  .header {
+  header {
     height: 45px;
     padding-top: 0.5rem; }
-    .header a {
+    header a {
       font-size: 18pt;
       margin-left: 1.5rem; }
 
-  .footer {
+  footer {
     height: 45px; }
-
-  .body {
-    height: calc(100vh - 90px);
-    top: 45px; }
 
   .column {
     width: 100%; }
     .column:not(:first-child) {
       padding-top: 1rem; } }
+@media (max-height: 200px) {
+  .body {
+    padding: 0 1rem 1rem 1rem; }
+
+  header {
+    height: 20px;
+    padding-top: 0; }
+    header a {
+      font-size: 10pt;
+      margin-left: 1.5rem; }
+
+  footer {
+    height: 20px; }
+
+  .body {
+    height: calc(100vh - 40px);
+    top: 20px; } }
 
 /*# sourceMappingURL=layout.css.map */

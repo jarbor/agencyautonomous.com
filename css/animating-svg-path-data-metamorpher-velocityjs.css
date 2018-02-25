@@ -267,42 +267,90 @@ figcaption {
   .body {
     height: calc(100vh - 40px);
     top: 20px; } }
-.active-tracker {
-  margin-top: 8px;
-  width: 100%;
-  height: 1px; }
+/*
+Monokai style - ported by Luigi Maselli - http://grigio.org
+*/
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #272822;
+  color: #ddd; }
 
-.active-indicator {
-  fill: #FFF; }
+.hljs-tag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-strong,
+.hljs-name {
+  color: #f92672; }
 
-@media (max-width: 480px) {
-  .active-tracker {
-    margin-top: 2px; } }
-@media (max-height: 200px) {
-  .active-tracker {
-    margin-top: 2px; } }
-body:not([class*="open"]) {
-  cursor: pointer; }
+.hljs-code {
+  color: #66d9ef; }
 
-[data-page] {
+.hljs-class .hljs-title {
+  color: white; }
+
+.hljs-attribute,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-link {
+  color: #bf79db; }
+
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-section,
+.hljs-emphasis,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #a6e22e; }
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e; }
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-selector-id {
+  font-weight: bold; }
+
+.byline {
+  margin-top: -0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #CCCCCC; }
+  .byline p {
+    display: inline-block;
+    margin-bottom: 0; }
+  .byline p:nth-child(2) {
+    float: right; }
+
+.content, header, footer {
+  opacity: 1; }
+
+#animation1 .happy, #animation1 .silly, #bored .happy, #bored .silly, #interpolate .happy, #interpolate .silly {
   display: none; }
 
-[data-active-page='company'] [data-page='company'] {
-  display: block; }
+#animation1 svg .face:hover, #interpolate svg .face:hover {
+  cursor: pointer; }
 
-[data-active-page='services'] [data-page='services'] {
-  display: block; }
+iframe {
+  width: 100%;
+  height: 10rem; }
 
-[data-active-page='blog'] [data-page='blog'] {
-  display: block; }
-
-[data-active-page='open-source'] [data-page='open-source'] {
-  display: block; }
-
-.headshot {
-  height: 12rem;
-  float: left;
-  margin-right: 1rem;
-  margin-bottom: 1rem; }
-
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=animating-svg-path-data-metamorpher-velocityjs.css.map */

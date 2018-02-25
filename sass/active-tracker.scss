@@ -1,3 +1,5 @@
+@import "globals";
+
 .active-tracker {
 	margin-top: 8px;
 	width: 100%;
@@ -6,4 +8,18 @@
 
 .active-indicator {
 	fill: #FFF;
+}
+
+
+@media (max-width: $break-mobile) {
+	.active-tracker {
+		margin-top: 2px;
+	}
+}
+
+// Supporting really short viewport for the embedded iframe
+@media (max-height: $break-iframe-height) {
+	.active-tracker {
+		margin-top: 2px;
+	}
 }

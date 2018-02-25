@@ -979,7 +979,7 @@ electron-to-chromium@^1.3.33:
   version "1.3.34"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.34.tgz#d93498f40391bb0c16a603d8241b9951404157ed"
 
-element-coordinates@>=1.0.4, element-coordinates@^1.0.4:
+element-coordinates@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/element-coordinates/-/element-coordinates-1.0.4.tgz#5446e386f3074c9e1b3c228ede8d5211b6728cbb"
 
@@ -1357,6 +1357,10 @@ hawk@3.1.3, hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
+highlight.js@^9.12.0:
+  version "9.12.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.12.0.tgz#e6d9dbe57cbefe60751f02af336195870c90c01e"
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -1678,9 +1682,9 @@ memory-fs@^0.4.0, memory-fs@~0.4.1:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-metamorpher@>=1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/metamorpher/-/metamorpher-1.0.2.tgz#0fb6d6ef8c61022e718c1d33b430f905a8b7e459"
+metamorpher@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/metamorpher/-/metamorpher-2.0.0.tgz#25051ea0ad5b616b61f5a342b68f2a68fd0a2ffb"
 
 micromatch@^2.1.5, micromatch@^2.3.11:
   version "2.3.11"
@@ -2013,9 +2017,9 @@ process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
-promise-font@>=1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/promise-font/-/promise-font-1.0.0.tgz#1529deefe79c927a89b492c4f5e30661cb692b2d"
+promise-font@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/promise-font/-/promise-font-1.0.1.tgz#a3ade3d177defef4ac79e8f75e057e04f7076cb2"
 
 prr@~1.0.1:
   version "1.0.1"
@@ -2400,9 +2404,13 @@ supports-color@^5.2.0:
   dependencies:
     has-flag "^3.0.0"
 
-svg-viewbox-maximize@>=1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/svg-viewbox-maximize/-/svg-viewbox-maximize-1.1.1.tgz#37537e89dd0722facb6a27567670b168663ddcb2"
+svg-ids@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svg-ids/-/svg-ids-1.0.0.tgz#f42abecff61a1145c69c9c3feadf178fbf7bbe68"
+
+svg-viewbox-maximize@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/svg-viewbox-maximize/-/svg-viewbox-maximize-1.1.2.tgz#b716aafb37d44986d847e6b4ac117dd2ade4d303"
   dependencies:
     element-coordinates "^1.0.4"
 

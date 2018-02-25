@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,eAAgB;EACf,UAAU,EAAE,GAAG;EACf,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,GAAG;;AAGZ,iBAAkB;EACjB,IAAI,EAAE,IAAI",
+"mappings": "AAEA,eAAgB;EACf,UAAU,EAAE,GAAG;EACf,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,GAAG;;AAGZ,iBAAkB;EACjB,IAAI,EAAE,IAAI;;AAIX,yBAAkC;EACjC,eAAgB;IACf,UAAU,EAAE,GAAG;AAKjB,0BAA0C;EACzC,eAAgB;IACf,UAAU,EAAE,GAAG",
 "sources": ["../sass/active-tracker.scss"],
 "names": [],
 "file": "active-tracker.css"

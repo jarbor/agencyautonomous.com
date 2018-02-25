@@ -1,0 +1,17 @@
+@import "globals";
+@import "monokai";
+
+.byline {
+	margin-top: -0.5rem;
+	margin-bottom: 2rem;
+	border-bottom: 1px solid $divider-color;
+
+	p {
+		display: inline-block;
+		margin-bottom: 0;
+	}
+
+	p:nth-child(2) {
+		float: right;
+	}
+}

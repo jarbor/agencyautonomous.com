@@ -6,4 +6,11 @@
 .active-indicator {
   fill: #FFF; }
 
+@media (max-width: 480px) {
+  .active-tracker {
+    margin-top: 2px; } }
+@media (max-height: 200px) {
+  .active-tracker {
+    margin-top: 2px; } }
+
 /*# sourceMappingURL=active-tracker.css.map */

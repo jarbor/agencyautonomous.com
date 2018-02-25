@@ -120,6 +120,36 @@ footer {
 	float: left;
 }
 
+figure {
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+figcaption {
+	margin-top: 0.5rem;
+	text-align: left;
+	line-height: 1.25em;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+figure {
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+figcaption {
+	margin-top: 0.5rem;
+	text-align: left;
+	line-height: 1.25em;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	font-size: 13px;
+	font-weight: 600;
+}
+
 @media (max-width: $break-mobile) {
 
 	$header-height: 45px;
@@ -127,6 +157,8 @@ footer {
 	// $mobile-bottom-padding: 40px;
 
 	.body {
+		height: calc(100vh - #{$header-height + $footer-height});
+		top: $header-height;
 		padding: 0 1rem 1rem 1rem;
 	}
 
@@ -134,7 +166,7 @@ footer {
 		max-width: unset;
 	}
 
-	.header {
+	header {
 		height: $header-height;
 		padding-top: 0.5rem;
 
@@ -144,14 +176,9 @@ footer {
 		}
 	}
 
-	.footer {
+	footer {
 		height: $footer-height;
 		// padding-bottom: $mobile-bottom-padding;
-	}
-
-	.body {
-		height: calc(100vh - #{$header-height + $footer-height});
-		top: $header-height;
 	}
 
 	.column {
@@ -160,5 +187,34 @@ footer {
 		&:not(:first-child) {
 			padding-top: 1rem;
 		}
+	}
+}
+
+// Supporting really short viewport for the embedded iframe
+@media (max-height: $break-iframe-height) {
+	$header-height: 20px;
+	$footer-height: 20px;
+
+	.body {
+		padding: 0 1rem 1rem 1rem;
+	}
+
+	header {
+		height: $header-height;
+		padding-top: 0;
+
+		a {
+			font-size: 10pt;
+			margin-left: 1.5rem;
+		}
+	}
+
+	footer {
+		height: $footer-height;
+	}
+
+	.body {
+		height: calc(100vh - #{$header-height + $footer-height});
+		top: $header-height;
 	}
 }

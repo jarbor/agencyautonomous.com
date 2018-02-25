@@ -1,0 +1,108 @@
+html
+	head
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300|Roboto+Mono", rel="stylesheet")
+		link(href="/css/animating-svg-path-data-metamorpher-velocityjs.css", rel="stylesheet")
+		script(src="/es5/animating-svg-path-data-metamorpher-velocityjs.js", async)
+		script(src="https://www.google-analytics.com/analytics.js", async)
+	body
+		.body
+			.content
+				h1 Animating SVGs with Metamorpher and&nbsp;VelocityJS
+				.byline
+					p By Jeff Sneden
+					p #[time(datetime="2018-02-27 00:00") February 27, 2018]
+
+				p With #[a(href='https://caniuse.com/#feat=svg', target='_blank') support for inline SVGs] ubiquitous among modern browsers, it's time to start to use them for more than just images on a page. One such usage is animation that feels like it's part of the page - SVG elements interacting with DOM elements because they are indeed part of the DOM.
+
+				p The intro animation for #[a(href='//agencyautonomous.com', target='_blank') agencyautonomous.com] uses SVGs in just this way:
+				figure
+					iframe(src='/')
+					figcaption Clicking anywhere deconstructs the logo to reveal the site content. Clicking the tiny logo at the bottom reconstructs the animation.
+
+				p Now, before we get too far into this tutorial, let it be noted that #[i most] SVG animation can be achieved with pure CSS #[a(href='https://developer.mozilla.org/en-US/docs/Web/CSS/transform', target='_blank') transforms] and #[a(href='https://developer.mozilla.org/en-US/docs/Web/CSS/transition', target='_blank') transitions], and this is how it should be. Animation is inherently describing how the a page should look at different points in time, so, if at all possible, we should use CSS. This includes translation, scaling, skewing, rotation and perspective.
+
+				p It's a pretty comprehensive list! However, this approach has two drawbacks:
+				ul
+					li You cannot fundamentally alter or morph the shapes into something else
+					li You must know how to achieve your desired effect by applying the functions listed above
+				
+				p Instead, wouldn't it be nice to be able to:
+				ol
+					li Open your favorite SVG editor and make an image,
+					li Manipulate the image inside the SVG editor to build "key frames",
+					li Allow the code to interpolate the difference between the key frames to achieve a smooth animation?
+
+				figure#animation1
+					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					figcaption Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.
+
+				h2 Preparing the SVG
+				p The animated emoji is achieved using three states (the key frames) loaded into the same SVG. To get started, #[a(href='/images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg', target='_blank') download the emoji SVG] and include it inline with the rest of the HTML.
+
+				p If you're using a templating language, you can include/import the SVG file directly. For a real project, this is #[i highly recommended] so you don't have a massive SVG cluttering up your HTML.
+
+				p If you're not using a templating language, simply copy and paste the contents of the SVG into your HTML. You can omit #[code= '<?xml version="1.0" standalone="no"?>'] but it won't harm anything if it is included in the HTML.
+				pre: code(class='html')
+					= '<html>\n'
+					= '  <body>\n'
+					= '    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">\n'
+					= '      <defs>\n'
+					= '        <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">\n'
+					= '          <rect width="145" height="130" />\n'
+					= '        </clipPath>\n'
+					= '      </defs>\n'
+					= '      <g id="face" clip-path="url(#_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0)">\n'
+					= '        ...\n'
+					= '      </g>\n'
+					= '    </svg>\n'
+					= '  </body>\n'
+					= '</html>\n'
+
+				p At first, the image will show all three emotions at once.
+				figure
+					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					figcaption Each emotion is represented by a group of paths within the same SVG image.
+
+				p For ease of reference, each key frame is surrounded in a group tag and given an ID for the emotion. For more complex animations, these IDs would likely be more like #[code keyframe-1] or simply referenced by a class name.
+				pre: code(class='html')
+					= '<svg>\n'
+					= '  <g id="bored">\n'
+					= '    <path d="..." />\n'
+					= '    <path d="..." />\n'
+					= '  </g>\n'
+					= '  <g id="happy">\n'
+					= '    <path d="..." />\n'
+					= '    <path d="..." />\n'
+					= '  </g>\n'
+					= '  <g id="silly">\n'
+					= '    <path d="..." />\n'
+					= '    <path d="..." />\n'
+					= '  </g>\n'
+					= '</svg>\n'
+
+				p Since we only want to display the first key frame before the animation begins, the others are hidden with simple CSS. In fact, the hidden groups will #[i never] be displayed! Rather, their path coordinates will be copied over to the first key frame's paths at the appropriate time.
+				pre: code(class='css')
+					= '#happy, #silly {\n'
+					= '  display: none;\n'
+					= '}\n'
+
+				p Before we add any JavaScript, this results in a simple bored emoji.
+				figure#bored
+					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+
+				h2 Transforming the Image
+				p Before animating the image we should introduce Metamorpher and understand how it will morph one key frame into the next. To do this we'll setup a small test which will illustrate the #[a(href='https://github.com/jsneden/metamorpher#pathtransformpath', target='_blank') transform], #[a(href='https://github.com/jsneden/metamorpher#pathinterpolatestartpath-endpath-progress', target='_blank') interpolate] and #[a(href='https://github.com/jsneden/metamorpher#pathpaint', target='_blank') paint] methods.
+				figure#interpolate
+					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+
+				h2 Animating the Image
+
+				h2 Limitations
+				h3 Rotation
+				h3 Only Paths
+				h3 Re-using SVGs on a Page
+				h3 Older Browsers
+
+		include ../header.pug
+		include ../footer.pug

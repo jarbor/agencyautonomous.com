@@ -10,9 +10,10 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-	font-size: 36pt;
+	font-size: 24pt;
 	padding-top: 1rem;
 	margin-bottom: 1rem;
+	line-height: 1.25em;
 }
 
 h2 {
@@ -28,12 +29,11 @@ h3 {
 }
 
 p {
-	margin-bottom: 1rem;
-	line-height: 1.5rem;
+	margin-bottom: 1em;
+	line-height: 1.5em;
 }
 
 li {
-	list-style-type: square;
 	margin-left: 1.5rem;
 	line-height: 1.5rem;
 }
@@ -50,4 +50,47 @@ blockquote {
 
 a {
 	color: $link-color;
+}
+
+code {
+	font-family: 'Roboto Mono';
+}
+
+pre {
+	margin-bottom: 1.5rem;
+}
+
+ul {
+	margin-bottom: 1.5rem;
+
+	li {
+		list-style-type: square;
+	}
+}
+
+ol {
+	margin-bottom: 1.5rem;
+
+	li {
+		list-style-type: decimal;
+	}
+}
+
+i {
+	font-style: italic;
+}
+
+// Supporting really short viewport for the embedded iframe
+@media (max-height: $break-iframe-height) {
+	h1 {
+		font-size: 18pt;
+	}
+
+	h2 {
+		font-size: 15pt;
+	}
+
+	p {
+		font-size: 10pt;
+	}
 }

@@ -1,10 +1,12 @@
 {
   "dependencies": {
-    "element-coordinates": ">=1.0.4",
-    "metamorpher": ">=1.0.2",
+    "element-coordinates": "^1.0.4",
+    "highlight.js": "^9.12.0",
+    "metamorpher": "^2.0.0",
     "navigo": "^7.1.1",
-    "promise-font": ">=1.0.0",
-    "svg-viewbox-maximize": ">=1.1.1",
+    "promise-font": "^1.0.1",
+    "svg-ids": "^1.0.0",
+    "svg-viewbox-maximize": "^1.1.2",
     "velocity-animate": "^1.5.1"
   },
   "devDependencies": {

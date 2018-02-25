@@ -8,6 +8,7 @@ import ElementCoordinates from 'element-coordinates';
 import promiseFont from 'promise-font';
 import Velocity from 'velocity-animate';
 import Navigo from 'navigo';
+import analytics from './analytics';
 
 let $ = document.querySelector.bind(document);
 let $$ = el => Array.from(document.querySelectorAll(el));
@@ -16,8 +17,8 @@ let DELTA = 300;
 let originalBarPaths;
 let originalBackgroundPath;
 let easing = 'easeInOutCubic';
-let backgroundPath = Path.make($('.background'));
-let activeIndicatorPath = Path.make($('.active-indicator')); 
+let backgroundPath = new Path($('.background'));
+let activeIndicatorPath = new Path($('.active-indicator')); 
 
 let getActiveLink = (page) => {
 	if (!page) {
@@ -33,7 +34,7 @@ let makeActiveIndicatorPath = (svgElement, link) => {
 		right: svgElement.svgX(linkCoordinates.right)
 	};
 
-	return Path.make(` M ${active.left} 0 L ${active.right} 0 L ${active.right} 2 L ${active.left} 2 L ${active.left} 0 Z `);
+	return new Path(` M ${active.left} 0 L ${active.right} 0 L ${active.right} 2 L ${active.left} 2 L ${active.left} 0 Z `);
 };
 
 let resizeActiveIndicator = (svg) => {
@@ -51,7 +52,7 @@ let resizeActiveIndicator = (svg) => {
 
 let moveActiveIndicator = (page) => {
 	let link = getActiveLink(page);
-	let startPath = Path.make(activeIndicatorPath);
+	let startPath = new Path(activeIndicatorPath);
 	let endPath = makeActiveIndicatorPath(activeTrackerSvg, link);
 
 	let progress = (elements, complete, remaining, start, tween) => {
@@ -88,7 +89,7 @@ let makeBackgroundPath = (svgElement, isOpen) => {
 		right = ` M 195.351 412.545 L 195.351 55.548 L 191.351 55.548 L 191.351 412.545 L 195.351 412.545 `;
 	}
 
-	return Path.make(background+left+right+' Z ');
+	return new Path(background+left+right+' Z ');
 }
 
 let toggleCover = () => {
@@ -97,15 +98,15 @@ let toggleCover = () => {
 
 	let animateSwords = () => {
 		let paths = [
-			Path.make($('.top-left')),
-			Path.make($('.top-right')),
-			Path.make($('.bottom-left')),
-			Path.make($('.bottom-right'))
+			new Path($('.top-left')),
+			new Path($('.top-right')),
+			new Path($('.bottom-left')),
+			new Path($('.bottom-right'))
 		];
-		let startPaths = paths.map(Path.make);
+		let startPaths = paths.map(path => new Path(path));
 		let endPaths = paths.map((path, index) => {
 			let direction = (index%2 ? 1 : -1) * alternator;
-			return Path.make(path).detach().translate(direction * DELTA, direction * DELTA * path.longestEdge.angle)
+			return new Path(path).detach().translate(direction * DELTA, direction * DELTA * path.longestEdge.angle)
 		});
 
 		let progress = (elements, complete, remaining, start, tween) => {
@@ -150,14 +151,14 @@ let toggleCover = () => {
 	let animateMiddle = () => {
 
 		if (originalBackgroundPath === undefined) {
-			originalBackgroundPath = Path.make(backgroundPath);
+			originalBackgroundPath = new Path(backgroundPath);
 		}
 
-		let startPath = Path.make(backgroundPath);
+		let startPath = new Path(backgroundPath);
 		let endPath;
 
 		if (alternator > 0) {
-			endPath = Object.values(makeBackgroundPath(coverSvg, true));
+			endPath = makeBackgroundPath(coverSvg, true);
 		}
 		else {
 			endPath = originalBackgroundPath;
@@ -218,6 +219,8 @@ let router = new Navigo(window.location.origin);
 router.on({
 	'/': () => {
 		console.log('Navigating to: /');
+		analytics('send', 'pageview');
+
 		if (isOpen()) {
 			toggleCover();
 		}
@@ -225,6 +228,7 @@ router.on({
 	'/:page': ({page}) => {
 
 		console.log('Navigating to: /'+ page);
+		analytics('send', 'pageview');
 
 		moveActiveIndicator(page);
 
