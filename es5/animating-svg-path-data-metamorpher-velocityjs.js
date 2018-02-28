@@ -5502,7 +5502,9 @@ $('#animation-looped .face').addEventListener('click', animationLooped.toggleAni
 var naiveRotation = new Emoji('#naive-rotation');
 $('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.bind(naiveRotation));
 var smartRotation = new Emoji('#smart-rotation');
-$('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation));
+$('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation)); // Put focus in the inner div so ensure keyboard scrolling works
+
+$('.focus').focus();
 
 /***/ }),
 /* 9 */

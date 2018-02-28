@@ -130,3 +130,6 @@ $('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.b
 
 let smartRotation = new Emoji('#smart-rotation');
 $('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation));
+
+// Put focus in the inner div so ensure keyboard scrolling works
+$('.focus').focus();
