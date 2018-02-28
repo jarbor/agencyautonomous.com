@@ -5351,6 +5351,8 @@ var _highlight = _interopRequireDefault(__webpack_require__(10));
 
 var _analytics = _interopRequireDefault(__webpack_require__(2));
 
+var _disqus = _interopRequireDefault(__webpack_require__(15));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6988,6 +6990,22 @@ module.exports = function(hljs) {
     ]
   };
 };
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+var disqus_config = function disqus_config() {// this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function () {
+  var d = document,
+      s = d.createElement('script');
+  s.src = 'https://agency-autonomous.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
 
 /***/ })
 /******/ ]);

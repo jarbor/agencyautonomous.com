@@ -4,6 +4,7 @@ import SvgIds from 'svg-ids';
 import Velocity from 'velocity-animate';
 import highlight from './highlight';
 import analytics from './analytics';
+import disqus from './disqus';
 
 analytics('send', 'pageview');
 
