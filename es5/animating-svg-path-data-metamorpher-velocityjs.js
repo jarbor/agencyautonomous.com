@@ -5303,7 +5303,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS
 
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+(function (i, s, o, g, r, a, m) {
+  i['GoogleAnalyticsObject'] = r;
+  i[r] = i[r] || function () {
+    (i[r].q = i[r].q || []).push(arguments);
+  }, i[r].l = 1 * new Date();
+  a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+  a.async = 1;
+  a.src = g;
+  m.parentNode.insertBefore(a, m);
+})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-114686560-1', 'auto');
+var _default = ga;
+exports.default = _default;
+
+/***/ }),
 /* 3 */,
 /* 4 */,
 /* 5 */,
@@ -5323,6 +5349,8 @@ var _velocityAnimate = _interopRequireDefault(__webpack_require__(1));
 
 var _highlight = _interopRequireDefault(__webpack_require__(10));
 
+var _analytics = _interopRequireDefault(__webpack_require__(2));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5331,6 +5359,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+(0, _analytics.default)('send', 'pageview');
 new _svgIds.default().makeUnique();
 var $ = document.querySelector.bind(document);
 
@@ -5340,11 +5369,11 @@ var getPaths = function getPaths(figure, emotion) {
   });
 };
 
-var Animation =
+var Emoji =
 /*#__PURE__*/
 function () {
-  function Animation(figure) {
-    _classCallCheck(this, Animation);
+  function Emoji(figure) {
+    _classCallCheck(this, Emoji);
 
     this.figure = figure;
     this.initialPaths = getPaths(this.figure, '.bored');
@@ -5354,7 +5383,7 @@ function () {
     this.animationTimeout;
   }
 
-  _createClass(Animation, [{
+  _createClass(Emoji, [{
     key: "animate",
     value: function animate() {
       var _this = this;
@@ -5369,11 +5398,11 @@ function () {
         });
       };
 
-      return (0, _velocityAnimate.default)($('body'), {
+      return (0, _velocityAnimate.default)($(this.figure), {
         tween: 1
       }, {
         duration: 600,
-        easing: 'easeInOutCubic',
+        easing: 'easeInOut',
         progress: progress
       }).then(function () {
         if (_this.animating) {
@@ -5383,24 +5412,95 @@ function () {
     }
   }, {
     key: "toggleAnimation",
-    value: function toggleAnimation() {
+    value: function toggleAnimation(method) {
       this.animating = !this.animating;
 
       if (this.animating) {
-        this.animate();
+        typeof method === 'string' ? this[method]() : this.animate();
       } else {
         clearTimeout(this.animationTimeout);
       }
     }
+  }, {
+    key: "interpolate",
+    value: function interpolate(amount) {
+      var startPaths = this.emotionPaths[0];
+      var endPaths = this.emotionPaths[1];
+      this.initialPaths.forEach(function (path, index) {
+        path.interpolate(startPaths[index], endPaths[index], amount).paint();
+      });
+    }
+  }, {
+    key: "naiveRotate",
+    value: function naiveRotate() {
+      var _this2 = this;
+
+      var startPaths = this.emotionPaths[0];
+      var midPoint = new _metamorpher.Point(72.5, 65);
+      var endPaths = this.emotionPaths[1].map(function (path) {
+        return new _metamorpher.Path(path).rotate(270, midPoint);
+      });
+
+      var progress = function progress(elements, complete, remaining, start, tween) {
+        _this2.initialPaths.forEach(function (path, index) {
+          path.interpolate(startPaths[index], endPaths[index], tween).paint();
+        });
+      };
+
+      return (0, _velocityAnimate.default)($('body'), {
+        tween: 1
+      }, {
+        duration: 600,
+        easing: 'easeInOut',
+        progress: progress
+      });
+    }
+  }, {
+    key: "smartRotate",
+    value: function smartRotate() {
+      var _this3 = this;
+
+      var midPoint = new _metamorpher.Point(72.5, 65);
+      var startPaths = this.emotionPaths[0];
+      var endPaths = this.emotionPaths[1];
+
+      var progress = function progress(elements, complete, remaining, start, tween) {
+        _this3.initialPaths.forEach(function (path, index) {
+          path.interpolate(startPaths[index], endPaths[index], tween).rotate(270 * tween, midPoint).paint();
+        });
+      };
+
+      return (0, _velocityAnimate.default)($('body'), {
+        tween: 1
+      }, {
+        duration: 600,
+        easing: 'easeInOut',
+        progress: progress
+      });
+    }
   }]);
 
-  return Animation;
+  return Emoji;
 }();
 
 ;
-var animation1 = new Animation('#animation1');
-$('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1)); // let interpolation = new Animation('#interpolation');
-// $('#interpolation .face').addEventListener('click', interpolation.toggleInterpolation.bind(interpolation));
+var animation1 = new Emoji('#animation1');
+$('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1));
+var interpolation1 = new Emoji('#interpolation1');
+interpolation1.interpolate(0.5);
+var interpolation2 = new Emoji('#interpolation2');
+interpolation2.interpolate(2);
+var singleAnimation = new Emoji('#single-animation');
+$('#single-animation .face').addEventListener('click', function () {
+  singleAnimation.animate();
+  singleAnimation.emotionIndex = 0;
+});
+var animationLooped = new Emoji('#animation-looped');
+$('#animation-looped .face').addEventListener('click', animationLooped.toggleAnimation.bind(animationLooped));
+var naiveRotation = new Emoji('#naive-rotation');
+$('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.bind(naiveRotation));
+var smartRotation = new Emoji('#smart-rotation');
+$('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation));
 
 /***/ }),
 /* 9 */

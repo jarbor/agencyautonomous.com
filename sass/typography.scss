@@ -57,7 +57,13 @@ code {
 }
 
 pre {
+	text-align: left;
 	margin-bottom: 1.5rem;
+	tab-size: 2;
+}
+
+pre + figcaption {
+	margin-top: -1rem;
 }
 
 ul {

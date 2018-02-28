@@ -8,13 +8,13 @@
 	opacity: 1;
 }
 
-#animation1, #bored, #interpolate {
+#animation1, #bored, #interpolation1, #interpolation2, #single-animation, #animation-looped, #naive-rotation, #smart-rotation {
 	.happy, .silly {
 		display: none;
 	}
 }
 
-#animation1, #interpolate {
+#animation1, #single-animation, #animation-looped, #naive-rotation, #smart-rotation {
 	svg {
 		.face:hover {
 			cursor: pointer;

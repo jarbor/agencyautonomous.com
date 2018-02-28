@@ -92,7 +92,12 @@ code {
   font-family: 'Roboto Mono'; }
 
 pre {
-  margin-bottom: 1.5rem; }
+  text-align: left;
+  margin-bottom: 1.5rem;
+  tab-size: 2; }
+
+pre + figcaption {
+  margin-top: -1rem; }
 
 ul {
   margin-bottom: 1.5rem; }
@@ -343,10 +348,10 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 .content, header, footer {
   opacity: 1; }
 
-#animation1 .happy, #animation1 .silly, #bored .happy, #bored .silly, #interpolate .happy, #interpolate .silly {
+#animation1 .happy, #animation1 .silly, #bored .happy, #bored .silly, #interpolation1 .happy, #interpolation1 .silly, #interpolation2 .happy, #interpolation2 .silly, #single-animation .happy, #single-animation .silly, #animation-looped .happy, #animation-looped .silly, #naive-rotation .happy, #naive-rotation .silly, #smart-rotation .happy, #smart-rotation .silly {
   display: none; }
 
-#animation1 svg .face:hover, #interpolate svg .face:hover {
+#animation1 svg .face:hover, #single-animation svg .face:hover, #animation-looped svg .face:hover, #naive-rotation svg .face:hover, #smart-rotation svg .face:hover {
   cursor: pointer; }
 
 iframe {
