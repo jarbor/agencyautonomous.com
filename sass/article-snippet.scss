@@ -1,0 +1,84 @@
+@import "globals";
+$figure-width: 25%;
+
+article {
+	border: 1px solid $divider-color;
+	padding: 1rem 0 1rem 0;
+
+	figure {
+		float: left;
+		width: $figure-width;
+		padding-right: 0.5rem;
+		box-sizing: border-box;
+		padding-left: 1rem;
+		margin-bottom: 1rem;
+		// height: 100%;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	section {
+		width: 100% - $figure-width;
+		box-sizing: border-box;
+		display: inline-block;
+		padding-left: 0.5rem;
+		padding-right: 1rem;
+
+		:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	h2 {
+		padding-top: 0;
+
+		a {
+			color: $primary-color;
+			text-decoration: none;
+		}
+	}
+
+	.byline {
+		margin-top: -0.75rem;
+		margin-bottom: 0.75rem;
+		font-size: 10pt;
+		color: $link-color;
+
+		p {
+			display: inline-block;
+			margin-bottom: 0;
+		}
+
+		p:nth-child(2) {
+			float: right;
+		}
+	}
+}
+
+@media (max-width: $break-mobile) {
+	$figure-width: 33%;
+
+	article {
+		figure {
+			width: $figure-width;
+			padding-left: 0.5rem;
+			padding-right: 0;
+		}
+
+		section {
+			display: block;
+			width: 100%;
+		}
+
+		h2 {
+			padding-left: calc(#{$figure-width} + 1rem);
+			&:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+		}
+	}
+}

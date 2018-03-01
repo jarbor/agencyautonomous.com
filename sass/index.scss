@@ -3,6 +3,7 @@
 @import "typography";
 @import "layout";
 @import "active-tracker";
+@import "article-snippet";
 
 body {
 	&:not([class*="open"]) {
@@ -20,7 +21,7 @@ body {
 [data-active-page='services'] [data-page='services'] {
 	display: block;
 }
-[data-active-page='blog'] [data-page='blog'] {
+[data-active-page='articles'] [data-page='articles'] {
 	display: block;
 }
 [data-active-page='open-source'] [data-page='open-source'] {

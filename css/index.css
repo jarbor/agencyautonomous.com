@@ -243,10 +243,10 @@ figcaption {
 
   header {
     height: 45px;
-    padding-top: 0.5rem; }
+    padding-top: 0.75rem; }
     header a {
-      font-size: 18pt;
-      margin-left: 1.5rem; }
+      font-size: 14pt;
+      margin-left: 1rem; }
 
   footer {
     height: 45px; }
@@ -286,6 +286,56 @@ figcaption {
 @media (max-height: 200px) {
   .active-tracker {
     margin-top: 2px; } }
+article {
+  border: 1px solid #CCCCCC;
+  padding: 1rem 0 1rem 0; }
+  article figure {
+    float: left;
+    width: 25%;
+    padding-right: 0.5rem;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    margin-bottom: 1rem; }
+    article figure img {
+      width: 100%; }
+  article section {
+    width: 75%;
+    box-sizing: border-box;
+    display: inline-block;
+    padding-left: 0.5rem;
+    padding-right: 1rem; }
+    article section :last-child {
+      margin-bottom: 0; }
+  article h2 {
+    padding-top: 0; }
+    article h2 a {
+      color: #2E2E2E;
+      text-decoration: none; }
+  article .byline {
+    margin-top: -0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 10pt;
+    color: #9F9F9F; }
+    article .byline p {
+      display: inline-block;
+      margin-bottom: 0; }
+    article .byline p:nth-child(2) {
+      float: right; }
+
+@media (max-width: 480px) {
+  article figure {
+    width: 33%;
+    padding-left: 0.5rem;
+    padding-right: 0; }
+  article section {
+    display: block;
+    width: 100%; }
+  article h2 {
+    padding-left: calc(33% + 1rem); }
+    article h2:after {
+      content: "";
+      display: table;
+      clear: both; } }
 body:not([class*="open"]) {
   cursor: pointer; }
 
@@ -298,7 +348,7 @@ body:not([class*="open"]) {
 [data-active-page='services'] [data-page='services'] {
   display: block; }
 
-[data-active-page='blog'] [data-page='blog'] {
+[data-active-page='articles'] [data-page='articles'] {
   display: block; }
 
 [data-active-page='open-source'] [data-page='open-source'] {

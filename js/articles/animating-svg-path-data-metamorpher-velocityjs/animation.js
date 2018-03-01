@@ -1,20 +1,10 @@
-// import {Path} from '../../metamorpher/metamorpher';
+// import {Path, Point} from '../../metamorpher/metamorpher';
 import {Path, Point} from 'metamorpher';
-import SvgIds from 'svg-ids';
 import Velocity from 'velocity-animate';
-import highlight from './highlight';
-import analytics from './analytics';
-import disqus from './disqus';
 
-analytics('send', 'pageview');
+let getPaths = (figure, emotion) => Array.from(document.querySelector(figure).querySelector(emotion).querySelectorAll('path')).map(path => new Path(path));
 
-new SvgIds().makeUnique();
-
-let $ = document.querySelector.bind(document);
-
-let getPaths = (figure, emotion) => Array.from($(figure).querySelector(emotion).querySelectorAll('path')).map(path => new Path(path));
-
-class Emoji {
+class Animation {
 	constructor(figure) {
 		this.figure = figure;
 		this.initialPaths = getPaths(this.figure, '.bored')
@@ -41,7 +31,7 @@ class Emoji {
 			});
 		};
 
-		return Velocity($(this.figure), { tween: 1 }, {
+		return Velocity(document.querySelector(this.figure), { tween: 1 }, {
 			duration: 600,
 			easing: 'easeInOut',
 			progress
@@ -82,7 +72,7 @@ class Emoji {
 			});
 		};
 
-		return Velocity($('body'), { tween: 1 }, {
+		return Velocity(document.querySelector('body'), { tween: 1 }, {
 			duration: 600,
 			easing: 'easeInOut',
 			progress
@@ -100,7 +90,7 @@ class Emoji {
 			});
 		};
 
-		return Velocity($('body'), { tween: 1 }, {
+		return Velocity(document.querySelector('body'), { tween: 1 }, {
 			duration: 600,
 			easing: 'easeInOut',
 			progress
@@ -108,28 +98,4 @@ class Emoji {
 	}
 };
 
-let animation1 = new Emoji('#animation1');
-$('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1));
-
-let interpolation1 = new Emoji('#interpolation1');
-interpolation1.interpolate(0.5);
-let interpolation2 = new Emoji('#interpolation2');
-interpolation2.interpolate(2);
-
-let singleAnimation = new Emoji('#single-animation');
-$('#single-animation .face').addEventListener('click', () => {
-	singleAnimation.animate();
-	singleAnimation.emotionIndex = 0;
-});
-
-let animationLooped = new Emoji('#animation-looped');
-$('#animation-looped .face').addEventListener('click', animationLooped.toggleAnimation.bind(animationLooped));
-
-let naiveRotation = new Emoji('#naive-rotation');
-$('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.bind(naiveRotation));
-
-let smartRotation = new Emoji('#smart-rotation');
-$('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation));
-
-// Put focus in the inner div so ensure keyboard scrolling works
-$('.focus').focus();
+export default Animation;

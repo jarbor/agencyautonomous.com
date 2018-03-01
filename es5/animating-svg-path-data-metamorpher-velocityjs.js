@@ -5341,170 +5341,39 @@ exports.default = _default;
 "use strict";
 
 
-var _metamorpher = __webpack_require__(0);
-
 var _svgIds = _interopRequireDefault(__webpack_require__(9));
 
-var _velocityAnimate = _interopRequireDefault(__webpack_require__(1));
+var _animation = _interopRequireDefault(__webpack_require__(10));
 
-var _highlight = _interopRequireDefault(__webpack_require__(10));
+var _highlight = _interopRequireDefault(__webpack_require__(11));
 
 var _analytics = _interopRequireDefault(__webpack_require__(2));
 
-var _disqus = _interopRequireDefault(__webpack_require__(15));
+var _disqus = _interopRequireDefault(__webpack_require__(16));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 (0, _analytics.default)('send', 'pageview');
 new _svgIds.default().makeUnique();
-var $ = document.querySelector.bind(document);
-
-var getPaths = function getPaths(figure, emotion) {
-  return Array.from($(figure).querySelector(emotion).querySelectorAll('path')).map(function (path) {
-    return new _metamorpher.Path(path);
-  });
-};
-
-var Emoji =
-/*#__PURE__*/
-function () {
-  function Emoji(figure) {
-    _classCallCheck(this, Emoji);
-
-    this.figure = figure;
-    this.initialPaths = getPaths(this.figure, '.bored');
-    this.emotionPaths = [getPaths(this.figure, '.bored'), getPaths(this.figure, '.happy'), getPaths(this.figure, '.silly')];
-    this.emotionIndex = 0;
-    this.animating = false;
-    this.animationTimeout;
-  }
-
-  _createClass(Emoji, [{
-    key: "animate",
-    value: function animate() {
-      var _this = this;
-
-      var startPaths = this.emotionPaths[this.emotionIndex % this.emotionPaths.length];
-      var endPaths = this.emotionPaths[(this.emotionIndex + 1) % this.emotionPaths.length];
-      this.emotionIndex++;
-
-      var progress = function progress(elements, complete, remaining, start, tween) {
-        _this.initialPaths.forEach(function (path, index) {
-          path.interpolate(startPaths[index], endPaths[index], tween).paint();
-        });
-      };
-
-      return (0, _velocityAnimate.default)($(this.figure), {
-        tween: 1
-      }, {
-        duration: 600,
-        easing: 'easeInOut',
-        progress: progress
-      }).then(function () {
-        if (_this.animating) {
-          _this.animationTimeout = setTimeout(_this.animate.bind(_this), 400);
-        }
-      });
-    }
-  }, {
-    key: "toggleAnimation",
-    value: function toggleAnimation(method) {
-      this.animating = !this.animating;
-
-      if (this.animating) {
-        typeof method === 'string' ? this[method]() : this.animate();
-      } else {
-        clearTimeout(this.animationTimeout);
-      }
-    }
-  }, {
-    key: "interpolate",
-    value: function interpolate(amount) {
-      var startPaths = this.emotionPaths[0];
-      var endPaths = this.emotionPaths[1];
-      this.initialPaths.forEach(function (path, index) {
-        path.interpolate(startPaths[index], endPaths[index], amount).paint();
-      });
-    }
-  }, {
-    key: "naiveRotate",
-    value: function naiveRotate() {
-      var _this2 = this;
-
-      var startPaths = this.emotionPaths[0];
-      var midPoint = new _metamorpher.Point(72.5, 65);
-      var endPaths = this.emotionPaths[1].map(function (path) {
-        return new _metamorpher.Path(path).rotate(270, midPoint);
-      });
-
-      var progress = function progress(elements, complete, remaining, start, tween) {
-        _this2.initialPaths.forEach(function (path, index) {
-          path.interpolate(startPaths[index], endPaths[index], tween).paint();
-        });
-      };
-
-      return (0, _velocityAnimate.default)($('body'), {
-        tween: 1
-      }, {
-        duration: 600,
-        easing: 'easeInOut',
-        progress: progress
-      });
-    }
-  }, {
-    key: "smartRotate",
-    value: function smartRotate() {
-      var _this3 = this;
-
-      var midPoint = new _metamorpher.Point(72.5, 65);
-      var startPaths = this.emotionPaths[0];
-      var endPaths = this.emotionPaths[1];
-
-      var progress = function progress(elements, complete, remaining, start, tween) {
-        _this3.initialPaths.forEach(function (path, index) {
-          path.interpolate(startPaths[index], endPaths[index], tween).rotate(270 * tween, midPoint).paint();
-        });
-      };
-
-      return (0, _velocityAnimate.default)($('body'), {
-        tween: 1
-      }, {
-        duration: 600,
-        easing: 'easeInOut',
-        progress: progress
-      });
-    }
-  }]);
-
-  return Emoji;
-}();
-
-;
-var animation1 = new Emoji('#animation1');
-$('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1));
-var interpolation1 = new Emoji('#interpolation1');
+var animation1 = new _animation.default('#animation1');
+document.querySelector('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1));
+var interpolation1 = new _animation.default('#interpolation1');
 interpolation1.interpolate(0.5);
-var interpolation2 = new Emoji('#interpolation2');
+var interpolation2 = new _animation.default('#interpolation2');
 interpolation2.interpolate(2);
-var singleAnimation = new Emoji('#single-animation');
-$('#single-animation .face').addEventListener('click', function () {
+var singleAnimation = new _animation.default('#single-animation');
+document.querySelector('#single-animation .face').addEventListener('click', function () {
   singleAnimation.animate();
   singleAnimation.emotionIndex = 0;
 });
-var animationLooped = new Emoji('#animation-looped');
-$('#animation-looped .face').addEventListener('click', animationLooped.toggleAnimation.bind(animationLooped));
-var naiveRotation = new Emoji('#naive-rotation');
-$('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.bind(naiveRotation));
-var smartRotation = new Emoji('#smart-rotation');
-$('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation)); // Put focus in the inner div so ensure keyboard scrolling works
+var animationLooped = new _animation.default('#animation-looped');
+document.querySelector('#animation-looped .face').addEventListener('click', animationLooped.toggleAnimation.bind(animationLooped));
+var naiveRotation = new _animation.default('#naive-rotation');
+document.querySelector('#naive-rotation .face').addEventListener('click', naiveRotation.naiveRotate.bind(naiveRotation));
+var smartRotation = new _animation.default('#smart-rotation');
+document.querySelector('#smart-rotation .face').addEventListener('click', smartRotation.smartRotate.bind(smartRotation)); // Put focus in the inner div so ensure keyboard scrolling works
 
-$('.focus').focus();
+document.querySelector('.focus').focus();
 
 /***/ }),
 /* 9 */
@@ -5762,13 +5631,161 @@ exports.default = _default;
 "use strict";
 
 
-var _highlight = _interopRequireDefault(__webpack_require__(11));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-var _xml = _interopRequireDefault(__webpack_require__(12));
+var _metamorpher = __webpack_require__(0);
 
-var _javascript = _interopRequireDefault(__webpack_require__(13));
+var _velocityAnimate = _interopRequireDefault(__webpack_require__(1));
 
-var _css = _interopRequireDefault(__webpack_require__(14));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var getPaths = function getPaths(figure, emotion) {
+  return Array.from(document.querySelector(figure).querySelector(emotion).querySelectorAll('path')).map(function (path) {
+    return new _metamorpher.Path(path);
+  });
+};
+
+var Animation =
+/*#__PURE__*/
+function () {
+  function Animation(figure) {
+    _classCallCheck(this, Animation);
+
+    this.figure = figure;
+    this.initialPaths = getPaths(this.figure, '.bored');
+    this.emotionPaths = [getPaths(this.figure, '.bored'), getPaths(this.figure, '.happy'), getPaths(this.figure, '.silly')];
+    this.emotionIndex = 0;
+    this.animating = false;
+    this.animationTimeout;
+  }
+
+  _createClass(Animation, [{
+    key: "animate",
+    value: function animate() {
+      var _this = this;
+
+      var startPaths = this.emotionPaths[this.emotionIndex % this.emotionPaths.length];
+      var endPaths = this.emotionPaths[(this.emotionIndex + 1) % this.emotionPaths.length];
+      this.emotionIndex++;
+
+      var progress = function progress(elements, complete, remaining, start, tween) {
+        _this.initialPaths.forEach(function (path, index) {
+          path.interpolate(startPaths[index], endPaths[index], tween).paint();
+        });
+      };
+
+      return (0, _velocityAnimate.default)(document.querySelector(this.figure), {
+        tween: 1
+      }, {
+        duration: 600,
+        easing: 'easeInOut',
+        progress: progress
+      }).then(function () {
+        if (_this.animating) {
+          _this.animationTimeout = setTimeout(_this.animate.bind(_this), 400);
+        }
+      });
+    }
+  }, {
+    key: "toggleAnimation",
+    value: function toggleAnimation(method) {
+      this.animating = !this.animating;
+
+      if (this.animating) {
+        typeof method === 'string' ? this[method]() : this.animate();
+      } else {
+        clearTimeout(this.animationTimeout);
+      }
+    }
+  }, {
+    key: "interpolate",
+    value: function interpolate(amount) {
+      var startPaths = this.emotionPaths[0];
+      var endPaths = this.emotionPaths[1];
+      this.initialPaths.forEach(function (path, index) {
+        path.interpolate(startPaths[index], endPaths[index], amount).paint();
+      });
+    }
+  }, {
+    key: "naiveRotate",
+    value: function naiveRotate() {
+      var _this2 = this;
+
+      var startPaths = this.emotionPaths[0];
+      var midPoint = new _metamorpher.Point(72.5, 65);
+      var endPaths = this.emotionPaths[1].map(function (path) {
+        return new _metamorpher.Path(path).rotate(270, midPoint);
+      });
+
+      var progress = function progress(elements, complete, remaining, start, tween) {
+        _this2.initialPaths.forEach(function (path, index) {
+          path.interpolate(startPaths[index], endPaths[index], tween).paint();
+        });
+      };
+
+      return (0, _velocityAnimate.default)(document.querySelector('body'), {
+        tween: 1
+      }, {
+        duration: 600,
+        easing: 'easeInOut',
+        progress: progress
+      });
+    }
+  }, {
+    key: "smartRotate",
+    value: function smartRotate() {
+      var _this3 = this;
+
+      var midPoint = new _metamorpher.Point(72.5, 65);
+      var startPaths = this.emotionPaths[0];
+      var endPaths = this.emotionPaths[1];
+
+      var progress = function progress(elements, complete, remaining, start, tween) {
+        _this3.initialPaths.forEach(function (path, index) {
+          path.interpolate(startPaths[index], endPaths[index], tween).rotate(270 * tween, midPoint).paint();
+        });
+      };
+
+      return (0, _velocityAnimate.default)(document.querySelector('body'), {
+        tween: 1
+      }, {
+        duration: 600,
+        easing: 'easeInOut',
+        progress: progress
+      });
+    }
+  }]);
+
+  return Animation;
+}();
+
+;
+var _default = Animation;
+exports.default = _default;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _highlight = _interopRequireDefault(__webpack_require__(12));
+
+var _xml = _interopRequireDefault(__webpack_require__(13));
+
+var _javascript = _interopRequireDefault(__webpack_require__(14));
+
+var _css = _interopRequireDefault(__webpack_require__(15));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5781,7 +5798,7 @@ _highlight.default.registerLanguage('css', _css.default);
 _highlight.default.initHighlightingOnLoad();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -6603,7 +6620,7 @@ https://highlightjs.org/
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -6710,7 +6727,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -6885,7 +6902,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -6994,7 +7011,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 var disqus_config = function disqus_config() {// this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable

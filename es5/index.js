@@ -5572,13 +5572,15 @@ var activeTrackerSvg = new _svgViewboxMaximize.default({
 
 (0, _promiseFont.default)('Archivo Narrow').then(function () {
   return resizeActiveIndicator(activeTrackerSvg);
-}); // Attach the router
+});
+var TITLE_SUFFIX = 'Agency Autonomous'; // Attach the router
 
 var router = new _navigo.default(window.location.origin);
 router.on({
   '/': function _() {
     console.log('Navigating to: /');
     (0, _analytics.default)('send', 'pageview');
+    document.title = TITLE_SUFFIX;
 
     if (isOpen()) {
       toggleCover();
@@ -5588,6 +5590,12 @@ router.on({
     var _page = _ref.page;
     console.log('Navigating to: /' + _page);
     (0, _analytics.default)('send', 'pageview');
+    var pageData = $("[data-page='".concat(_page, "']"));
+
+    if (pageData) {
+      document.title = "".concat(pageData.getAttribute('data-title'), " - ").concat(TITLE_SUFFIX);
+    }
+
     moveActiveIndicator(_page);
 
     if (!isOpen()) {

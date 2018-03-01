@@ -214,12 +214,16 @@ let activeTrackerSvg = new SvgViewboxMaximize({
 // Resize the active indicator after the font completes loading
 promiseFont('Archivo Narrow').then(() => resizeActiveIndicator(activeTrackerSvg));
 
+const TITLE_SUFFIX = 'Agency Autonomous';
+
 // Attach the router
 let router = new Navigo(window.location.origin);
 router.on({
 	'/': () => {
 		console.log('Navigating to: /');
 		analytics('send', 'pageview');
+
+		document.title = TITLE_SUFFIX;
 
 		if (isOpen()) {
 			toggleCover();
@@ -229,6 +233,11 @@ router.on({
 
 		console.log('Navigating to: /'+ page);
 		analytics('send', 'pageview');
+
+		let pageData = $(`[data-page='${page}']`);
+		if (pageData) {
+			document.title = `${pageData.getAttribute('data-title')} - ${TITLE_SUFFIX}`;
+		}
 
 		moveActiveIndicator(page);
 

@@ -5,7 +5,7 @@ module.exports = {
 	entry: {
 		'index': './js/index.js',
 		'index.min': './js/index.js',
-		'animating-svg-path-data-metamorpher-velocityjs': './js/animating-svg-path-data-metamorpher-velocityjs.js'
+		'animating-svg-path-data-metamorpher-velocityjs': './js/articles/animating-svg-path-data-metamorpher-velocityjs/index.js'
 	},
 	output: {
 		filename: '[name].js',
