@@ -2,6 +2,7 @@ html
 	head
 		title Animating SVGs with Metamorpher and VelocityJS - Agency Autonomous
 		meta(name='viewport', content='width=device-width, initial-scale=1')
+		include ../../favicon.pug
 		link(href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300|Roboto+Mono", rel="stylesheet")
 		link(href="/css/animating-svg-path-data-metamorpher-velocityjs.css", rel="stylesheet")
 		script(src="/es5/animating-svg-path-data-metamorpher-velocityjs.js", async)
@@ -35,7 +36,7 @@ html
 					li Allow the code to interpolate the difference between the key frames to achieve a smooth animation?
 
 				figure#animation1
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.
 
 				h2 Preparing the SVG
@@ -62,7 +63,7 @@ html
 
 				p At first, the image will show all three emotions at once.
 				figure
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Each emotion is represented by a group of paths within the same SVG image.
 
 				p For ease of reference, each key frame is surrounded in a group tag and given a class name for the emotion. For more complex animations, these class names would be more like #[code keyframe-1] or, even better, data attributes. IDs should be avoided here, as they can have some weird side effects if the SVG is included multiple times on a page.
@@ -91,7 +92,7 @@ html
 
 				p Before we add any JavaScript, this results in a simple bored emoji.
 				figure#bored
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 
 				h2 Transforming the Image
 				p Before animating the image we should introduce #[a(href='https://github.com/jsneden/metamorpher', target='_blank') Metamorpher] and understand how it will morph one key frame into the next. To do this we'll setup a small test which will illustrate the #[a(href='https://github.com/jsneden/metamorpher#pathtransformpath', target='_blank') transform], #[a(href='https://github.com/jsneden/metamorpher#pathinterpolatestartpath-endpath-progress', target='_blank') interpolate] and #[a(href='https://github.com/jsneden/metamorpher#pathpaint', target='_blank') paint] methods.
@@ -143,11 +144,11 @@ html
 
 				p The resulting image is a #[i slightly] excited emoji.
 				figure#interpolation1
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 				p Try playing with different values for the interpolation amount decimal (0.5) to test the different effects of interpolation.
 
 				figure#interpolation2
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Interpolation value of 2... as in 200% of the way between bored and happy.
 
 				p Not exactly an obvious use of interpolation (since the value should be between 0 and 1) but useful for some animation easings such as #[a(href='http://easings.net/#easeInOutBack', target='_blank') easeInOutBack].
@@ -239,7 +240,7 @@ html
 					= "	.addEventListener('click', animate);\n"
 
 				figure#single-animation
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the face animates the emoji from bored to happy. 
 
 				h3 Looping the Animation Between Three Key Frames
@@ -311,7 +312,7 @@ html
 					= "document.querySelector('.face')\n"
 					= "	.addEventListener('click', toggleAnimation);\n"
 				figure#animation-looped
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the face loops the emoji between bored, happy and silly. Clicking again stops the animation.
 
 				h2 Common Issues
@@ -354,7 +355,7 @@ html
 					= "};\n"
 
 				figure#naive-rotation
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the image shows why linear interpolation doesn't work for rotation.
 
 				p In the above demonstration, the face ends up in the correct position, but it got there by rotating 90 degrees counter-clockwise and shrinking slightly along the way. This happened because that's the shortest linear path for rotating 270 degrees clockwise.
@@ -394,7 +395,7 @@ html
 					= "};\n"
 
 				figure#smart-rotation
-					include ../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
+					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the image shows how to properly combine rotation with linear interpolation.
 
 				h3 Only Paths
@@ -409,5 +410,5 @@ html
 				h2 Comments
 				#disqus_thread
 
-		include ../header.pug
-		include ../footer.pug
+		include ../../header.pug
+		include ../../footer.pug
