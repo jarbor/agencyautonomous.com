@@ -39,6 +39,9 @@ html
 					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
 					figcaption Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.
 
+				h2 TL;DR
+				p If you'd rather dig into the completed examples than read through the tutorial, you can download the #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample.zip', target='_blank') sample.zip] and view live versions of #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample/morph', target='_blank') morph] and #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample/rotate-morph', target='_blank') rotate-morph].
+
 				h2 Preparing the SVG
 				p The animated emoji is achieved using three states (the key frames) loaded into the same SVG. To get started, #[a(href='/images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg', target='_blank') download the emoji SVG] and include it inline with the rest of the HTML.
 
@@ -117,6 +120,9 @@ html
 
 				h3 Managing Path Data With Metamorpher
 				p To allow Metamorpher to transform SVG path data, we can simply pass the path DOM element into the #[code new Path(element)] constructor. However, each emotion key frame contains multiple paths to transform, so create the following convenience function, #[code getFramePaths], to return an array of #[code Path] elements for each key frame by css selector.
+
+				blockquote To ensure that this function is able to find the paths in the DOM, make sure you add the JS code at the end of your document or otherwise wait for the document to be ready.
+
 				pre: code(class='js')
 					= "let getFramePaths = (selector) => {\n"
 					= "	let group = document.querySelector(selector);\n"
@@ -127,7 +133,7 @@ html
 					= "};\n"
 
 				h3 Interpolating between two images
-				p To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames. 
+				p To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames.
 				pre: code(class='js')
 					= "let initialPaths = getFramePaths('.bored');\n"
 					= "let startPaths = getFramePaths('.bored');\n"
@@ -166,8 +172,8 @@ html
 				h3 VelocityJS Installation
 				p The best way to install VelocityJS is to use the yarn (or npm) package manager.
 				pre: code
-					= 'yarn add velocity-animate'
-				p If not using a package manager, download the #[a(href='https://raw.githubusercontent.com/julianshapiro/velocity/master/velocity.js', target='_blank') compiled source].
+					= 'yarn add velocity-animate@1.5.1'
+				p If not using a package manager, download the #[a(href='https://raw.githubusercontent.com/julianshapiro/velocity/v1/velocity.js', target='_blank') compiled source].
 
 				p After obtaining the package, include the script in your project.
 				figure
@@ -182,7 +188,7 @@ html
 					= "let startPaths = getFramePaths('.bored');\n"
 					= "let endPaths = getFramePaths('.happy');\n"
 					= "\n"
-					= "let progress = ( , , , , tween) => {\n"
+					= "let progress = (e, c, r, s, tween) => {\n"
 					= "	initialPaths.forEach((path, index) => {\n"
 					= "		path.interpolate(\n"
 					= "			startPaths[index],\n"
@@ -210,12 +216,12 @@ html
 
 				pre: code(class='js')
 					= "let initialPaths = getFramePaths('.bored');\n"
+					= "let startPaths = getFramePaths('.bored');\n"
+					= "let endPaths = getFramePaths('.happy');\n"
 					= "	\n"
 					= "let animate = () => {\n"
-					= "	let startPaths = getFramePaths('.bored');\n"
-					= "	let endPaths = getFramePaths('.happy');\n"
 					= "\n"
-					= "	let progress = ( , , , , tween) => {\n"
+					= "	let progress = (e, c, r, s, tween) => {\n"
 					= "		initialPaths.forEach((path, index) => {\n"
 					= "			path.interpolate(\n"
 					= "				startPaths[index],\n"
@@ -238,6 +244,12 @@ html
 					= "\n"
 					= "document.querySelector('.face')\n"
 					= "	.addEventListener('click', animate);\n"
+
+				p Additionally, you'll want the cursor to change to a pointer when the user hovers over the face to indicate an action.
+				pre: code(class='css')
+					= 'svg, .face:hover {\n'
+					= '	cursor: pointer;\n'
+					= '}\n'
 
 				figure#single-animation
 					include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
@@ -276,7 +288,7 @@ html
 					= "	let endPaths = keyFramePaths[(currentFrame + 1) % keyFramePaths.length];\n"
 					= "	currentFrame++;\n"
 					= "\n"
-					= "	let progress = ( , , , , tween) => {\n"
+					= "	let progress = (e, c, r, s, tween) => {\n"
 					= "		initialPaths.forEach((path, index) => {\n"
 					= "			path.interpolate(startPaths[index], endPaths[index], tween).paint();\n"
 					= "		});\n"
@@ -299,7 +311,7 @@ html
 
 				p Lastly, pull it all together by introducing a function to toggle the animation on or off and update the click handler to use the toggle function.
 				pre: code(class='js')
-					= "toggleAnimation(method) {\n"
+					= "let toggleAnimation = (method) => {\n"
 					= "	animating = !animating;\n"
 					= "	if (animating) {\n"
 					= "		animate();\n"
@@ -307,7 +319,7 @@ html
 					= "	else {\n"
 					= "		clearTimeout(animationTimeout);\n"
 					= "	}\n"
-					= "}\n"
+					= "};\n"
 					= "\n"
 					= "document.querySelector('.face')\n"
 					= "	.addEventListener('click', toggleAnimation);\n"
@@ -319,21 +331,22 @@ html
 				h3 Rotation
 				p This article describes how to achieve technique of #[i linear] interpolation using key frames. While this is an effective approach for many transformations, it doesn't work as may be expected for rotated images. This is because linear interpolation will cause each point to take the shortest path from start to finish. To demonstrate this, let's take our emoji friend for a quick spin when he smiles.
 
-				p Using the Metamorpher #[i rotate] method, we can turn the #[code endPaths] 270 degrees clockwise and try the interpolation again.
-
 				p: i Note: the rotation examples make use of the #[code Point] class from Metamorpher to specify the rotation anchor. So if you're following along, you'll need to save that class from the package as well.
+				pre: code(class='js')
+					= 'let Point = metamorpher.Point;\n'
+
+				p Using the Metamorpher #[i rotate] method, we can turn the #[code endPaths] 270 degrees clockwise and try the interpolation again.
 
 				pre: code(class='js')
 					= "let initialPaths = getFramePaths('.bored');\n"
+					= "let midPoint = new Point(72.5, 65);\n"
+					= "let startPaths = getFramePaths('.bored');\n"
+					= "let endPaths = getFramePaths('.happy').map(path => {\n"
+					= "	return new Path(path).rotate(270, midPoint);\n"
+					= "});\n"
 					= "	\n"
 					= "let animate = () => {\n"
-					= "	let midPoint = new Point(72.5, 65);\n"
-					= "	let startPaths = getFramePaths('.bored');\n"
-					= "	let endPaths = getFramePaths('.happy').map(path => {\n"
-					= "		return new Path(path).rotate(270, midPoint);\n"
-					= "	});\n"
-					= "	\n"
-					= "	let progress = ( , , , , tween) => {\n"
+					= "	let progress = (e, c, r, s, tween) => {\n"
 					= "		initialPaths.forEach((path, index) => {\n"
 					= "			path.interpolate(\n"
 					= "				startPaths[index],\n"
@@ -364,13 +377,12 @@ html
 
 				pre: code(class='js')
 					= "let initialPaths = getFramePaths('.bored');\n"
+					= "let midPoint = new Point(72.5, 65);\n"
+					= "let startPaths = getFramePaths('.bored');\n"
+					= "let endPaths = getFramePaths('.happy');\n"
 					= "	\n"
 					= "let animate = () => {\n"
-					= "	let midPoint = new Point(72.5, 65);\n"
-					= "	let startPaths = getFramePaths('.bored');\n"
-					= "	let endPaths = getFramePaths('.happy');\n"
-					= "\n"
-					= "	let progress = ( , , , , tween) => {\n"
+					= "	let progress = (e, c, r, s, tween) => {\n"
 					= "		initialPaths.forEach((path, index) => {\n"
 					= "			path\n"
 					= "				.interpolate(\n"

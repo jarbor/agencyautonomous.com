@@ -53,7 +53,7 @@
           <li>Allow the code to interpolate the difference between the key frames to achieve a smooth animation?</li>
         </ol>
         <figure id="animation1"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -210,6 +210,8 @@
 </svg>
           <figcaption>Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.</figcaption>
         </figure>
+        <h2>TL;DR</h2>
+        <p>If you'd rather dig into the completed examples than read through the tutorial, you can download the <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample.zip" target="_blank">sample.zip</a> and view live versions of <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/morph" target="_blank">morph</a> and <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/rotate-morph" target="_blank">rotate-morph</a>.</p>
         <h2>Preparing the SVG</h2>
         <p>The animated emoji is achieved using three states (the key frames) loaded into the same SVG. To get started, <a href="/images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg" target="_blank">download the emoji SVG</a> and include it inline with the rest of the HTML.</p>
         <p>If you're using a templating language, you can include/import the SVG file directly. For a real project, this is <i>highly recommended</i> so you don't have a massive SVG cluttering up your HTML.</p>
@@ -231,7 +233,7 @@
 </code></pre>
         <p>At first, the image will show all three emotions at once.</p>
         <figure><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -411,7 +413,7 @@
 </code></pre>
         <p>Before we add any JavaScript, this results in a simple bored emoji.</p>
         <figure id="bored"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -584,6 +586,7 @@
         </figure>
         <h3>Managing Path Data With Metamorpher</h3>
         <p>To allow Metamorpher to transform SVG path data, we can simply pass the path DOM element into the <code>new Path(element)</code> constructor. However, each emotion key frame contains multiple paths to transform, so create the following convenience function, <code>getFramePaths</code>, to return an array of <code>Path</code> elements for each key frame by css selector.</p>
+        <blockquote>To ensure that this function is able to find the paths in the DOM, make sure you add the JS code at the end of your document or otherwise wait for the document to be ready.</blockquote>
         <pre><code class="js">let getFramePaths = (selector) =&gt; {
 	let group = document.querySelector(selector);
 	let domPaths = group.querySelectorAll('path');
@@ -593,7 +596,7 @@
 };
 </code></pre>
         <h3>Interpolating between two images</h3>
-        <p>To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames. </p>
+        <p>To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames.</p>
         <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
@@ -609,7 +612,7 @@ initialPaths.forEach((path, index) =&gt; {
         <p>The <code>interpolate</code> method takes three arguments: the start path and end path for interpolation and a decimal between 0 and 1 representing a percentage of interpolation between the two paths. Note that the the DOM isn't actually updated until the <code>paint</code> method is called, allowing multiple transformations to be applied before updating the DOM. </p>
         <p>The resulting image is a <i>slightly</i> excited emoji.</p>
         <figure id="interpolation1"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -767,7 +770,7 @@ initialPaths.forEach((path, index) =&gt; {
         </figure>
         <p>Try playing with different values for the interpolation amount decimal (0.5) to test the different effects of interpolation.</p>
         <figure id="interpolation2"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -936,8 +939,8 @@ initialPaths.forEach((path, index) =&gt; {
         <p>There are a few packages out there, but I prefer <a href="http://velocityjs.org/" target="_blank">VelocityJS</a> for the performance and non-reliance on other packages. </p>
         <h3>VelocityJS Installation</h3>
         <p>The best way to install VelocityJS is to use the yarn (or npm) package manager.</p>
-        <pre><code>yarn add velocity-animate</code></pre>
-        <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/julianshapiro/velocity/master/velocity.js" target="_blank">compiled source</a>.</p>
+        <pre><code>yarn add velocity-animate@1.5.1</code></pre>
+        <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/julianshapiro/velocity/v1/velocity.js" target="_blank">compiled source</a>.</p>
         <p>After obtaining the package, include the script in your project.</p>
         <figure>
           <pre><code class="html">&lt;script src=&quot;./velocity.js&quot;&gt;&lt;/script&gt;
@@ -950,7 +953,7 @@ initialPaths.forEach((path, index) =&gt; {
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
 
-let progress = ( , , , , tween) =&gt; {
+let progress = (e, c, r, s, tween) =&gt; {
 	initialPaths.forEach((path, index) =&gt; {
 		path.interpolate(
 			startPaths[index],
@@ -975,12 +978,12 @@ return Velocity(element, properties, options);
 </code></pre>
         <p>To pull the animation together, we need to attach it to an event. To do that, surrond the last two code snippets in a function (leave <code>initialPaths</code> out of the function) and attach it to the click event on the <code>face</code> class.</p>
         <pre><code class="js">let initialPaths = getFramePaths('.bored');
+let startPaths = getFramePaths('.bored');
+let endPaths = getFramePaths('.happy');
 	
 let animate = () =&gt; {
-	let startPaths = getFramePaths('.bored');
-	let endPaths = getFramePaths('.happy');
 
-	let progress = ( , , , , tween) =&gt; {
+	let progress = (e, c, r, s, tween) =&gt; {
 		initialPaths.forEach((path, index) =&gt; {
 			path.interpolate(
 				startPaths[index],
@@ -1004,8 +1007,13 @@ let animate = () =&gt; {
 document.querySelector('.face')
 	.addEventListener('click', animate);
 </code></pre>
+        <p>Additionally, you'll want the cursor to change to a pointer when the user hovers over the face to indicate an action.</p>
+        <pre><code class="css">svg, .face:hover {
+	cursor: pointer;
+}
+</code></pre>
         <figure id="single-animation"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -1194,7 +1202,7 @@ let animate = () =&gt; {
 	let endPaths = keyFramePaths[(currentFrame + 1) % keyFramePaths.length];
 	currentFrame++;
 
-	let progress = ( , , , , tween) =&gt; {
+	let progress = (e, c, r, s, tween) =&gt; {
 		initialPaths.forEach((path, index) =&gt; {
 			path.interpolate(startPaths[index], endPaths[index], tween).paint();
 		});
@@ -1216,7 +1224,7 @@ let animate = () =&gt; {
 };
 </code></pre>
         <p>Lastly, pull it all together by introducing a function to toggle the animation on or off and update the click handler to use the toggle function.</p>
-        <pre><code class="js">toggleAnimation(method) {
+        <pre><code class="js">let toggleAnimation = (method) =&gt; {
 	animating = !animating;
 	if (animating) {
 		animate();
@@ -1224,13 +1232,13 @@ let animate = () =&gt; {
 	else {
 		clearTimeout(animationTimeout);
 	}
-}
+};
 
 document.querySelector('.face')
 	.addEventListener('click', toggleAnimation);
 </code></pre>
         <figure id="animation-looped"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -1390,18 +1398,19 @@ document.querySelector('.face')
         <h2>Common Issues</h2>
         <h3>Rotation</h3>
         <p>This article describes how to achieve technique of <i>linear</i> interpolation using key frames. While this is an effective approach for many transformations, it doesn't work as may be expected for rotated images. This is because linear interpolation will cause each point to take the shortest path from start to finish. To demonstrate this, let's take our emoji friend for a quick spin when he smiles.</p>
-        <p>Using the Metamorpher <i>rotate</i> method, we can turn the <code>endPaths</code> 270 degrees clockwise and try the interpolation again.</p>
         <p><i>Note: the rotation examples make use of the <code>Point</code> class from Metamorpher to specify the rotation anchor. So if you're following along, you'll need to save that class from the package as well.</i></p>
+        <pre><code class="js">let Point = metamorpher.Point;
+</code></pre>
+        <p>Using the Metamorpher <i>rotate</i> method, we can turn the <code>endPaths</code> 270 degrees clockwise and try the interpolation again.</p>
         <pre><code class="js">let initialPaths = getFramePaths('.bored');
+let midPoint = new Point(72.5, 65);
+let startPaths = getFramePaths('.bored');
+let endPaths = getFramePaths('.happy').map(path =&gt; {
+	return new Path(path).rotate(270, midPoint);
+});
 	
 let animate = () =&gt; {
-	let midPoint = new Point(72.5, 65);
-	let startPaths = getFramePaths('.bored');
-	let endPaths = getFramePaths('.happy').map(path =&gt; {
-		return new Path(path).rotate(270, midPoint);
-	});
-	
-	let progress = ( , , , , tween) =&gt; {
+	let progress = (e, c, r, s, tween) =&gt; {
 		initialPaths.forEach((path, index) =&gt; {
 			path.interpolate(
 				startPaths[index],
@@ -1423,7 +1432,7 @@ let animate = () =&gt; {
 };
 </code></pre>
         <figure id="naive-rotation"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />
@@ -1583,13 +1592,12 @@ let animate = () =&gt; {
         <p>In the above demonstration, the face ends up in the correct position, but it got there by rotating 90 degrees counter-clockwise and shrinking slightly along the way. This happened because that's the shortest linear path for rotating 270 degrees clockwise.</p>
         <p>To rotate properly, we simply can't use linear interpolation. Instead, we must manually figure out the proper rotation to apply on top of the normal interpolation from bored to happy.</p>
         <pre><code class="js">let initialPaths = getFramePaths('.bored');
+let midPoint = new Point(72.5, 65);
+let startPaths = getFramePaths('.bored');
+let endPaths = getFramePaths('.happy');
 	
 let animate = () =&gt; {
-	let midPoint = new Point(72.5, 65);
-	let startPaths = getFramePaths('.bored');
-	let endPaths = getFramePaths('.happy');
-
-	let progress = ( , , , , tween) =&gt; {
+	let progress = (e, c, r, s, tween) =&gt; {
 		initialPaths.forEach((path, index) =&gt; {
 			path
 				.interpolate(
@@ -1614,7 +1622,7 @@ let animate = () =&gt; {
 };
 </code></pre>
         <figure id="smart-rotation"><?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
             <rect width="145" height="130" />

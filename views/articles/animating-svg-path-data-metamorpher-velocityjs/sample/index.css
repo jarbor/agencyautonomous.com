@@ -1,0 +1,7 @@
+.happy, .silly {
+	display: none;
+}
+
+svg, .face:hover {
+	cursor: pointer;
+}
