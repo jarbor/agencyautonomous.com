@@ -121,11 +121,21 @@ i {
 
   p {
     font-size: 10pt; } }
+:root {
+  --frame-height: 83px; }
+
+@media (max-width: 480px) {
+  :root {
+    --frame-height: 45px; } }
+@media (max-height: 200px) {
+  :root {
+    --frame-height: 20px; } }
 body {
   background-color: #2E2E2E; }
 
 .cover {
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100vh;
   float: left; }
@@ -141,12 +151,9 @@ body {
   opacity: 0; }
 
 .body {
-  position: absolute;
-  top: 83px;
   box-sizing: border-box;
   width: 100%;
-  height: calc(100vh - 166px);
-  padding: 2rem;
+  height: calc(100vh - 2 * var(--frame-height));
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #FFF;
@@ -159,10 +166,9 @@ body {
   opacity: 0; }
 
 .frame, header, footer {
-  position: absolute;
   overflow: hidden;
   box-sizing: border-box;
-  height: 83px;
+  height: var(--frame-height);
   color: #FFF;
   opacity: 0;
   width: 100%;
@@ -234,22 +240,16 @@ figcaption {
 
 @media (max-width: 480px) {
   .body {
-    height: calc(100vh - 90px);
-    top: 45px;
     padding: 0 1rem 1rem 1rem; }
 
   .content {
     max-width: unset; }
 
   header {
-    height: 45px;
     padding-top: 0.75rem; }
     header a {
       font-size: 14pt;
       margin-left: 1rem; }
-
-  footer {
-    height: 45px; }
 
   .column {
     width: 100%; }
@@ -260,18 +260,99 @@ figcaption {
     padding: 0 1rem 1rem 1rem; }
 
   header {
-    height: 20px;
     padding-top: 0; }
     header a {
       font-size: 10pt;
-      margin-left: 1.5rem; }
+      margin-left: 1.5rem; } }
+:root {
+  --side-size: 30rem; }
 
-  footer {
-    height: 20px; }
+#side-nav-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden; }
+  #side-nav-container .body {
+    width: calc(100% - var(--side-size));
+    transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1); }
 
-  .body {
-    height: calc(100vh - 40px);
-    top: 20px; } }
+#side-nav {
+  float: left;
+  box-sizing: border-box;
+  width: var(--side-size);
+  padding: 1rem;
+  height: calc(100vh - 2 * var(--frame-height));
+  background-color: #CCCCCC;
+  overflow-x: visible;
+  overflow-y: auto;
+  transition: margin-left 600ms cubic-bezier(0.645, 0.045, 0.355, 1); }
+  #side-nav ol {
+    margin-bottom: 0; }
+    #side-nav ol:before {
+      content: "";
+      display: table;
+      clear: both; }
+  #side-nav > ol > li {
+    margin-left: 0; }
+  #side-nav li {
+    list-style-type: none;
+    line-height: 1.1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 11pt; }
+  #side-nav a {
+    color: #2E2E2E;
+    text-decoration: none; }
+  #side-nav h2 {
+    display: inline;
+    float: left;
+    font-size: 14pt;
+    padding-top: 0;
+    margin-bottom: 0.5rem; }
+  #side-nav .close-link {
+    float: right; }
+
+.open-link {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: var(--frame-height);
+  padding: 1rem;
+  color: #2E2E2E;
+  text-decoration: none;
+  transition-property: opacity;
+  transition-duration: 150ms;
+  transition-timing-function: linear; }
+
+.side-nav-hidden #side-nav-container .body {
+  width: 100%; }
+.side-nav-hidden #side-nav {
+  margin-left: calc(-1 * var(--side-size)); }
+.side-nav-hidden .open-link {
+  transition-delay: 600ms;
+  transition-duration: 400ms;
+  opacity: 1; }
+
+@media (max-width: 800px) {
+  .open-link {
+    position: fixed;
+    top: calc(100vh - var(--frame-height));
+    color: #FFF; }
+
+  :root {
+    --side-size: 25rem; }
+
+  #side-nav-container .body {
+    position: absolute;
+    top: 0;
+    left: var(--side-size);
+    width: 100%; }
+
+  .side-nav-hidden #side-nav-container .body {
+    left: 0;
+    width: 100%; } }
+@media (max-width: 480px) {
+  :root {
+    --side-size: 80%; } }
 /*
 Monokai style - ported by Luigi Maselli - http://grigio.org
 */
@@ -344,6 +425,10 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
     margin-bottom: 0; }
   .byline p:nth-child(2) {
     float: right; }
+
+h1 a, h2 a, h3 a, h4 a {
+  color: #2E2E2E;
+  text-decoration: none; }
 
 .content, header, footer {
   opacity: 1; }

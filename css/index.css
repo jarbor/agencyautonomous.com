@@ -121,11 +121,21 @@ i {
 
   p {
     font-size: 10pt; } }
+:root {
+  --frame-height: 83px; }
+
+@media (max-width: 480px) {
+  :root {
+    --frame-height: 45px; } }
+@media (max-height: 200px) {
+  :root {
+    --frame-height: 20px; } }
 body {
   background-color: #2E2E2E; }
 
 .cover {
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100vh;
   float: left; }
@@ -141,12 +151,9 @@ body {
   opacity: 0; }
 
 .body {
-  position: absolute;
-  top: 83px;
   box-sizing: border-box;
   width: 100%;
-  height: calc(100vh - 166px);
-  padding: 2rem;
+  height: calc(100vh - 2 * var(--frame-height));
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #FFF;
@@ -159,10 +166,9 @@ body {
   opacity: 0; }
 
 .frame, header, footer {
-  position: absolute;
   overflow: hidden;
   box-sizing: border-box;
-  height: 83px;
+  height: var(--frame-height);
   color: #FFF;
   opacity: 0;
   width: 100%;
@@ -234,22 +240,16 @@ figcaption {
 
 @media (max-width: 480px) {
   .body {
-    height: calc(100vh - 90px);
-    top: 45px;
     padding: 0 1rem 1rem 1rem; }
 
   .content {
     max-width: unset; }
 
   header {
-    height: 45px;
     padding-top: 0.75rem; }
     header a {
       font-size: 14pt;
       margin-left: 1rem; }
-
-  footer {
-    height: 45px; }
 
   .column {
     width: 100%; }
@@ -260,18 +260,10 @@ figcaption {
     padding: 0 1rem 1rem 1rem; }
 
   header {
-    height: 20px;
     padding-top: 0; }
     header a {
       font-size: 10pt;
-      margin-left: 1.5rem; }
-
-  footer {
-    height: 20px; }
-
-  .body {
-    height: calc(100vh - 40px);
-    top: 20px; } }
+      margin-left: 1.5rem; } }
 .active-tracker {
   margin-top: 8px;
   width: 100%;

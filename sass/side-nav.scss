@@ -1,0 +1,138 @@
+@import "globals";
+
+:root {
+	--side-size: 30rem;
+}
+$side-transition: 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+#side-nav-container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+
+	.body {
+		width: calc(100% - var(--side-size));
+		transition: all $side-transition;
+	}
+}
+
+#side-nav {
+	float: left;
+	box-sizing: border-box;
+	width: var(--side-size);
+	padding: 1rem;
+	height: calc(100vh - 2 * var(--frame-height));
+	background-color: $divider-color;
+	overflow-x: visible;
+	overflow-y: auto;
+	transition: margin-left $side-transition;
+
+	ol {
+		margin-bottom: 0;
+		
+		&:before {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+
+	& > ol > li {
+		margin-left: 0;
+	}
+
+	li {
+		list-style-type: none;
+		line-height: 1.1em;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		font-size: 11pt;
+	}
+
+	a {
+		color: $primary-color;
+		text-decoration: none;
+	}
+
+	h2 {
+		display: inline;
+		float: left;
+		font-size: 14pt;
+		padding-top: 0;
+		margin-bottom: 0.5rem;
+	}
+
+	.close-link {
+		float: right;
+	}
+}
+
+.open-link {
+	opacity: 0;
+	position: absolute;
+	left: 0;
+	top: var(--frame-height);
+	padding: 1rem;
+	color: $primary-color;
+	text-decoration: none;
+	transition-property: opacity;
+	transition-duration: 150ms;
+	transition-timing-function: linear;
+}
+
+.side-nav-hidden {
+	#side-nav-container {
+		.body {
+			width: 100%;
+		}
+	}
+
+	#side-nav {
+		margin-left: calc(-1 * var(--side-size));
+	}
+
+	.open-link {
+		transition-delay: 600ms;
+		transition-duration: 400ms;
+		opacity: 1;
+	}
+}
+
+@media (max-width: 800px) {
+	// Below 800px open-link runs into content
+	.open-link {
+		position: fixed;
+		top: calc(100vh - var(--frame-height));
+		color: #FFF;
+	}
+
+	// Below 800px the content starts to get squished so push the content off canvas
+	:root {
+		--side-size: 25rem;
+	}
+
+	#side-nav-container {
+		.body {
+			position: absolute;
+			top: 0;
+			left: var(--side-size);
+			width: 100%;
+		}
+	}
+
+	.side-nav-hidden {
+		#side-nav-container {
+			.body {
+				left: 0;
+				width: 100%;
+			}
+		}
+	}
+}
+
+// Larger breakpoint specifies side nav larger than many mobile devices... switch to relative sizing
+@media (max-width: $break-mobile) {
+	:root {
+		--side-size: 80%;
+	}	
+}

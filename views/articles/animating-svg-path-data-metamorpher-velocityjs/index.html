@@ -25,34 +25,41 @@
     <script src="/es5/animating-svg-path-data-metamorpher-velocityjs.js" async="async"></script>
   </head>
   <body>
-    <div class="body">
-      <div class="content"><a class="focus" href="javascript:void(0);" tabindex="-1">&nbsp;</a>
-        <h1>Animating SVGs with Metamorpher and&nbsp;VelocityJS</h1>
-        <div class="byline">
-          <p>By Jeff Sneden</p>
-          <p>
-            <time datetime="2018-02-27 00:00">February 28, 2018</time>
-          </p>
-        </div>
-        <p>With <a href="https://caniuse.com/#feat=svg" target="_blank">support for inline SVGs</a> ubiquitous among modern browsers, it's time to start to use them for more than just images on a page. One such usage is animation that feels like it's part of the page - SVG elements interacting with DOM elements because they are indeed part of the DOM.</p>
-        <p>The intro animation for <a href="//agencyautonomous.com" target="_blank">agencyautonomous.com</a> uses SVGs in just this way:</p>
-        <figure>
-          <iframe src="/"></iframe>
-          <figcaption>Clicking anywhere deconstructs the logo to reveal the site content. Clicking the tiny logo at the bottom reconstructs the animation.</figcaption>
-        </figure>
-        <p>Now, before we get too far into this tutorial, let it be noted that <i>most</i> SVG animation can be achieved with pure CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform" target="_blank">transforms</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition" target="_blank">transitions</a>, and this is how it should be. Animation is inherently describing how the a page should look at different points in time, so, if at all possible, we should use CSS. This includes translation, scaling, skewing, rotation and perspective.</p>
-        <p>It's a pretty comprehensive list! However, this approach has two drawbacks:</p>
-        <ul>
-          <li>You cannot fundamentally alter or morph the shapes into something else</li>
-          <li>You must know how to achieve your desired effect by applying the functions listed above</li>
-        </ul>
-        <p>Instead, wouldn't it be nice to be able to:</p>
-        <ol>
-          <li>Open your favorite SVG editor and make an image,</li>
-          <li>Manipulate the image inside the SVG editor to build "key frames",</li>
-          <li>Allow the code to interpolate the difference between the key frames to achieve a smooth animation?</li>
-        </ol>
-        <figure id="animation1"><?xml version="1.0" standalone="no"?>
+    <header><a href="/company" data-navigo="data-navigo">Company</a><a href="/articles" data-navigo="data-navigo">Articles</a><a href="/open-source" data-navigo="data-navigo">Open&nbsp;Source</a><a href="/services" data-navigo="data-navigo">Services</a>
+      <svg class="active-tracker" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 2">
+        <path class="active-indicator" d="M 50 0 L 50 0 L 50 2 L 50 0 L 50 0 Z"></path>
+      </svg>
+    </header>
+    <div id="side-nav-container">
+      <div id="side-nav"></div>
+      <div class="body">
+        <div class="content"><a class="focus" href="javascript:void(0);" tabindex="-1">&nbsp;</a>
+          <h1>Animating SVGs with Metamorpher and&nbsp;VelocityJS</h1>
+          <div class="byline">
+            <p>By Jeff Sneden</p>
+            <p>
+              <time datetime="2018-02-27 00:00">February 28, 2018</time>
+            </p>
+          </div>
+          <p>With <a href="https://caniuse.com/#feat=svg" target="_blank">support for inline SVGs</a> ubiquitous among modern browsers, it's time to start to use them for more than just images on a page. One such usage is animation that feels like it's part of the page - SVG elements interacting with DOM elements because they are indeed part of the DOM.</p>
+          <p>The intro animation for <a href="//agencyautonomous.com" target="_blank">agencyautonomous.com</a> uses SVGs in just this way:</p>
+          <figure>
+            <iframe src="/"></iframe>
+            <figcaption>Clicking anywhere deconstructs the logo to reveal the site content. Clicking the tiny logo at the bottom reconstructs the animation.</figcaption>
+          </figure>
+          <p>Now, before we get too far into this tutorial, let it be noted that <i>most</i> SVG animation can be achieved with pure CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform" target="_blank">transforms</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition" target="_blank">transitions</a>, and this is how it should be. Animation is inherently describing how the a page should look at different points in time, so, if at all possible, we should use CSS. This includes translation, scaling, skewing, rotation and perspective.</p>
+          <p>It's a pretty comprehensive list! However, this approach has two drawbacks:</p>
+          <ul>
+            <li>You cannot fundamentally alter or morph the shapes into something else</li>
+            <li>You must know how to achieve your desired effect by applying the functions listed above</li>
+          </ul>
+          <p>Instead, wouldn't it be nice to be able to:</p>
+          <ol>
+            <li>Open your favorite SVG editor and make an image,</li>
+            <li>Manipulate the image inside the SVG editor to build "key frames",</li>
+            <li>Allow the code to interpolate the difference between the key frames to achieve a smooth animation?</li>
+          </ol>
+          <figure id="animation1"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -208,15 +215,15 @@
         </g>
     </g>
 </svg>
-          <figcaption>Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.</figcaption>
-        </figure>
-        <h2>TL;DR</h2>
-        <p>If you'd rather dig into the completed examples than read through the tutorial, you can download the <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample.zip" target="_blank">sample.zip</a> and view live versions of <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/morph" target="_blank">morph</a> and <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/rotate-morph" target="_blank">rotate-morph</a>.</p>
-        <h2>Preparing the SVG</h2>
-        <p>The animated emoji is achieved using three states (the key frames) loaded into the same SVG. To get started, <a href="/images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg" target="_blank">download the emoji SVG</a> and include it inline with the rest of the HTML.</p>
-        <p>If you're using a templating language, you can include/import the SVG file directly. For a real project, this is <i>highly recommended</i> so you don't have a massive SVG cluttering up your HTML.</p>
-        <p>If you're not using a templating language, simply copy and paste the contents of the SVG into your HTML. You can omit <code>&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;</code> but it won't harm anything if it is included in the HTML.</p>
-        <pre><code class="html">&lt;html&gt;
+            <figcaption>Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.</figcaption>
+          </figure>
+          <h2>TL;DR</h2>
+          <p>If you'd rather dig into the completed examples than read through the tutorial, you can download the <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample.zip" target="_blank">sample.zip</a> and view live versions of <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/morph" target="_blank">morph</a> and <a href="/articles/animating-svg-path-data-metamorpher-velocityjs/sample/rotate-morph" target="_blank">rotate-morph</a>.</p>
+          <h2>Preparing the SVG</h2>
+          <p>The animated emoji is achieved using three states (the key frames) loaded into the same SVG. To get started, <a href="/images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg" target="_blank">download the emoji SVG</a> and include it inline with the rest of the HTML.</p>
+          <p>If you're using a templating language, you can include/import the SVG file directly. For a real project, this is <i>highly recommended</i> so you don't have a massive SVG cluttering up your HTML.</p>
+          <p>If you're not using a templating language, simply copy and paste the contents of the SVG into your HTML. You can omit <code>&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;</code> but it won't harm anything if it is included in the HTML.</p>
+          <pre><code class="html">&lt;html&gt;
 	&lt;body&gt;
 		&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; style=&quot;isolation:isolate&quot; viewBox=&quot;0 0 145 130&quot; width=&quot;145&quot; height=&quot;130&quot;&gt;
 			&lt;defs&gt;
@@ -231,8 +238,8 @@
 	&lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-        <p>At first, the image will show all three emotions at once.</p>
-        <figure><?xml version="1.0" standalone="no"?>
+          <p>At first, the image will show all three emotions at once.</p>
+          <figure><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -388,10 +395,10 @@
         </g>
     </g>
 </svg>
-          <figcaption>Each emotion is represented by a group of paths within the same SVG image.</figcaption>
-        </figure>
-        <p>For ease of reference, each key frame is surrounded in a group tag and given a class name for the emotion. For more complex animations, these class names would be more like <code>keyframe-1</code> or, even better, data attributes. IDs should be avoided here, as they can have some weird side effects if the SVG is included multiple times on a page.</p>
-        <pre><code class="html">&lt;svg&gt;
+            <figcaption>Each emotion is represented by a group of paths within the same SVG image.</figcaption>
+          </figure>
+          <p>For ease of reference, each key frame is surrounded in a group tag and given a class name for the emotion. For more complex animations, these class names would be more like <code>keyframe-1</code> or, even better, data attributes. IDs should be avoided here, as they can have some weird side effects if the SVG is included multiple times on a page.</p>
+          <pre><code class="html">&lt;svg&gt;
 	&lt;g class=&quot;bored&quot;&gt;
 		&lt;path d=&quot;...&quot; /&gt;
 		&lt;path d=&quot;...&quot; /&gt;
@@ -406,13 +413,13 @@
 	&lt;/g&gt;
 &lt;/svg&gt;
 </code></pre>
-        <p>Since we only want to display the first key frame before the animation begins, the other key frames are hidden with simple CSS. In fact, the hidden groups will <i>never</i> be displayed! Rather, their path coordinates will be copied over to the first key frame's paths at the appropriate time.</p>
-        <pre><code class="css">.happy, .silly {
+          <p>Since we only want to display the first key frame before the animation begins, the other key frames are hidden with simple CSS. In fact, the hidden groups will <i>never</i> be displayed! Rather, their path coordinates will be copied over to the first key frame's paths at the appropriate time.</p>
+          <pre><code class="css">.happy, .silly {
 	display: none;
 }
 </code></pre>
-        <p>Before we add any JavaScript, this results in a simple bored emoji.</p>
-        <figure id="bored"><?xml version="1.0" standalone="no"?>
+          <p>Before we add any JavaScript, this results in a simple bored emoji.</p>
+          <figure id="bored"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -568,26 +575,26 @@
         </g>
     </g>
 </svg>
-        </figure>
-        <h2>Transforming the Image</h2>
-        <p>Before animating the image we should introduce <a href="https://github.com/jsneden/metamorpher" target="_blank">Metamorpher</a> and understand how it will morph one key frame into the next. To do this we'll setup a small test which will illustrate the <a href="https://github.com/jsneden/metamorpher#pathtransformpath" target="_blank">transform</a>, <a href="https://github.com/jsneden/metamorpher#pathinterpolatestartpath-endpath-progress" target="_blank">interpolate</a> and <a href="https://github.com/jsneden/metamorpher#pathpaint" target="_blank">paint</a> methods.</p>
-        <blockquote>Note: all of the examples in this article use ES6 syntax to be forward looking but each can easily accomplished using ES5 syntax (classic JavaScript).</blockquote>
-        <h3>Metamorpher Installation</h3>
-        <p>The best way to install Metamorpher is to use the yarn (or npm) package manager.</p>
-        <pre><code>yarn add metamorpher</code></pre>
-        <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/jsneden/metamorpher/master/metamorpher.js" target="_blank">compiled source</a>.</p>
-        <p>After obtaining the package, include the script in your project. Note that Metamorpher exposes several utilities for working with SVG paths, but we'll only need the <code>Path</code> class, so we'll pull that class out.</p>
-        <figure>
-          <pre><code class="html">&lt;script src=&quot;./metamorpher.js&quot;&gt;&lt;/script&gt;
+          </figure>
+          <h2>Transforming the Image</h2>
+          <p>Before animating the image we should introduce <a href="https://github.com/jsneden/metamorpher" target="_blank">Metamorpher</a> and understand how it will morph one key frame into the next. To do this we'll setup a small test which will illustrate the <a href="https://github.com/jsneden/metamorpher#pathtransformpath" target="_blank">transform</a>, <a href="https://github.com/jsneden/metamorpher#pathinterpolatestartpath-endpath-progress" target="_blank">interpolate</a> and <a href="https://github.com/jsneden/metamorpher#pathpaint" target="_blank">paint</a> methods.</p>
+          <blockquote>Note: all of the examples in this article use ES6 syntax to be forward looking but each can easily accomplished using ES5 syntax (classic JavaScript).</blockquote>
+          <h3>Metamorpher Installation</h3>
+          <p>The best way to install Metamorpher is to use the yarn (or npm) package manager.</p>
+          <pre><code>yarn add metamorpher</code></pre>
+          <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/jsneden/metamorpher/master/metamorpher.js" target="_blank">compiled source</a>.</p>
+          <p>After obtaining the package, include the script in your project. Note that Metamorpher exposes several utilities for working with SVG paths, but we'll only need the <code>Path</code> class, so we'll pull that class out.</p>
+          <figure>
+            <pre><code class="html">&lt;script src=&quot;./metamorpher.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 	let Path = metamorpher.Path;
 &lt;/script&gt;</code></pre>
-          <figcaption>AMD, CommonJS and ES6 import methods are all supported in addition to a simple global include.</figcaption>
-        </figure>
-        <h3>Managing Path Data With Metamorpher</h3>
-        <p>To allow Metamorpher to transform SVG path data, we can simply pass the path DOM element into the <code>new Path(element)</code> constructor. However, each emotion key frame contains multiple paths to transform, so create the following convenience function, <code>getFramePaths</code>, to return an array of <code>Path</code> elements for each key frame by css selector.</p>
-        <blockquote>To ensure that this function is able to find the paths in the DOM, make sure you add the JS code at the end of your document or otherwise wait for the document to be ready.</blockquote>
-        <pre><code class="js">let getFramePaths = (selector) =&gt; {
+            <figcaption>AMD, CommonJS and ES6 import methods are all supported in addition to a simple global include.</figcaption>
+          </figure>
+          <h3>Managing Path Data With Metamorpher</h3>
+          <p>To allow Metamorpher to transform SVG path data, we can simply pass the path DOM element into the <code>new Path(element)</code> constructor. However, each emotion key frame contains multiple paths to transform, so create the following convenience function, <code>getFramePaths</code>, to return an array of <code>Path</code> elements for each key frame by css selector.</p>
+          <blockquote>To ensure that this function is able to find the paths in the DOM, make sure you add the JS code at the end of your document or otherwise wait for the document to be ready.</blockquote>
+          <pre><code class="js">let getFramePaths = (selector) =&gt; {
 	let group = document.querySelector(selector);
 	let domPaths = group.querySelectorAll('path');
 	return Array.from(domPaths).map(path =&gt; {
@@ -595,9 +602,9 @@
 	});
 };
 </code></pre>
-        <h3>Interpolating between two images</h3>
-        <p>To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames.</p>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+          <h3>Interpolating between two images</h3>
+          <p>To demonstrate interpolation, we're going to modify the image to be half-way between the bored and happy key frames.</p>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
 
@@ -609,9 +616,9 @@ initialPaths.forEach((path, index) =&gt; {
 	).paint();
 });
 </code></pre>
-        <p>The <code>interpolate</code> method takes three arguments: the start path and end path for interpolation and a decimal between 0 and 1 representing a percentage of interpolation between the two paths. Note that the the DOM isn't actually updated until the <code>paint</code> method is called, allowing multiple transformations to be applied before updating the DOM. </p>
-        <p>The resulting image is a <i>slightly</i> excited emoji.</p>
-        <figure id="interpolation1"><?xml version="1.0" standalone="no"?>
+          <p>The <code>interpolate</code> method takes three arguments: the start path and end path for interpolation and a decimal between 0 and 1 representing a percentage of interpolation between the two paths. Note that the the DOM isn't actually updated until the <code>paint</code> method is called, allowing multiple transformations to be applied before updating the DOM. </p>
+          <p>The resulting image is a <i>slightly</i> excited emoji.</p>
+          <figure id="interpolation1"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -767,9 +774,9 @@ initialPaths.forEach((path, index) =&gt; {
         </g>
     </g>
 </svg>
-        </figure>
-        <p>Try playing with different values for the interpolation amount decimal (0.5) to test the different effects of interpolation.</p>
-        <figure id="interpolation2"><?xml version="1.0" standalone="no"?>
+          </figure>
+          <p>Try playing with different values for the interpolation amount decimal (0.5) to test the different effects of interpolation.</p>
+          <figure id="interpolation2"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -925,31 +932,31 @@ initialPaths.forEach((path, index) =&gt; {
         </g>
     </g>
 </svg>
-          <figcaption>Interpolation value of 2... as in 200% of the way between bored and happy.</figcaption>
-        </figure>
-        <p>Not exactly an obvious use of interpolation (since the value should be between 0 and 1) but useful for some animation easings such as <a href="http://easings.net/#easeInOutBack" target="_blank">easeInOutBack</a>.</p>
-        <h2>Animating the Image</h2>
-        <p>Believe it or not, the hard part is already done! We could get a pretty crude animation by setting progressively higher interpolation values on a delay. However, introducing an animation library will give us the following niceties:</p>
-        <ul>
-          <li>Better timing control</li>
-          <li>Easings to make the start and stop look more natural</li>
-          <li>The ability to mix CSS animation with Metamorpher path transformations</li>
-          <li>Cleaner code</li>
-        </ul>
-        <p>There are a few packages out there, but I prefer <a href="http://velocityjs.org/" target="_blank">VelocityJS</a> for the performance and non-reliance on other packages. </p>
-        <h3>VelocityJS Installation</h3>
-        <p>The best way to install VelocityJS is to use the yarn (or npm) package manager.</p>
-        <pre><code>yarn add velocity-animate@1.5.1</code></pre>
-        <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/julianshapiro/velocity/v1/velocity.js" target="_blank">compiled source</a>.</p>
-        <p>After obtaining the package, include the script in your project.</p>
-        <figure>
-          <pre><code class="html">&lt;script src=&quot;./velocity.js&quot;&gt;&lt;/script&gt;
+            <figcaption>Interpolation value of 2... as in 200% of the way between bored and happy.</figcaption>
+          </figure>
+          <p>Not exactly an obvious use of interpolation (since the value should be between 0 and 1) but useful for some animation easings such as <a href="http://easings.net/#easeInOutBack" target="_blank">easeInOutBack</a>.</p>
+          <h2>Animating the Image</h2>
+          <p>Believe it or not, the hard part is already done! We could get a pretty crude animation by setting progressively higher interpolation values on a delay. However, introducing an animation library will give us the following niceties:</p>
+          <ul>
+            <li>Better timing control</li>
+            <li>Easings to make the start and stop look more natural</li>
+            <li>The ability to mix CSS animation with Metamorpher path transformations</li>
+            <li>Cleaner code</li>
+          </ul>
+          <p>There are a few packages out there, but I prefer <a href="http://velocityjs.org/" target="_blank">VelocityJS</a> for the performance and non-reliance on other packages. </p>
+          <h3>VelocityJS Installation</h3>
+          <p>The best way to install VelocityJS is to use the yarn (or npm) package manager.</p>
+          <pre><code>yarn add velocity-animate@1.5.1</code></pre>
+          <p>If not using a package manager, download the <a href="https://raw.githubusercontent.com/julianshapiro/velocity/v1/velocity.js" target="_blank">compiled source</a>.</p>
+          <p>After obtaining the package, include the script in your project.</p>
+          <figure>
+            <pre><code class="html">&lt;script src=&quot;./velocity.js&quot;&gt;&lt;/script&gt;
 </code></pre>
-          <figcaption>AMD, CommonJS and ES6 import methods are all supported in addition to a simple global include.</figcaption>
-        </figure>
-        <h3>First Animation</h3>
-        <p>To pull off the animation, we're only going to use a small piece of VelocityJS - it's timing and <a href="https://en.wikipedia.org/wiki/Inbetweening" target="_blank">tweening</a>. To do this, we need to define a <code>progress</code> function which will instruct VelocityJS on how the image should look at each point during the animation. The <code>progress</code> function takes 5 arguments, but we're only concerned with the last one, <code>tween</code>.</p>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+            <figcaption>AMD, CommonJS and ES6 import methods are all supported in addition to a simple global include.</figcaption>
+          </figure>
+          <h3>First Animation</h3>
+          <p>To pull off the animation, we're only going to use a small piece of VelocityJS - it's timing and <a href="https://en.wikipedia.org/wiki/Inbetweening" target="_blank">tweening</a>. To do this, we need to define a <code>progress</code> function which will instruct VelocityJS on how the image should look at each point during the animation. The <code>progress</code> function takes 5 arguments, but we're only concerned with the last one, <code>tween</code>.</p>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
 
@@ -963,10 +970,10 @@ let progress = (e, c, r, s, tween) =&gt; {
 	});
 }
 </code></pre>
-        <p>To begin the animation, we'll initialize Velocity through its main function. The first argument, <code>element</code>, is the element being animated by Velocity. We're actually not having Velocity perform any transformations - Metamorpher will perform that task for us. So for now, you can just pass in the body element.</p>
-        <p>The second argument, <code>properties</code>, normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and&nbsp;1.</p>
-        <p>The last argument, <code>options</code>, is where we'll specify the animation timing, easing and, most importantly, the progress function to invoke the Metamorpher transformations. </p>
-        <pre><code class="js">let element = document.querySelector('body');
+          <p>To begin the animation, we'll initialize Velocity through its main function. The first argument, <code>element</code>, is the element being animated by Velocity. We're actually not having Velocity perform any transformations - Metamorpher will perform that task for us. So for now, you can just pass in the body element.</p>
+          <p>The second argument, <code>properties</code>, normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and&nbsp;1.</p>
+          <p>The last argument, <code>options</code>, is where we'll specify the animation timing, easing and, most importantly, the progress function to invoke the Metamorpher transformations. </p>
+          <pre><code class="js">let element = document.querySelector('body');
 let properties = { tween: 1 };
 let options = {
 	duration: 600,
@@ -976,8 +983,8 @@ let options = {
 
 return Velocity(element, properties, options);
 </code></pre>
-        <p>To pull the animation together, we need to attach it to an event. To do that, surrond the last two code snippets in a function (leave <code>initialPaths</code> out of the function) and attach it to the click event on the <code>face</code> class.</p>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+          <p>To pull the animation together, we need to attach it to an event. To do that, surrond the last two code snippets in a function (leave <code>initialPaths</code> out of the function) and attach it to the click event on the <code>face</code> class.</p>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
 	
@@ -1007,12 +1014,12 @@ let animate = () =&gt; {
 document.querySelector('.face')
 	.addEventListener('click', animate);
 </code></pre>
-        <p>Additionally, you'll want the cursor to change to a pointer when the user hovers over the face to indicate an action.</p>
-        <pre><code class="css">svg, .face:hover {
+          <p>Additionally, you'll want the cursor to change to a pointer when the user hovers over the face to indicate an action.</p>
+          <pre><code class="css">svg, .face:hover {
 	cursor: pointer;
 }
 </code></pre>
-        <figure id="single-animation"><?xml version="1.0" standalone="no"?>
+          <figure id="single-animation"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -1168,18 +1175,18 @@ document.querySelector('.face')
         </g>
     </g>
 </svg>
-          <figcaption>Clicking the face animates the emoji from bored to happy. </figcaption>
-        </figure>
-        <h3>Looping the Animation Between Three Key Frames</h3>
-        <p>To complete the animation, we need to loop the animation between each key frame. First, define the following <i>before</i> the animate function:</p>
-        <ul>
-          <li>The initial paths,</li>
-          <li>A key frame paths array,</li>
-          <li>A current frame tracker,</li>
-          <li>An animating boolean and</li>
-          <li>A variable to hold a reference to a <code>setTimeout</code>.</li>
-        </ul>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+            <figcaption>Clicking the face animates the emoji from bored to happy. </figcaption>
+          </figure>
+          <h3>Looping the Animation Between Three Key Frames</h3>
+          <p>To complete the animation, we need to loop the animation between each key frame. First, define the following <i>before</i> the animate function:</p>
+          <ul>
+            <li>The initial paths,</li>
+            <li>A key frame paths array,</li>
+            <li>A current frame tracker,</li>
+            <li>An animating boolean and</li>
+            <li>A variable to hold a reference to a <code>setTimeout</code>.</li>
+          </ul>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let keyFramePaths = [
 	getFramePaths('.bored'),
 	getFramePaths('.happy'),
@@ -1191,13 +1198,13 @@ let animationTimeout;
 
 let animate = () =&gt; {
 	...</code></pre>
-        <p>Next, modify the animate function to:</p>
-        <ul>
-          <li>Determine the startPaths and endPaths based on <code>currentFrame</code> and <code>keyFramePaths</code>.</li>
-          <li>Increment the currentFrame with each function call.</li>
-          <li>After the animation completes, call the animate function again after a short delay if the <code>animating</code> boolean is still set. This is easy to do since Velocity returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">promise</a> which resolves when the animation completes.</li>
-        </ul>
-        <pre><code class="js">let animate = () =&gt; {
+          <p>Next, modify the animate function to:</p>
+          <ul>
+            <li>Determine the startPaths and endPaths based on <code>currentFrame</code> and <code>keyFramePaths</code>.</li>
+            <li>Increment the currentFrame with each function call.</li>
+            <li>After the animation completes, call the animate function again after a short delay if the <code>animating</code> boolean is still set. This is easy to do since Velocity returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">promise</a> which resolves when the animation completes.</li>
+          </ul>
+          <pre><code class="js">let animate = () =&gt; {
 	let startPaths = keyFramePaths[currentFrame % keyFramePaths.length];
 	let endPaths = keyFramePaths[(currentFrame + 1) % keyFramePaths.length];
 	currentFrame++;
@@ -1223,8 +1230,8 @@ let animate = () =&gt; {
 	});
 };
 </code></pre>
-        <p>Lastly, pull it all together by introducing a function to toggle the animation on or off and update the click handler to use the toggle function.</p>
-        <pre><code class="js">let toggleAnimation = (method) =&gt; {
+          <p>Lastly, pull it all together by introducing a function to toggle the animation on or off and update the click handler to use the toggle function.</p>
+          <pre><code class="js">let toggleAnimation = (method) =&gt; {
 	animating = !animating;
 	if (animating) {
 		animate();
@@ -1237,7 +1244,7 @@ let animate = () =&gt; {
 document.querySelector('.face')
 	.addEventListener('click', toggleAnimation);
 </code></pre>
-        <figure id="animation-looped"><?xml version="1.0" standalone="no"?>
+          <figure id="animation-looped"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -1393,16 +1400,16 @@ document.querySelector('.face')
         </g>
     </g>
 </svg>
-          <figcaption>Clicking the face loops the emoji between bored, happy and silly. Clicking again stops the animation.</figcaption>
-        </figure>
-        <h2>Common Issues</h2>
-        <h3>Rotation</h3>
-        <p>This article describes how to achieve technique of <i>linear</i> interpolation using key frames. While this is an effective approach for many transformations, it doesn't work as may be expected for rotated images. This is because linear interpolation will cause each point to take the shortest path from start to finish. To demonstrate this, let's take our emoji friend for a quick spin when he smiles.</p>
-        <p><i>Note: the rotation examples make use of the <code>Point</code> class from Metamorpher to specify the rotation anchor. So if you're following along, you'll need to save that class from the package as well.</i></p>
-        <pre><code class="js">let Point = metamorpher.Point;
+            <figcaption>Clicking the face loops the emoji between bored, happy and silly. Clicking again stops the animation.</figcaption>
+          </figure>
+          <h2>Common Issues</h2>
+          <h3>Rotation</h3>
+          <p>This article describes how to achieve technique of <i>linear</i> interpolation using key frames. While this is an effective approach for many transformations, it doesn't work as may be expected for rotated images. This is because linear interpolation will cause each point to take the shortest path from start to finish. To demonstrate this, let's take our emoji friend for a quick spin when he smiles.</p>
+          <p><i>Note: the rotation examples make use of the <code>Point</code> class from Metamorpher to specify the rotation anchor. So if you're following along, you'll need to save that class from the package as well.</i></p>
+          <pre><code class="js">let Point = metamorpher.Point;
 </code></pre>
-        <p>Using the Metamorpher <i>rotate</i> method, we can turn the <code>endPaths</code> 270 degrees clockwise and try the interpolation again.</p>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+          <p>Using the Metamorpher <i>rotate</i> method, we can turn the <code>endPaths</code> 270 degrees clockwise and try the interpolation again.</p>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let midPoint = new Point(72.5, 65);
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy').map(path =&gt; {
@@ -1431,7 +1438,7 @@ let animate = () =&gt; {
 	return Velocity(element, properties, options);
 };
 </code></pre>
-        <figure id="naive-rotation"><?xml version="1.0" standalone="no"?>
+          <figure id="naive-rotation"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -1587,11 +1594,11 @@ let animate = () =&gt; {
         </g>
     </g>
 </svg>
-          <figcaption>Clicking the image shows why linear interpolation doesn't work for rotation.</figcaption>
-        </figure>
-        <p>In the above demonstration, the face ends up in the correct position, but it got there by rotating 90 degrees counter-clockwise and shrinking slightly along the way. This happened because that's the shortest linear path for rotating 270 degrees clockwise.</p>
-        <p>To rotate properly, we simply can't use linear interpolation. Instead, we must manually figure out the proper rotation to apply on top of the normal interpolation from bored to happy.</p>
-        <pre><code class="js">let initialPaths = getFramePaths('.bored');
+            <figcaption>Clicking the image shows why linear interpolation doesn't work for rotation.</figcaption>
+          </figure>
+          <p>In the above demonstration, the face ends up in the correct position, but it got there by rotating 90 degrees counter-clockwise and shrinking slightly along the way. This happened because that's the shortest linear path for rotating 270 degrees clockwise.</p>
+          <p>To rotate properly, we simply can't use linear interpolation. Instead, we must manually figure out the proper rotation to apply on top of the normal interpolation from bored to happy.</p>
+          <pre><code class="js">let initialPaths = getFramePaths('.bored');
 let midPoint = new Point(72.5, 65);
 let startPaths = getFramePaths('.bored');
 let endPaths = getFramePaths('.happy');
@@ -1621,7 +1628,7 @@ let animate = () =&gt; {
 	return Velocity(element, properties, options);
 };
 </code></pre>
-        <figure id="smart-rotation"><?xml version="1.0" standalone="no"?>
+          <figure id="smart-rotation"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 145 130" width="145" height="130" class="emoji">
     <defs>
         <clipPath id="_clipPath_AMJp5PVwh3ISv8zxhQr8vai49I6bCSk0">
@@ -1777,23 +1784,19 @@ let animate = () =&gt; {
         </g>
     </g>
 </svg>
-          <figcaption>Clicking the image shows how to properly combine rotation with linear interpolation.</figcaption>
-        </figure>
-        <h3>Only Paths</h3>
-        <p>It's important to note that SVGs are usually made up of more than just <code>&lt;path&gt;</code> elements - <code>&lt;circle&gt;</code>, <code>&lt;line&gt;</code> and <code>&lt;rect&gt;</code> are common among many more shapes. Metamorpher, however, only supports transformation of <code>&lt;path&gt;</code>s. Fortunately, every vector image program can easily convert shapes and text into paths.</p>
-        <h3>Re-using SVGs on a Page</h3>
-        <p>If you've included the same SVG multiple times on a page and you're updating the path data, you may notice some browsers update <i>each instance</i> of the SVG path data in the rendering, even though you explicitly only updated a single instance. What's happening here is that the browser is internally relying on the uniqueness of the ID attributes in the SVG. This can be fixed with the <a href="https://github.com/jsneden/svg-ids" target="_blank">SVG IDs package</a>.</p>
-        <h2>Final Thoughts</h2>
-        <p>Hopefully this tutorial not only taught you something, but got you thinking about what you can create with this technique. The basics of key frame animation with interpolation and rotation allow you to create professional animations with relatively few hours of work. I'm interested to see what you do with the technique - let me know in the comments section or drop me a line at <a href="mailto:jeff@agencyautonomous.com">jeff@agencyautonomous.com</a>.</p>
-        <h2>Comments</h2>
-        <div id="disqus_thread"></div>
+            <figcaption>Clicking the image shows how to properly combine rotation with linear interpolation.</figcaption>
+          </figure>
+          <h3>Only Paths</h3>
+          <p>It's important to note that SVGs are usually made up of more than just <code>&lt;path&gt;</code> elements - <code>&lt;circle&gt;</code>, <code>&lt;line&gt;</code> and <code>&lt;rect&gt;</code> are common among many more shapes. Metamorpher, however, only supports transformation of <code>&lt;path&gt;</code>s. Fortunately, every vector image program can easily convert shapes and text into paths.</p>
+          <h3>Re-using SVGs on a Page</h3>
+          <p>If you've included the same SVG multiple times on a page and you're updating the path data, you may notice some browsers update <i>each instance</i> of the SVG path data in the rendering, even though you explicitly only updated a single instance. What's happening here is that the browser is internally relying on the uniqueness of the ID attributes in the SVG. This can be fixed with the <a href="https://github.com/jsneden/svg-ids" target="_blank">SVG IDs package</a>.</p>
+          <h2>Final Thoughts</h2>
+          <p>Hopefully this tutorial not only taught you something, but got you thinking about what you can create with this technique. The basics of key frame animation with interpolation and rotation allow you to create professional animations with relatively few hours of work. I'm interested to see what you do with the technique - let me know in the comments section or drop me a line at <a href="mailto:jeff@agencyautonomous.com">jeff@agencyautonomous.com</a>.</p>
+          <h2>Comments</h2>
+          <div id="disqus_thread"></div>
+        </div>
       </div>
     </div>
-    <header><a href="/company" data-navigo="data-navigo">Company</a><a href="/articles" data-navigo="data-navigo">Articles</a><a href="/open-source" data-navigo="data-navigo">Open&nbsp;Source</a><a href="/services" data-navigo="data-navigo">Services</a>
-      <svg class="active-tracker" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 2">
-        <path class="active-indicator" d="M 50 0 L 50 0 L 50 2 L 50 0 L 50 0 Z"></path>
-      </svg>
-    </header>
     <footer><a href="/" data-navigo="data-navigo"><?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="-5 -5 290 480" width="290" height="480">
 	<defs>

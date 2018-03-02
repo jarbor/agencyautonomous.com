@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "contents": "^4.0.2",
     "element-coordinates": "^1.0.4",
     "highlight.js": "^9.12.0",
     "metamorpher": "^2.0.0",

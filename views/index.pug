@@ -6,6 +6,8 @@ html
 		link(href="/css/index.css", rel="stylesheet")
 		script(src="/es5/index.js", async)
 	body
+		include ./header.pug
+		
 		.body
 			.content
 				a.focus(href='javascript:void(0);', tabindex='-1') &nbsp;
@@ -14,9 +16,8 @@ html
 				include ./open-source.pug
 				include ./services.pug
 
+		include ./footer.pug
+
 		.cover 
 			a(href='/company', data-navigo)
 				include ../images/logos/logo-animate.svg
-
-		include ./header.pug
-		include ./footer.pug

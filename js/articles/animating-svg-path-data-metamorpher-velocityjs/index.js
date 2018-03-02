@@ -1,13 +1,17 @@
 import SvgIds from 'svg-ids';
 import Animation from './animation';
+import SideNav from '../../side-nav';
 import highlight from '../../highlight';
 import analytics from '../../analytics';
 import disqus from '../../disqus';
 
+// Track the page view
 analytics('send', 'pageview');
 
+// Deduplicate internal SVG IDs 
 new SvgIds().makeUnique();
 
+// Load the animations and attach event listeners
 let animation1 = new Animation('#animation1');
 document.querySelector('#animation1 .face').addEventListener('click', animation1.toggleAnimation.bind(animation1));
 
@@ -33,3 +37,6 @@ document.querySelector('#smart-rotation .face').addEventListener('click', smartR
 
 // Put focus in the inner div so ensure keyboard scrolling works
 document.querySelector('.focus').focus();
+
+// Initialize the side navigation
+let sideNav = new SideNav();

@@ -1,4 +1,5 @@
 @import "globals";
+@import "side-nav";
 @import "monokai";
 
 .byline {
@@ -13,5 +14,12 @@
 
 	p:nth-child(2) {
 		float: right;
+	}
+}
+
+h1, h2, h3, h4 {
+	a {
+		color: $primary-color;
+		text-decoration: none;
 	}
 }

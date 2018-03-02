@@ -1,6 +1,18 @@
 @import "globals";
 
-$frame-height: 83px;
+:root {
+	--frame-height: 83px;
+}
+@media (max-width: $break-mobile) {
+	:root {
+		--frame-height: 45px;
+	}
+}
+@media (max-height: $break-iframe-height) {
+	:root {
+		--frame-height: 20px;
+	}
+}
 
 body {
 	background-color: $primary-color;
@@ -8,6 +20,7 @@ body {
 
 .cover {
 	position: absolute;
+	top: 0;
 	width: 100%;
 	height: 100vh;
 	float: left;
@@ -30,12 +43,9 @@ body {
 }
 
 .body {
-	position: absolute;
-	top: $frame-height;
 	box-sizing: border-box;
 	width: 100%;
-	height: calc(100vh - #{2 * $frame-height});
-	padding: 2rem;
+	height: calc(100vh - 2 * var(--frame-height));
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-color: #FFF;
@@ -43,7 +53,7 @@ body {
 }
 
 .content {
-	max-width: 35rem;
+	max-width: $content-width;
 	margin-left: auto;
 	margin-right: auto;
 	opacity: 0;
@@ -53,10 +63,9 @@ body {
 	// For testing:
 	// background-color: blue;
 
-	position: absolute;
 	overflow: hidden;
 	box-sizing: border-box;
-	height: $frame-height;
+	height: var(--frame-height);
 	color: #FFF;
 	opacity: 0;
 	width: 100%;
@@ -151,14 +160,7 @@ figcaption {
 }
 
 @media (max-width: $break-mobile) {
-
-	$header-height: 45px;
-	$footer-height: 45px;
-	// $mobile-bottom-padding: 40px;
-
 	.body {
-		height: calc(100vh - #{$header-height + $footer-height});
-		top: $header-height;
 		padding: 0 1rem 1rem 1rem;
 	}
 
@@ -167,18 +169,12 @@ figcaption {
 	}
 
 	header {
-		height: $header-height;
 		padding-top: 0.75rem;
 
 		a {
 			font-size: 14pt;
 			margin-left: 1rem;
 		}
-	}
-
-	footer {
-		height: $footer-height;
-		// padding-bottom: $mobile-bottom-padding;
 	}
 
 	.column {
@@ -192,29 +188,16 @@ figcaption {
 
 // Supporting really short viewport for the embedded iframe
 @media (max-height: $break-iframe-height) {
-	$header-height: 20px;
-	$footer-height: 20px;
-
 	.body {
 		padding: 0 1rem 1rem 1rem;
 	}
 
 	header {
-		height: $header-height;
 		padding-top: 0;
 
 		a {
 			font-size: 10pt;
 			margin-left: 1.5rem;
 		}
-	}
-
-	footer {
-		height: $footer-height;
-	}
-
-	.body {
-		height: calc(100vh - #{$header-height + $footer-height});
-		top: $header-height;
 	}
 }
