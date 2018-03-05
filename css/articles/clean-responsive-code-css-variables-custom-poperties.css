@@ -270,6 +270,15 @@ figcaption {
       margin-left: 1.5rem; } }
 :root {
   --side-size: 30rem; }
+  @media (max-width: 1100px) {
+    :root {
+      --side-size: 25%; } }
+  @media (max-width: 800px) {
+    :root {
+      --side-size: 25rem; } }
+  @media (max-width: 480px) {
+    :root {
+      --side-size: 80%; } }
 
 #side-nav-container {
   position: relative;
@@ -342,9 +351,6 @@ figcaption {
     top: calc(100vh - var(--frame-height));
     color: #FFF; }
 
-  :root {
-    --side-size: 25rem; }
-
   #side-nav-container .body {
     position: absolute;
     top: 0;
@@ -354,9 +360,6 @@ figcaption {
   .side-nav-hidden #side-nav-container .body {
     left: 0;
     width: 100%; } }
-@media (max-width: 480px) {
-  :root {
-    --side-size: 80%; } }
 /*
 Monokai style - ported by Luigi Maselli - http://grigio.org
 */
