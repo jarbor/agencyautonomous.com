@@ -42,7 +42,7 @@ html
 
 					figure#animation1
 						include ../../../images/articles/animating-svg-path-data-metamorpher-velocityjs/emoji.svg
-						figcaption Clicking the above image causes the emoji to oscilate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.
+						figcaption Clicking the above image causes the emoji to oscillate between bored, happy and silly. He should probably see a therapist. Clicking the image again will stop the animation.
 
 					h2 TL;DR
 					p If you'd rather dig into the completed examples than read through the tutorial, you can download the #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample.zip', target='_blank') sample.zip] and view live versions of #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample/morph', target='_blank') morph] and #[a(href='/articles/animating-svg-path-data-metamorpher-velocityjs/sample/rotate-morph', target='_blank') rotate-morph].
@@ -217,7 +217,7 @@ html
 						= "\n"
 						= "return Velocity(element, properties, options);\n"
 					
-					p To pull the animation together, we need to attach it to an event. To do that, surrond the last two code snippets in a function (leave #[code initialPaths] out of the function) and attach it to the click event on the #[code face] class.
+					p To pull the animation together, we need to attach it to an event. To do that, surround the last two code snippets in a function (leave #[code initialPaths] out of the function) and attach it to the click event on the #[code face] class.
 
 					pre: code(class='js')
 						= "let initialPaths = getFramePaths('.bored');\n"

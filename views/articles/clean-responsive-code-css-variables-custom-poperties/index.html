@@ -41,23 +41,23 @@
               <time datetime="2018-03-04 00:00">March 4, 2018</time>
             </p>
           </div>
-          <p>Way back in the late 2000's / early 2010's there was heated debate about <a href="https://en.wikipedia.org/wiki/Adaptive_web_design" target="_blank">Adaptive Web Design (AWD)</a> (serving up different versions of a page based on device) versus <a href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Responsive Web Design (RWD)</a> (serving a single page that can render appropriately for any device). The best arguments for AWD centered around performance for mobile devices and support from older borwsers. The best arguments for RWD centered around maintainability of code.</p>
+          <p>Way back in the late 2000's / early 2010's there was heated debate about <a href="https://en.wikipedia.org/wiki/Adaptive_web_design" target="_blank">Adaptive Web Design (AWD)</a> (serving up different versions of a page based on device) versus <a href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Responsive Web Design (RWD)</a> (serving a single page that can render appropriately for any device). The best arguments for AWD centered around performance for mobile devices and support from older browsers. The best arguments for RWD centered around maintainability of code.</p>
           <p>Today, that argument has mostly been settled as connection speeds have improved, older browsers have died out and the variety of combinations of devices and features has continued to expand. Developers and project sponsors alike prefer responsive design for it's ability to serve a wider range of devices at a cheaper cost. While many large sites still feature adaptive design over responsive design, that is simply a matter of product life cycle, in my experience. Every greenfield implementation I have worked on since 2012 has featured responsive design.</p>
           <h2>Traditional Responsive Code with Pre-processor Variables</h2>
           <p>From a development perspective, the responsive design revolution was aided by the prevalence of two technologies:</p>
           <ul>
-            <li><b>CSS3 Media Queries</b> for device viewport size and feature targeting (ex: touch devices)</li>
+            <li><b>CSS3 Media Queries</b> for device view port size and feature targeting (ex: touch devices)</li>
             <li><b>CSS Pre-processors</b> (Sass and LESS) for managing large CSS projects and, specifically, the introduction of variables into CSS</li>
           </ul>
           <p>These technologies allow a developer to specify <i>when</i> the CSS rules should change with media queries and <i>how</i> the rules should change (in a maintainable way) using pre-processor variables.</p>
-          <p>Consider the common responsive use case of displaying two elements side-by-side in larger viewports and stacking the same elements in smaller viewports.</p>
+          <p>Consider the common responsive use case of displaying two elements side-by-side in larger view ports and stacking the same elements in smaller view ports.</p>
           <figure class="side-by-side"><img src="/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-large.png"/>
-            <figcaption>Side-by-side for larger diplays such as laptops and tablets.</figcaption>
+            <figcaption>Side-by-side for larger displays such as laptops and tablets.</figcaption>
           </figure>
           <figure class="stacked"><img src="/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-small.png"/>
-            <figcaption>Stacked for smaller diplays such as phones.</figcaption>
+            <figcaption>Stacked for smaller displays such as phones.</figcaption>
           </figure>
-          <p>This type of flexible layout approach is extremely common in responsive sites and it can be achieved rather easily. For these examples, we'll be using the SCSS variant of Sass as our preprocessor.</p>
+          <p>This type of flexible layout approach is extremely common in responsive sites and it can be achieved rather easily. For these examples, we'll be using the SCSS variant of Sass as our pre-processor.</p>
           <pre><code type="html">&lt;body&gt;
 	&lt;h1&gt;Look At This Red Panda!&lt;/h1&gt;
 	&lt;img src=&quot;./panda.jpg&quot;&gt;
@@ -81,7 +81,7 @@ img {
 	padding: $cell-padding;
 }
 </code></pre>
-          <p> When the viewport is 480px or less, the width of the elements is <i>increased</i> from 50% to 100% and the padding is removed.</p>
+          <p> When the view port is 480px or less, the width of the elements is <i>increased</i> from 50% to 100% and the padding is removed.</p>
           <pre><code type="scss">@media (max-width: 480px) {
 	$cell-width: 100%;
 	$cell-padding: 0;
@@ -97,7 +97,7 @@ img {
 	}
 }
 </code></pre>
-          <p>While the previous example is perfectly functional, it contains something that will irritate the engineering purist in all of us and lead to code which is more difficult to maintain - boilerplate code. That is, code which is unnecessarily repeated. Closer inspection of the previous two blocks of SCSS code show the width and padding lines defining the <code>h1</code> and <code>img</code> in the mobile (&lt; 480px) block are completely repeated from the intitial description of those tags. </p>
+          <p>While the previous example is perfectly functional, it contains something that will irritate the engineering purist in all of us and lead to code which is more difficult to maintain - boilerplate code. That is, code which is unnecessarily repeated. Closer inspection of the previous two blocks of SCSS code show the width and padding lines defining the <code>h1</code> and <code>img</code> in the mobile (&lt; 480px) block are completely repeated from the initial description of those tags. </p>
           <pre><code type="scss">$cell-width: 50%;
 $cell-padding: 10px;
 
@@ -172,11 +172,11 @@ img {
             <li>Reduced from 31 lines to 23 lines overall</li>
             <li>Removed copied lines, leading to fewer bugs during maintenance</li>
             <li>More readable code since you can see how your variables change in different contexts all at once</li>
-            <li>No need for a preprocessor (this is minor since you'll still likely want a pre-processor for imports and other features)</li>
+            <li>No need for a pre-processor (this is minor since you'll still likely want a pre-processor for imports and other features)</li>
           </ul>
           <p>CSS Custom Properties still have one significant drawback...</p>
           <h2>Browser Support</h2>
-          <p>Or, how I learned to stop worrying an desupportted Internet Explorer 11. While this may not be an option for everyone, it's globabl usage is less than 3% at the time of this writing. Even some of the largest e-commerce clients I've worked with have de-supported all browsers with combined version usage of less than 5%. Think about it.</p>
+          <p>Or, how I learned to stop worrying an de-supportted Internet Explorer 11. While this may not be an option for everyone, it's global usage is less than 3% at the time of this writing. Even some of the largest e-commerce clients I've worked with have de-supported all browsers with combined version usage of less than 5%. Think about it.</p>
           <p>The only other "major" browser which doesn't fully support CSS variables is Opera Mini. Opera Mini's usage is also less than 3% globally and the predominant share of that usage comes from markets in Africa and Asia, due to it's built-in data compression.</p>
           <p>The invaluable site, Can I Use, shows every other tracked browser <a href="https://caniuse.com/#feat=css-variables" target="_blank">supporting CSS custom properties</a> (even Edge!)</p>
           <h2>Wrap</h2>
