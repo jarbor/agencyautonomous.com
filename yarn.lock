@@ -3004,6 +3004,10 @@ unicode-property-aliases-ecmascript@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.0.3.tgz#ac3522583b9e630580f916635333e00c5ead690d"
 
+unorphan@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/unorphan/-/unorphan-1.2.1.tgz#9c3317c1506c62c63466b8f4d6380023328da4ac"
+
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"

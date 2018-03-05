@@ -14,7 +14,7 @@ html
 				.content
 					a.focus(href='javascript:void(0);', tabindex='-1') &nbsp;
 
-					h1 Animating SVGs with Metamorpher and&nbsp;VelocityJS
+					h1 Animating SVGs with Metamorpher and VelocityJS
 					.byline
 						p By Jeff Sneden
 						p #[time(datetime="2018-02-28 00:00") February 28, 2018]
@@ -204,7 +204,7 @@ html
 						= "}\n"
 
 					p To begin the animation, we'll initialize Velocity through its main function. The first argument, #[code element], is the element being animated by Velocity. We're actually not having Velocity perform any transformations - Metamorpher will perform that task for us. So for now, you can just pass in the body element.
-					p The second argument, #[code properties], normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and&nbsp;1.
+					p The second argument, #[code properties], normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and 1.
 					p The last argument, #[code options], is where we'll specify the animation timing, easing and, most importantly, the progress function to invoke the Metamorpher transformations. 
 					pre: code(class='js')
 						= "let element = document.querySelector('body');\n"

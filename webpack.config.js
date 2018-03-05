@@ -6,7 +6,7 @@ module.exports = {
 		'index': './js/index.js',
 		'index.min': './js/index.js',
 		'animating-svg-path-data-metamorpher-velocityjs': './js/articles/animating-svg-path-data-metamorpher-velocityjs/index.js',
-		'css-custom-properties-cleaner-responsive-design-code': './js/articles/css-custom-properties-cleaner-responsive-design-code.js'
+		'clean-responsive-code-css-variables-custom-poperties': './js/articles/clean-responsive-code-css-variables-custom-poperties.js'
 	},
 	output: {
 		filename: '[name].js',

@@ -9,6 +9,7 @@ import promiseFont from 'promise-font';
 import Velocity from 'velocity-animate';
 import Navigo from 'navigo';
 import analytics from './analytics';
+import unorphan from 'unorphan';
 
 let $ = document.querySelector.bind(document);
 let $$ = el => Array.from(document.querySelectorAll(el));
@@ -213,6 +214,9 @@ let activeTrackerSvg = new SvgViewboxMaximize({
 
 // Resize the active indicator after the font completes loading
 promiseFont('Archivo Narrow').then(() => resizeActiveIndicator(activeTrackerSvg));
+
+// Ensure no orphan words in the copy
+unorphan(document.querySelectorAll('h1, h2, h3, p, figcaption, blockquote'));
 
 const TITLE_SUFFIX = 'Agency Autonomous';
 

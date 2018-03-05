@@ -34,7 +34,7 @@
       <div id="side-nav"></div>
       <div class="body">
         <div class="content"><a class="focus" href="javascript:void(0);" tabindex="-1">&nbsp;</a>
-          <h1>Animating SVGs with Metamorpher and&nbsp;VelocityJS</h1>
+          <h1>Animating SVGs with Metamorpher and VelocityJS</h1>
           <div class="byline">
             <p>By Jeff Sneden</p>
             <p>
@@ -971,7 +971,7 @@ let progress = (e, c, r, s, tween) =&gt; {
 }
 </code></pre>
           <p>To begin the animation, we'll initialize Velocity through its main function. The first argument, <code>element</code>, is the element being animated by Velocity. We're actually not having Velocity perform any transformations - Metamorpher will perform that task for us. So for now, you can just pass in the body element.</p>
-          <p>The second argument, <code>properties</code>, normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and&nbsp;1.</p>
+          <p>The second argument, <code>properties</code>, normally would contain the Velocity transformations, but we simply need to instruct Velocity to tween between 0 and 1.</p>
           <p>The last argument, <code>options</code>, is where we'll specify the animation timing, easing and, most importantly, the progress function to invoke the Metamorpher transformations. </p>
           <pre><code class="js">let element = document.querySelector('body');
 let properties = { tween: 1 };
