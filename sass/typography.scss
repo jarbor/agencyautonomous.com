@@ -54,6 +54,11 @@ a {
 
 code {
 	font-family: 'Roboto Mono';
+
+	mark {
+		margin-left: -150px;
+		padding-left: 16px;
+	}
 }
 
 pre {
@@ -84,6 +89,10 @@ ol {
 
 i {
 	font-style: italic;
+}
+
+b {
+	font-weight: 600;
 }
 
 // Supporting really short viewport for the embedded iframe

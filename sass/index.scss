@@ -11,6 +11,10 @@ body {
 	}
 }
 
+.content, header, footer {
+	opacity: 1;
+}
+
 [data-page] {
 	display: none;
 }

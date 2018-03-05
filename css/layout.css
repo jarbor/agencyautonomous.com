@@ -39,15 +39,13 @@ body {
 .content {
   max-width: 35rem;
   margin-left: auto;
-  margin-right: auto;
-  opacity: 0; }
+  margin-right: auto; }
 
 .frame, header, footer {
   overflow: hidden;
   box-sizing: border-box;
   height: var(--frame-height);
   color: #FFF;
-  opacity: 0;
   width: 100%;
   margin-left: auto;
   margin-right: auto;

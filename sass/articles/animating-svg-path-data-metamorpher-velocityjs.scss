@@ -1,12 +1,4 @@
-@import "reset";
-@import "globals";
-@import "typography";
-@import "layout";
-@import "article";
-
-.content, header, footer {
-	opacity: 1;
-}
+@import "../article";
 
 #animation1, #bored, #interpolation1, #interpolation2, #single-animation, #animation-looped, #naive-rotation, #smart-rotation {
 	.happy, .silly {

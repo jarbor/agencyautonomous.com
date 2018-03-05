@@ -29,6 +29,15 @@ let animate = () => {
 			path.interpolate(startPaths[index], endPaths[index], tween).paint();
 		});
 	};
+	// type VelocityProgress = (
+	// 	this: VelocityExtended & HTMLorSVGElement[],
+	// 	elements?: VelocityExtended & HTMLorSVGElement[], 
+	// 	percentComplete?: number, 
+	// 	remaining?: number, 
+	// 	tweenValue?: number, 
+	// 	activeCall?: AnimationCall
+	// ) => void;
+
 
 	let element = document.querySelector('body');
 	let properties = { tween: 1 };

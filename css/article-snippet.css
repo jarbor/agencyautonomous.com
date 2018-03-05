@@ -1,6 +1,7 @@
 article {
   border: 1px solid #CCCCCC;
-  padding: 1rem 0 1rem 0; }
+  padding: 1rem 0 1rem 0;
+  margin-bottom: 2rem; }
   article figure {
     float: left;
     width: 25%;

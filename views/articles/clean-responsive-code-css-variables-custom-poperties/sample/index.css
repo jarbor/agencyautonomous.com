@@ -1,0 +1,21 @@
+:root {
+  --cell-width: 50%;
+  --cell-padding: 10px; }
+  @media (max-width: 1080px) {
+    :root {
+      --cell-width: 100%;
+      --cell-padding: 0; } }
+
+h1 {
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  width: var(--cell-width);
+  padding: var(--cell-padding); }
+
+img {
+  box-sizing: border-box;
+  width: var(--cell-width);
+  padding: var(--cell-padding); }
+
+/*# sourceMappingURL=index.css.map */

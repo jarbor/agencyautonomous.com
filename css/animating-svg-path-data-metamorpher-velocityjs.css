@@ -1,446 +1,52 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline; }
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block; }
-
-body {
-  line-height: 1; }
-
-ol, ul {
-  list-style: none; }
-
-blockquote, q {
-  quotes: none; }
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-body {
-  font-family: "Roboto", sans-serif; }
-
-h1, h2, h3, h4 {
-  font-family: "Archivo Narrow", sans-serif;
-  font-weight: 500; }
-
-h1 {
-  font-size: 24pt;
-  padding-top: 1rem;
-  margin-bottom: 1rem;
-  line-height: 1.25em; }
-
-h2 {
-  font-size: 20pt;
-  padding-top: 1rem;
-  margin-bottom: 1rem; }
-
-h3 {
-  font-size: 13pt;
-  padding-top: 0.5rem;
-  margin-bottom: 0.5rem; }
-
-p {
-  margin-bottom: 1em;
-  line-height: 1.5em; }
-
-li {
-  margin-left: 1.5rem;
-  line-height: 1.5rem; }
-
-blockquote {
-  font-family: "Archivo Narrow", sans-serif;
-  font-size: 16pt;
-  font-weight: 500;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  font-style: italic; }
-
-a {
-  color: #9F9F9F; }
-
-code {
-  font-family: 'Roboto Mono'; }
-
-pre {
-  text-align: left;
-  margin-bottom: 1.5rem;
-  tab-size: 2; }
-
-pre + figcaption {
-  margin-top: -1rem; }
-
-ul {
-  margin-bottom: 1.5rem; }
-  ul li {
-    list-style-type: square; }
-
-ol {
-  margin-bottom: 1.5rem; }
-  ol li {
-    list-style-type: decimal; }
-
-i {
-  font-style: italic; }
-
-@media (max-height: 200px) {
-  h1 {
-    font-size: 18pt; }
-
-  h2 {
-    font-size: 15pt; }
-
-  p {
-    font-size: 10pt; } }
-:root {
-  --frame-height: 83px; }
-
-@media (max-width: 480px) {
-  :root {
-    --frame-height: 45px; } }
-@media (max-height: 200px) {
-  :root {
-    --frame-height: 20px; } }
-body {
-  background-color: #2E2E2E; }
-
-.cover {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  float: left; }
-  .cover .logo {
-    height: 100vh;
-    width: 100%; }
-  .open .cover {
-    display: none; }
-
-.focus {
-  display: inline-block;
-  height: 0;
-  opacity: 0; }
-
-.body {
-  box-sizing: border-box;
-  width: 100%;
-  height: calc(100vh - 2 * var(--frame-height));
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #FFF;
-  color: #2E2E2E; }
-
-.content {
-  max-width: 35rem;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0; }
-
-.frame, header, footer {
-  overflow: hidden;
-  box-sizing: border-box;
-  height: var(--frame-height);
-  color: #FFF;
-  opacity: 0;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center; }
-  .frame a, header a, footer a {
-    color: #FFF; }
-
-header {
-  top: 0;
-  padding-top: 2rem; }
-  header a {
-    text-decoration: none;
-    font-size: 20pt;
-    font-family: "Archivo Narrow", sans-serif;
-    margin-left: 5rem; }
-    header a:first-child {
-      margin-left: 0; }
-    header a.active {
-      border-bottom: 1px solid #FFF; }
-
-footer {
-  bottom: 0; }
-  footer svg {
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: pointer; }
-  footer .text {
-    opacity: 0; }
-
-.columns {
-  margin-bottom: 1rem; }
-  .columns:after {
-    content: "";
-    display: table;
-    clear: both; }
-
-.column {
-  width: 50%;
-  float: left; }
-
-figure {
-  margin-bottom: 1.5rem;
-  text-align: center; }
-
-figcaption {
-  margin-top: 0.5rem;
-  text-align: left;
-  line-height: 1.25em;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-size: 13px;
-  font-weight: 600; }
-
-figure {
-  margin-bottom: 1.5rem;
-  text-align: center; }
-
-figcaption {
-  margin-top: 0.5rem;
-  text-align: left;
-  line-height: 1.25em;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-size: 13px;
-  font-weight: 600; }
-
-@media (max-width: 480px) {
-  .body {
-    padding: 0 1rem 1rem 1rem; }
-
-  .content {
-    max-width: unset; }
-
-  header {
-    padding-top: 0.75rem; }
-    header a {
-      font-size: 14pt;
-      margin-left: 1rem; }
-
-  .column {
-    width: 100%; }
-    .column:not(:first-child) {
-      padding-top: 1rem; } }
-@media (max-height: 200px) {
-  .body {
-    padding: 0 1rem 1rem 1rem; }
-
-  header {
-    padding-top: 0; }
-    header a {
-      font-size: 10pt;
-      margin-left: 1.5rem; } }
-:root {
-  --side-size: 30rem; }
-
-#side-nav-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden; }
-  #side-nav-container .body {
-    width: calc(100% - var(--side-size));
-    transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1); }
-
-#side-nav {
-  float: left;
-  box-sizing: border-box;
-  width: var(--side-size);
-  padding: 1rem;
-  height: calc(100vh - 2 * var(--frame-height));
-  background-color: #CCCCCC;
-  overflow-x: visible;
-  overflow-y: auto;
-  transition: margin-left 600ms cubic-bezier(0.645, 0.045, 0.355, 1); }
-  #side-nav ol {
-    margin-bottom: 0; }
-    #side-nav ol:before {
-      content: "";
-      display: table;
-      clear: both; }
-  #side-nav > ol > li {
-    margin-left: 0; }
-  #side-nav li {
-    list-style-type: none;
-    line-height: 1.1em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    font-size: 11pt; }
-  #side-nav a {
-    color: #2E2E2E;
-    text-decoration: none; }
-  #side-nav h2 {
-    display: inline;
-    float: left;
-    font-size: 14pt;
-    padding-top: 0;
-    margin-bottom: 0.5rem; }
-  #side-nav .close-link {
-    float: right; }
-
-.open-link {
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: var(--frame-height);
-  padding: 1rem;
-  color: #2E2E2E;
-  text-decoration: none;
-  transition-property: opacity;
-  transition-duration: 150ms;
-  transition-timing-function: linear; }
-
-.side-nav-hidden #side-nav-container .body {
-  width: 100%; }
-.side-nav-hidden #side-nav {
-  margin-left: calc(-1 * var(--side-size)); }
-.side-nav-hidden .open-link {
-  transition-delay: 600ms;
-  transition-duration: 400ms;
-  opacity: 1; }
-
-@media (max-width: 800px) {
-  .open-link {
-    position: fixed;
-    top: calc(100vh - var(--frame-height));
-    color: #FFF; }
-
-  :root {
-    --side-size: 25rem; }
-
-  #side-nav-container .body {
-    position: absolute;
-    top: 0;
-    left: var(--side-size);
-    width: 100%; }
-
-  .side-nav-hidden #side-nav-container .body {
-    left: 0;
-    width: 100%; } }
-@media (max-width: 480px) {
-  :root {
-    --side-size: 80%; } }
 /*
-Monokai style - ported by Luigi Maselli - http://grigio.org
+Error: File to import not found or unreadable: ../article.
+       Load path: C:/workspaces/agency-autonomous/agencyautonomous.com/sass
+        on line 1 of C:\workspaces\agency-autonomous\agencyautonomous.com\sass\animating-svg-path-data-metamorpher-velocityjs.scss
+
+1: @import "../article";
+2: 
+3: #animation1, #bored, #interpolation1, #interpolation2, #single-animation, #animation-looped, #naive-rotation, #smart-rotation {
+4: 	.happy, .silly {
+5: 		display: none;
+6: 	}
+
+Backtrace:
+C:\workspaces\agency-autonomous\agencyautonomous.com\sass\animating-svg-path-data-metamorpher-velocityjs.scss:1
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:67:in `rescue in import'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:45:in `import'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:28:in `imported_file'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:37:in `css_import?'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:314:in `visit_import'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `map'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:161:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:10:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:36:in `css_tree'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:307:in `render_with_sourcemap'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:391:in `run'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:63:in `process_result'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:52:in `parse'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:19:in `parse!'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/bin/sass:13:in `<top (required)>'
+C:/Program Files (x86)/Koala/bin/sass:22:in `load'
+C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 */
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #272822;
-  color: #ddd; }
-
-.hljs-tag,
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-strong,
-.hljs-name {
-  color: #f92672; }
-
-.hljs-code {
-  color: #66d9ef; }
-
-.hljs-class .hljs-title {
-  color: white; }
-
-.hljs-attribute,
-.hljs-symbol,
-.hljs-regexp,
-.hljs-link {
-  color: #bf79db; }
-
-.hljs-string,
-.hljs-bullet,
-.hljs-subst,
-.hljs-title,
-.hljs-section,
-.hljs-emphasis,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-tag,
-.hljs-template-variable {
-  color: #a6e22e; }
-
-.hljs-comment,
-.hljs-quote,
-.hljs-deletion,
-.hljs-meta {
-  color: #75715e; }
-
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-doctag,
-.hljs-title,
-.hljs-section,
-.hljs-type,
-.hljs-selector-id {
-  font-weight: bold; }
-
-.byline {
-  margin-top: -0.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #CCCCCC; }
-  .byline p {
-    display: inline-block;
-    margin-bottom: 0; }
-  .byline p:nth-child(2) {
-    float: right; }
-
-h1 a, h2 a, h3 a, h4 a {
-  color: #2E2E2E;
-  text-decoration: none; }
-
-.content, header, footer {
-  opacity: 1; }
-
-#animation1 .happy, #animation1 .silly, #bored .happy, #bored .silly, #interpolation1 .happy, #interpolation1 .silly, #interpolation2 .happy, #interpolation2 .silly, #single-animation .happy, #single-animation .silly, #animation-looped .happy, #animation-looped .silly, #naive-rotation .happy, #naive-rotation .silly, #smart-rotation .happy, #smart-rotation .silly {
-  display: none; }
-
-#animation1 svg .face:hover, #single-animation svg .face:hover, #animation-looped svg .face:hover, #naive-rotation svg .face:hover, #smart-rotation svg .face:hover {
-  cursor: pointer; }
-
-iframe {
-  width: 100%;
-  height: 10rem; }
-
-/*# sourceMappingURL=animating-svg-path-data-metamorpher-velocityjs.css.map */
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: ../article.\A        Load path: C:/workspaces/agency-autonomous/agencyautonomous.com/sass\A         on line 1 of C:\workspaces\agency-autonomous\agencyautonomous.com\sass\animating-svg-path-data-metamorpher-velocityjs.scss\A \A 1: @import \"../article\";\A 2: \A 3: #animation1, #bored, #interpolation1, #interpolation2, #single-animation, #animation-looped, #naive-rotation, #smart-rotation {\A 4: 	.happy, .silly {\A 5: 		display: none;\A 6: 	}"; }

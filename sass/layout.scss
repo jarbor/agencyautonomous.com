@@ -56,7 +56,6 @@ body {
 	max-width: $content-width;
 	margin-left: auto;
 	margin-right: auto;
-	opacity: 0;
 }
 
 .frame {
@@ -67,7 +66,6 @@ body {
 	box-sizing: border-box;
 	height: var(--frame-height);
 	color: #FFF;
-	opacity: 0;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;

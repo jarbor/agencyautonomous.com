@@ -90,6 +90,9 @@ a {
 
 code {
   font-family: 'Roboto Mono'; }
+  code mark {
+    margin-left: -150px;
+    padding-left: 16px; }
 
 pre {
   text-align: left;
@@ -111,6 +114,9 @@ ol {
 
 i {
   font-style: italic; }
+
+b {
+  font-weight: 600; }
 
 @media (max-height: 200px) {
   h1 {
@@ -162,15 +168,13 @@ body {
 .content {
   max-width: 35rem;
   margin-left: auto;
-  margin-right: auto;
-  opacity: 0; }
+  margin-right: auto; }
 
 .frame, header, footer {
   overflow: hidden;
   box-sizing: border-box;
   height: var(--frame-height);
   color: #FFF;
-  opacity: 0;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -280,7 +284,8 @@ figcaption {
     margin-top: 2px; } }
 article {
   border: 1px solid #CCCCCC;
-  padding: 1rem 0 1rem 0; }
+  padding: 1rem 0 1rem 0;
+  margin-bottom: 2rem; }
   article figure {
     float: left;
     width: 25%;
@@ -330,6 +335,9 @@ article {
       clear: both; } }
 body:not([class*="open"]) {
   cursor: pointer; }
+
+.content, header, footer {
+  opacity: 1; }
 
 [data-page] {
   display: none; }

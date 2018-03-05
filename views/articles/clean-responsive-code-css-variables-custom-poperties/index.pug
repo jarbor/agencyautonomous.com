@@ -1,0 +1,167 @@
+html
+	head
+		title Clean Responsive Code With CSS Custom Properties - Agency Autonomous
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		include ../../favicon.pug
+		link(href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300|Roboto+Mono", rel="stylesheet")
+		link(href="/css/articles/clean-responsive-code-css-variables-custom-poperties.css", rel="stylesheet")
+		script(src="/es5/clean-responsive-code-css-variables-custom-poperties.js", async)
+	body
+		include ../../header.pug
+		#side-nav-container
+			#side-nav
+			.body
+				.content
+					a.focus(href='javascript:void(0);', tabindex='-1') &nbsp;
+					h1 Clean Responsive Design Code With CSS Custom&nbsp;Properties
+					.byline
+						p By Jeff Sneden
+						p #[time(datetime="2018-03-04 00:00") March 4, 2018]
+
+					p Way back in the late 2000's / early 2010's there was heated debate about #[a(href='https://en.wikipedia.org/wiki/Adaptive_web_design', target='_blank') Adaptive Web Design (AWD)] (serving up different versions of a page based on device) versus #[a(href='https://en.wikipedia.org/wiki/Responsive_web_design', target='_blank') Responsive Web Design (RWD)] (serving a single page that can render appropriately for any device). The best arguments for AWD centered around performance for mobile devices and support from older borwsers. The best arguments for RWD centered around maintainability of code.
+
+					p Today, that argument has mostly been settled as connection speeds have improved, older browsers have died out and the variety of combinations of devices and features has continued to expand. Developers and project sponsors alike prefer responsive design for it's ability to serve a wider range of devices at a cheaper cost. While many large sites still feature adaptive design over responsive design, that is simply a matter of product life cycle, in my experience. Every greenfield implementation I have worked on since 2012 has featured responsive design.
+
+					h2 Traditional Responsive Code with Pre-processor Variables
+					p From a development perspective, the responsive design revolution was aided by the prevalence of two technologies:
+					ul
+						li #[b CSS3 Media Queries] for device viewport size and feature targeting (ex: touch devices)
+						li #[b CSS Pre-processors] (Sass and LESS) for managing large CSS projects and, specifically, the introduction of variables into CSS
+
+					p These technologies allow a developer to specify #[i when] the CSS rules should change with media queries and #[i how] the rules should change (in a maintainable way) using pre-processor variables.
+
+					p Consider the common responsive use case of displaying two elements side-by-side in larger viewports and stacking the same elements in smaller viewports.
+
+					figure.side-by-side
+						img(src='/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-large.png')
+						figcaption Side-by-side for larger diplays such as laptops and tablets.
+					figure.stacked
+						img(src='/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-small.png')
+						figcaption Stacked for smaller diplays such as phones.
+
+					p This type of flexible layout approach is extremely common in responsive sites and it can be achieved rather easily. For these examples, we'll be using the SCSS variant of Sass as our preprocessor.
+					pre: code(type='html')
+						= '<body>\n'
+						= '	<h1>Look At This Red Panda!</h1>\n'
+						= '	<img src="./panda.jpg">\n'
+						= '</body>\n'
+
+					p The approach takes advantage of the way inline elements flow within the DOM: left-to-right within a line, then top-to-bottom for each line or block element. For larger displays, the default style is applied. Each item is given 50% of the width of the document and appropriate padding for the gutters.
+					pre: code(type='scss')
+						= "$cell-width: 50%;\n"
+						= "$cell-padding: 10px;\n"
+						= "\n"
+						= "h1 {\n"
+						= "	float: left;\n"
+						= "	box-sizing: border-box;\n"
+						= "	text-align: center;\n"
+						= "	width: $cell-width;\n"
+						= "	padding: $cell-padding;\n"
+						= "}\n"
+						= "\n"
+						= "img {\n"
+						= "	box-sizing: border-box;\n"
+						= "	width: $cell-width;\n"
+						= "	padding: $cell-padding;\n"
+						= "}\n"
+
+					p  When the viewport is 480px or less, the width of the elements is #[i increased] from 50% to 100% and the padding is removed.
+					pre: code(type='scss')
+						= "@media (max-width: 480px) {\n"
+						= "	$cell-width: 100%;\n"
+						= "	$cell-padding: 0;\n"
+						= "\n"
+						= "	h1 {\n"
+						= "		width: $cell-width;\n"
+						= "		padding: $cell-padding;\n"
+						= "	}\n"
+						= "\n"
+						= "	img {\n"
+						= "		width: $cell-width;\n"
+						= "		padding: $cell-padding;\n"
+						= "	}\n"
+						= "}\n"
+
+					p While the previous example is perfectly functional, it contains something that will irritate the engineering purist in all of us and lead to code which is more difficult to maintain - boilerplate code. That is, code which is unnecessarily repeated. Closer inspection of the previous two blocks of SCSS code show the width and padding lines defining the #[code h1] and #[code img] in the mobile (&lt; 480px) block are completely repeated from the intitial description of those tags. 
+					pre: code(type='scss')
+						= "$cell-width: 50%;\n"
+						= "$cell-padding: 10px;\n"
+						= "\n"
+						= "h1 {\n"
+						= "	float: left;\n"
+						= "	box-sizing: border-box;\n"
+						= "	text-align: center;\n"
+						mark= "	width: $cell-width;\n"
+						mark= "	padding: $cell-padding;\n"
+						= "}\n"
+						= "\n"
+						= "img {\n"
+						= "	box-sizing: border-box;\n"
+						= "	width: $cell-width;\n"
+						= "	padding: $cell-padding;\n"
+						= "}\n"
+						= "\n"
+						= "@media (max-width: 480px) {\n"
+						= "	$cell-width: 100%;\n"
+						= "	$cell-padding: 0;\n"
+						= "\n"
+						mark= "	h1 {\n"
+						mark= "		width: $cell-width;\n"
+						mark= "		padding: $cell-padding;\n"
+						mark= "	}\n"
+						= "\n"
+						mark= "	img {\n"
+						mark= "		width: $cell-width;\n"
+						mark= "		padding: $cell-padding;\n"
+						mark= "	}\n"
+						= "}\n"
+					p The repeated definitions are unfortunately required with SCSS variables since pre-processors won't repeat previous rules in the generated CSS just because the developer changes the value of a variable in a more-specific context (smaller scope). 
+
+					h2 CSS Custom Properties Over Pre-processor Variables
+					p CSS Custom Properties (or CSS variables) are fundamentally more powerful than pre-processor variables because they are interpreted in real-time by the browser, rather than compiled to static CSS. This allows us to redefine variables in a more-specific context and have all inherited rules in that scope re-evaluate with the new value for the variable. That's a fancy way of saying, we no longer have to repeat rules that are unchanged. Here's the same example using only pure CSS with custom properties.
+					pre: code(type='scss')
+						= ":root {\n"
+						= "	--cell-width: 50%;\n"
+						= "	--cell-padding: 10px;\n"
+						= "	\n"
+						= "	@media (max-width: 480px) {\n"
+						= "		--cell-width: 100%;\n"
+						= "		--cell-padding: 0;\n"
+						= "	}\n"
+						= "}\n"
+						= "\n"
+						= "h1 {\n"
+						= "	float: left;\n"
+						= "	box-sizing: border-box;\n"
+						= "	text-align: center;\n"
+						= "	width: var(--cell-width);\n"
+						= "	padding: var(--cell-padding);\n"
+						= "}\n"
+						= "\n"
+						= "img {\n"
+						= "	box-sizing: border-box;\n"
+						= "	width: var(--cell-width);\n"
+						= "	padding: var(--cell-padding);\n"
+						= "}\n"
+
+					p The same code, rewritten has the following advantages:
+					ul
+						li Reduced from 31 lines to 23 lines overall
+						li Removed copied lines, leading to fewer bugs during maintenance
+						li More readable code since you can see how your variables change in different contexts all at once
+						li No need for a preprocessor (this is minor since you'll still likely want a pre-processor for imports and other features)
+
+					p CSS Custom Properties still have one significant drawback...
+
+					h2 Browser Support
+					p Or, how I learned to stop worrying an desupportted Internet Explorer 11. While this may not be an option for everyone, it's globabl usage is less than 3% at the time of this writing. Even some of the largest e-commerce clients I've worked with have de-supported all browsers with combined version usage of less than 5%. Think about it.
+					p The only other "major" browser which doesn't fully support CSS variables is Opera Mini. Opera Mini's usage is also less than 3% globally and the predominant share of that usage comes from markets in Africa and Asia, due to it's built-in data compression.
+					p The invaluable site, Can I Use, shows every other tracked browser #[a(href='https://caniuse.com/#feat=css-variables', target='_blank') supporting CSS custom properties] (even Edge!)
+
+					h2 Wrap
+					p The usage of CSS Custom Properties comes down to one question. Do you need to support IE11 or Opera Mini? If so, then I'm sorry - they will be gone soon enough. Until then, keep using pre-processor variables. For everyone else, it's time. CSS variables are more flexible and will consequently lead to more maintainable code, especially for responsive design.
+
+					h2 Comments
+					#disqus_thread
+
+		include ../../footer.pug

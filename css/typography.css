@@ -43,6 +43,9 @@ a {
 
 code {
   font-family: 'Roboto Mono'; }
+  code mark {
+    margin-left: -150px;
+    padding-left: 16px; }
 
 pre {
   text-align: left;
@@ -64,6 +67,9 @@ ol {
 
 i {
   font-style: italic; }
+
+b {
+  font-weight: 600; }
 
 @media (max-height: 200px) {
   h1 {

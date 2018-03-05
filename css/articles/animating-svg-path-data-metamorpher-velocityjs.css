@@ -434,4 +434,14 @@ h1 a, h2 a, h3 a, h4 a {
   color: #2E2E2E;
   text-decoration: none; }
 
-/*# sourceMappingURL=article.css.map */
+#animation1 .happy, #animation1 .silly, #bored .happy, #bored .silly, #interpolation1 .happy, #interpolation1 .silly, #interpolation2 .happy, #interpolation2 .silly, #single-animation .happy, #single-animation .silly, #animation-looped .happy, #animation-looped .silly, #naive-rotation .happy, #naive-rotation .silly, #smart-rotation .happy, #smart-rotation .silly {
+  display: none; }
+
+#animation1 svg .face:hover, #single-animation svg .face:hover, #animation-looped svg .face:hover, #naive-rotation svg .face:hover, #smart-rotation svg .face:hover {
+  cursor: pointer; }
+
+iframe {
+  width: 100%;
+  height: 10rem; }
+
+/*# sourceMappingURL=animating-svg-path-data-metamorpher-velocityjs.css.map */

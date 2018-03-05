@@ -1,0 +1,206 @@
+
+<html>
+  <head>
+    <title>Clean Responsive Code With CSS Custom Properties - Agency Autonomous</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png"/>
+    <link rel="manifest" href="/images/favicon/manifest.json"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Roboto:300|Roboto+Mono" rel="stylesheet"/>
+    <link href="/css/articles/clean-responsive-code-css-variables-custom-poperties.css" rel="stylesheet"/>
+    <script src="/es5/clean-responsive-code-css-variables-custom-poperties.js" async="async"></script>
+  </head>
+  <body>
+    <header><a href="/company" data-navigo="data-navigo">Company</a><a href="/articles" data-navigo="data-navigo">Articles</a><a href="/open-source" data-navigo="data-navigo">Open&nbsp;Source</a><a href="/services" data-navigo="data-navigo">Services</a>
+      <svg class="active-tracker" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 2">
+        <path class="active-indicator" d="M 50 0 L 50 0 L 50 2 L 50 0 L 50 0 Z"></path>
+      </svg>
+    </header>
+    <div id="side-nav-container">
+      <div id="side-nav"></div>
+      <div class="body">
+        <div class="content"><a class="focus" href="javascript:void(0);" tabindex="-1">&nbsp;</a>
+          <h1>Clean Responsive Design Code With CSS Custom&nbsp;Properties</h1>
+          <div class="byline">
+            <p>By Jeff Sneden</p>
+            <p>
+              <time datetime="2018-03-04 00:00">March 4, 2018</time>
+            </p>
+          </div>
+          <p>Way back in the late 2000's / early 2010's there was heated debate about <a href="https://en.wikipedia.org/wiki/Adaptive_web_design" target="_blank">Adaptive Web Design (AWD)</a> (serving up different versions of a page based on device) versus <a href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Responsive Web Design (RWD)</a> (serving a single page that can render appropriately for any device). The best arguments for AWD centered around performance for mobile devices and support from older borwsers. The best arguments for RWD centered around maintainability of code.</p>
+          <p>Today, that argument has mostly been settled as connection speeds have improved, older browsers have died out and the variety of combinations of devices and features has continued to expand. Developers and project sponsors alike prefer responsive design for it's ability to serve a wider range of devices at a cheaper cost. While many large sites still feature adaptive design over responsive design, that is simply a matter of product life cycle, in my experience. Every greenfield implementation I have worked on since 2012 has featured responsive design.</p>
+          <h2>Traditional Responsive Code with Pre-processor Variables</h2>
+          <p>From a development perspective, the responsive design revolution was aided by the prevalence of two technologies:</p>
+          <ul>
+            <li><b>CSS3 Media Queries</b> for device viewport size and feature targeting (ex: touch devices)</li>
+            <li><b>CSS Pre-processors</b> (Sass and LESS) for managing large CSS projects and, specifically, the introduction of variables into CSS</li>
+          </ul>
+          <p>These technologies allow a developer to specify <i>when</i> the CSS rules should change with media queries and <i>how</i> the rules should change (in a maintainable way) using pre-processor variables.</p>
+          <p>Consider the common responsive use case of displaying two elements side-by-side in larger viewports and stacking the same elements in smaller viewports.</p>
+          <figure class="side-by-side"><img src="/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-large.png"/>
+            <figcaption>Side-by-side for larger diplays such as laptops and tablets.</figcaption>
+          </figure>
+          <figure class="stacked"><img src="/images/articles/css-custom-properties-cleaner-responsive-design-code/responsive-panda-small.png"/>
+            <figcaption>Stacked for smaller diplays such as phones.</figcaption>
+          </figure>
+          <p>This type of flexible layout approach is extremely common in responsive sites and it can be achieved rather easily. For these examples, we'll be using the SCSS variant of Sass as our preprocessor.</p>
+          <pre><code type="html">&lt;body&gt;
+	&lt;h1&gt;Look At This Red Panda!&lt;/h1&gt;
+	&lt;img src=&quot;./panda.jpg&quot;&gt;
+&lt;/body&gt;
+</code></pre>
+          <p>The approach takes advantage of the way inline elements flow within the DOM: left-to-right within a line, then top-to-bottom for each line or block element. For larger displays, the default style is applied. Each item is given 50% of the width of the document and appropriate padding for the gutters.</p>
+          <pre><code type="scss">$cell-width: 50%;
+$cell-padding: 10px;
+
+h1 {
+	float: left;
+	box-sizing: border-box;
+	text-align: center;
+	width: $cell-width;
+	padding: $cell-padding;
+}
+
+img {
+	box-sizing: border-box;
+	width: $cell-width;
+	padding: $cell-padding;
+}
+</code></pre>
+          <p> When the viewport is 480px or less, the width of the elements is <i>increased</i> from 50% to 100% and the padding is removed.</p>
+          <pre><code type="scss">@media (max-width: 480px) {
+	$cell-width: 100%;
+	$cell-padding: 0;
+
+	h1 {
+		width: $cell-width;
+		padding: $cell-padding;
+	}
+
+	img {
+		width: $cell-width;
+		padding: $cell-padding;
+	}
+}
+</code></pre>
+          <p>While the previous example is perfectly functional, it contains something that will irritate the engineering purist in all of us and lead to code which is more difficult to maintain - boilerplate code. That is, code which is unnecessarily repeated. Closer inspection of the previous two blocks of SCSS code show the width and padding lines defining the <code>h1</code> and <code>img</code> in the mobile (&lt; 480px) block are completely repeated from the intitial description of those tags. </p>
+          <pre><code type="scss">$cell-width: 50%;
+$cell-padding: 10px;
+
+h1 {
+	float: left;
+	box-sizing: border-box;
+	text-align: center;
+
+              <mark>	width: $cell-width;
+</mark>
+              <mark>	padding: $cell-padding;
+</mark>}
+
+img {
+	box-sizing: border-box;
+	width: $cell-width;
+	padding: $cell-padding;
+}
+
+@media (max-width: 480px) {
+	$cell-width: 100%;
+	$cell-padding: 0;
+
+
+              <mark>	h1 {
+</mark>
+              <mark>		width: $cell-width;
+</mark>
+              <mark>		padding: $cell-padding;
+</mark>
+              <mark>	}
+</mark>
+
+              <mark>	img {
+</mark>
+              <mark>		width: $cell-width;
+</mark>
+              <mark>		padding: $cell-padding;
+</mark>
+              <mark>	}
+</mark>}
+</code></pre>
+          <p>The repeated definitions are unfortunately required with SCSS variables since pre-processors won't repeat previous rules in the generated CSS just because the developer changes the value of a variable in a more-specific context (smaller scope). </p>
+          <h2>CSS Custom Properties Over Pre-processor Variables</h2>
+          <p>CSS Custom Properties (or CSS variables) are fundamentally more powerful than pre-processor variables because they are interpreted in real-time by the browser, rather than compiled to static CSS. This allows us to redefine variables in a more-specific context and have all inherited rules in that scope re-evaluate with the new value for the variable. That's a fancy way of saying, we no longer have to repeat rules that are unchanged. Here's the same example using only pure CSS with custom properties.</p>
+          <pre><code type="scss">:root {
+	--cell-width: 50%;
+	--cell-padding: 10px;
+	
+	@media (max-width: 480px) {
+		--cell-width: 100%;
+		--cell-padding: 0;
+	}
+}
+
+h1 {
+	float: left;
+	box-sizing: border-box;
+	text-align: center;
+	width: var(--cell-width);
+	padding: var(--cell-padding);
+}
+
+img {
+	box-sizing: border-box;
+	width: var(--cell-width);
+	padding: var(--cell-padding);
+}
+</code></pre>
+          <p>The same code, rewritten has the following advantages:</p>
+          <ul>
+            <li>Reduced from 31 lines to 23 lines overall</li>
+            <li>Removed copied lines, leading to fewer bugs during maintenance</li>
+            <li>More readable code since you can see how your variables change in different contexts all at once</li>
+            <li>No need for a preprocessor (this is minor since you'll still likely want a pre-processor for imports and other features)</li>
+          </ul>
+          <p>CSS Custom Properties still have one significant drawback...</p>
+          <h2>Browser Support</h2>
+          <p>Or, how I learned to stop worrying an desupportted Internet Explorer 11. While this may not be an option for everyone, it's globabl usage is less than 3% at the time of this writing. Even some of the largest e-commerce clients I've worked with have de-supported all browsers with combined version usage of less than 5%. Think about it.</p>
+          <p>The only other "major" browser which doesn't fully support CSS variables is Opera Mini. Opera Mini's usage is also less than 3% globally and the predominant share of that usage comes from markets in Africa and Asia, due to it's built-in data compression.</p>
+          <p>The invaluable site, Can I Use, shows every other tracked browser <a href="https://caniuse.com/#feat=css-variables" target="_blank">supporting CSS custom properties</a> (even Edge!)</p>
+          <h2>Wrap</h2>
+          <p>The usage of CSS Custom Properties comes down to one question. Do you need to support IE11 or Opera Mini? If so, then I'm sorry - they will be gone soon enough. Until then, keep using pre-processor variables. For everyone else, it's time. CSS variables are more flexible and will consequently lead to more maintainable code, especially for responsive design.</p>
+          <h2>Comments</h2>
+          <div id="disqus_thread"></div>
+        </div>
+      </div>
+    </div>
+    <footer><a href="/" data-navigo="data-navigo"><?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="-5 -5 290 480" width="290" height="480">
+	<defs>
+		<clipPath id="_clipPath_HsQsKzj4ioAkp7wqBhSAN7K8AjajcTTa">
+			<rect width="280" height="470"/>
+		</clipPath>
+	</defs>
+	<path d=" M 30.678 234.316 L 126.172 55.541 L 130.944 55.541 L 35.451 234.316 L 30.678 234.316 Z " fill="rgb(255,255,255)"/>
+	<path d=" M 130.424 412.554 L 35.451 234.316 L 30.678 234.316 L 125.652 412.554 L 130.424 412.554 Z " fill="rgb(255,255,255)"/>
+	<path d=" M 84.5 412.554 L 84.5 55.541 L 88.5 55.541 L 88.5 412.554 L 84.5 412.554 Z " fill="rgb(255,255,255)"/>
+	<path d=" M 153.683 55.548 L 249.173 234.316 L 244.401 234.316 L 148.911 55.548 L 153.683 55.548 Z " fill="rgb(255,255,255)"/>
+	<path d=" M 154.204 412.545 L 249.173 234.316 L 244.401 234.316 L 149.431 412.545 L 154.204 412.545 Z " fill="rgb(255,255,255)"/>
+	<path d=" M 195.351 412.545 L 195.351 55.548 L 191.351 55.548 L 191.351 412.545 L 195.351 412.545 Z " fill="rgb(255,255,255)"/>
+	<path class="agency text" d=" M 258.542 11.982 L 250.579 26.449 L 250.579 36.68 L 247.415 36.68 L 247.415 26.449 L 239.417 11.982 L 242.915 11.982 L 249.173 23.426 L 249.331 23.426 L 255.466 11.982 L 258.542 11.982 Z  M 35.489 36.68 L 33.784 31.178 L 23.993 31.178 L 22.306 36.68 L 19.142 36.68 L 26.982 11.982 L 31.06 11.982 L 38.9 36.68 L 35.489 36.68 Z  M 28.247 17.309 L 24.872 28.295 L 32.888 28.295 L 29.548 17.309 L 29.548 17.309 Q 29.442 17.01 29.346 16.544 L 29.346 16.544 L 29.346 16.544 Q 29.249 16.078 29.161 15.639 L 29.161 15.639 L 29.161 15.639 Q 29.073 15.129 28.968 14.584 L 28.968 14.584 L 28.827 14.584 L 28.827 14.584 Q 28.722 15.146 28.634 15.656 L 28.634 15.656 L 28.634 15.656 Q 28.546 16.096 28.441 16.553 L 28.441 16.553 L 28.441 16.553 Q 28.335 17.01 28.247 17.309 L 28.247 17.309 Z  M 80.409 36.68 L 79.724 33.938 L 79.724 33.938 Q 78.581 35.625 76.973 36.372 L 76.973 36.372 L 76.973 36.372 Q 75.364 37.119 73.343 37.119 L 73.343 37.119 L 73.343 37.119 Q 71.005 37.119 69.194 36.328 L 69.194 36.328 L 69.194 36.328 Q 67.384 35.537 66.145 33.938 L 66.145 33.938 L 66.145 33.938 Q 64.905 32.338 64.264 29.947 L 64.264 29.947 L 64.264 29.947 Q 63.622 27.557 63.622 24.34 L 63.622 24.34 L 63.622 24.34 Q 63.622 21.123 64.308 18.724 L 64.308 18.724 L 64.308 18.724 Q 64.993 16.324 66.268 14.725 L 66.268 14.725 L 66.268 14.725 Q 67.542 13.125 69.379 12.334 L 69.379 12.334 L 69.379 12.334 Q 71.216 11.543 73.536 11.543 L 73.536 11.543 L 73.536 11.543 Q 75.452 11.543 77.096 12.088 L 77.096 12.088 L 77.096 12.088 Q 78.739 12.633 79.943 13.731 L 79.943 13.731 L 79.943 13.731 Q 81.148 14.83 81.824 16.5 L 81.824 16.5 L 81.824 16.5 Q 82.501 18.17 82.501 20.402 L 82.501 20.402 L 79.249 20.402 L 79.249 20.402 Q 79.249 18.873 78.827 17.748 L 78.827 17.748 L 78.827 17.748 Q 78.405 16.623 77.658 15.894 L 77.658 15.894 L 77.658 15.894 Q 76.911 15.164 75.857 14.813 L 75.857 14.813 L 75.857 14.813 Q 74.802 14.461 73.536 14.461 L 73.536 14.461 L 73.536 14.461 Q 72.007 14.461 70.785 15.015 L 70.785 15.015 L 70.785 15.015 Q 69.564 15.568 68.711 16.685 L 68.711 16.685 L 68.711 16.685 Q 67.858 17.801 67.401 19.488 L 67.401 19.488 L 67.401 19.488 Q 66.944 21.176 66.944 23.426 L 66.944 23.426 L 66.944 25.236 L 66.944 25.236 Q 66.944 29.754 68.597 31.978 L 68.597 31.978 L 68.597 31.978 Q 70.249 34.201 73.343 34.201 L 73.343 34.201 L 73.343 34.201 Q 76.419 34.201 77.834 32.461 L 77.834 32.461 L 77.834 32.461 Q 79.249 30.721 79.249 27.17 L 79.249 27.17 L 79.249 26.607 L 72.851 26.607 L 72.851 23.83 L 82.501 23.83 L 82.501 36.68 L 80.409 36.68 Z  M 125.804 36.68 L 110.353 36.68 L 110.353 11.982 L 125.593 11.982 L 125.593 14.865 L 113.534 14.865 L 113.534 22.6 L 124.011 22.6 L 124.011 25.482 L 113.534 25.482 L 113.534 33.797 L 125.804 33.797 L 125.804 36.68 Z  M 169.317 11.982 L 169.317 36.68 L 166.681 36.68 L 157.452 20.947 L 157.452 20.947 Q 157.206 20.543 156.934 19.989 L 156.934 19.989 L 156.934 19.989 Q 156.661 19.436 156.415 18.908 L 156.415 18.908 L 156.415 18.908 Q 156.134 18.311 155.853 17.643 L 155.853 17.643 L 155.747 17.678 L 155.747 17.678 Q 155.782 18.328 155.817 18.926 L 155.817 18.926 L 155.817 18.926 Q 155.853 19.436 155.87 19.998 L 155.87 19.998 L 155.87 19.998 Q 155.888 20.561 155.888 20.947 L 155.888 20.947 L 155.888 36.68 L 153.04 36.68 L 153.04 11.982 L 155.782 11.982 L 164.976 27.486 L 164.976 27.486 Q 165.169 27.838 165.424 28.409 L 165.424 28.409 L 165.424 28.409 Q 165.679 28.98 165.925 29.508 L 165.925 29.508 L 165.925 29.508 Q 166.189 30.141 166.47 30.809 L 166.47 30.809 L 166.575 30.773 L 166.575 30.773 Q 166.54 30.07 166.523 29.438 L 166.523 29.438 L 166.523 29.438 Q 166.487 28.893 166.479 28.339 L 166.479 28.339 L 166.479 28.339 Q 166.47 27.785 166.47 27.486 L 166.47 27.486 L 166.47 11.982 L 169.317 11.982 Z  M 206.064 11.543 L 206.064 11.543 L 206.064 11.543 Q 207.944 11.543 209.526 12.123 L 209.526 12.123 L 209.526 12.123 Q 211.108 12.703 212.251 13.863 L 212.251 13.863 L 212.251 13.863 Q 213.394 15.023 214.035 16.781 L 214.035 16.781 L 214.035 16.781 Q 214.677 18.539 214.677 20.912 L 214.677 20.912 L 211.425 20.912 L 211.425 20.912 Q 211.425 19.295 211.047 18.082 L 211.047 18.082 L 211.047 18.082 Q 210.669 16.869 209.966 16.069 L 209.966 16.069 L 209.966 16.069 Q 209.263 15.27 208.27 14.865 L 208.27 14.865 L 208.27 14.865 Q 207.276 14.461 206.064 14.461 L 206.064 14.461 L 206.064 14.461 Q 202.812 14.461 201.238 16.685 L 201.238 16.685 L 201.238 16.685 Q 199.665 18.908 199.665 23.426 L 199.665 23.426 L 199.665 25.236 L 199.665 25.236 Q 199.665 29.771 201.238 31.986 L 201.238 31.986 L 201.238 31.986 Q 202.812 34.201 206.064 34.201 L 206.064 34.201 L 206.064 34.201 Q 207.312 34.201 208.322 33.806 L 208.322 33.806 L 208.322 33.806 Q 209.333 33.41 210.045 32.619 L 210.045 32.619 L 210.045 32.619 Q 210.757 31.828 211.144 30.633 L 211.144 30.633 L 211.144 30.633 Q 211.53 29.438 211.53 27.838 L 211.53 27.838 L 214.677 27.838 L 214.677 27.838 Q 214.677 30.229 214.035 31.969 L 214.035 31.969 L 214.035 31.969 Q 213.394 33.709 212.251 34.852 L 212.251 34.852 L 212.251 34.852 Q 211.108 35.994 209.526 36.548 L 209.526 36.548 L 209.526 36.548 Q 207.944 37.102 206.064 37.102 L 206.064 37.102 L 206.064 37.102 Q 201.265 37.102 198.804 33.929 L 198.804 33.929 L 198.804 33.929 Q 196.343 30.756 196.343 24.322 L 196.343 24.322 L 196.343 24.322 Q 196.343 17.906 198.804 14.725 L 198.804 14.725 L 198.804 14.725 Q 201.265 11.543 206.064 11.543 Z " fill-rule="evenodd" fill="rgb(255,255,255)"/>
+	<path class="autonomous text" d=" M 250.059 433.543 L 250.059 433.543 L 250.059 433.543 Q 251.658 433.543 253.073 433.938 L 253.073 433.938 L 253.073 433.938 Q 254.488 434.334 255.543 435.178 L 255.543 435.178 L 255.543 435.178 Q 256.598 436.021 257.204 437.34 L 257.204 437.34 L 257.204 437.34 Q 257.811 438.658 257.811 440.504 L 257.811 440.504 L 257.811 440.926 L 254.541 440.926 L 254.541 440.398 L 254.541 440.398 Q 254.541 439.449 254.198 438.72 L 254.198 438.72 L 254.198 438.72 Q 253.856 437.99 253.267 437.489 L 253.267 437.489 L 253.267 437.489 Q 252.678 436.988 251.869 436.725 L 251.869 436.725 L 251.869 436.725 Q 251.061 436.461 250.129 436.461 L 250.129 436.461 L 250.129 436.461 Q 249.162 436.461 248.327 436.672 L 248.327 436.672 L 248.327 436.672 Q 247.492 436.883 246.877 437.305 L 246.877 437.305 L 246.877 437.305 Q 246.262 437.727 245.91 438.377 L 245.91 438.377 L 245.91 438.377 Q 245.559 439.027 245.559 439.924 L 245.559 439.924 L 245.559 439.924 Q 245.559 441.031 246.112 441.761 L 246.112 441.761 L 246.112 441.761 Q 246.666 442.49 247.563 443.009 L 247.563 443.009 L 247.563 443.009 Q 248.459 443.527 249.61 443.914 L 249.61 443.914 L 249.61 443.914 Q 250.762 444.301 251.966 444.705 L 251.966 444.705 L 251.966 444.705 Q 253.17 445.109 254.321 445.619 L 254.321 445.619 L 254.321 445.619 Q 255.473 446.129 256.369 446.902 L 256.369 446.902 L 256.369 446.902 Q 257.266 447.676 257.819 448.801 L 257.819 448.801 L 257.819 448.801 Q 258.373 449.926 258.373 451.543 L 258.373 451.543 L 258.373 451.543 Q 258.373 453.617 257.74 455.059 L 257.74 455.059 L 257.74 455.059 Q 257.108 456.5 255.991 457.396 L 255.991 457.396 L 255.991 457.396 Q 254.875 458.293 253.346 458.697 L 253.346 458.697 L 253.346 458.697 Q 251.817 459.102 250.024 459.102 L 250.024 459.102 L 250.024 459.102 Q 248.336 459.102 246.824 458.706 L 246.824 458.706 L 246.824 458.706 Q 245.313 458.311 244.179 457.432 L 244.179 457.432 L 244.179 457.432 Q 243.045 456.553 242.377 455.138 L 242.377 455.138 L 242.377 455.138 Q 241.709 453.723 241.709 451.684 L 241.709 451.684 L 241.709 451.684 Q 241.709 451.49 241.727 451.279 L 241.727 451.279 L 241.727 451.279 Q 241.744 451.068 241.744 450.98 L 241.744 450.98 L 245.031 450.98 L 245.031 450.98 Q 245.031 450.998 245.023 451.086 L 245.023 451.086 L 245.023 451.086 Q 245.014 451.174 245.005 451.288 L 245.005 451.288 L 245.005 451.288 Q 244.996 451.402 244.987 451.525 L 244.987 451.525 L 244.987 451.525 Q 244.979 451.648 244.979 451.719 L 244.979 451.719 L 244.979 451.719 Q 244.979 452.861 245.348 453.696 L 245.348 453.696 L 245.348 453.696 Q 245.717 454.531 246.376 455.094 L 246.376 455.094 L 246.376 455.094 Q 247.035 455.656 247.932 455.929 L 247.932 455.929 L 247.932 455.929 Q 248.828 456.201 249.883 456.201 L 249.883 456.201 L 249.883 456.201 Q 252.379 456.201 253.724 455.146 L 253.724 455.146 L 253.724 455.146 Q 255.068 454.092 255.068 452.088 L 255.068 452.088 L 255.068 452.088 Q 255.068 450.928 254.515 450.163 L 254.515 450.163 L 254.515 450.163 Q 253.961 449.398 253.056 448.862 L 253.056 448.862 L 253.056 448.862 Q 252.15 448.326 250.999 447.939 L 250.999 447.939 L 250.999 447.939 Q 249.848 447.553 248.644 447.148 L 248.644 447.148 L 248.644 447.148 Q 247.44 446.744 246.288 446.234 L 246.288 446.234 L 246.288 446.234 Q 245.137 445.725 244.232 444.934 L 244.232 444.934 L 244.232 444.934 Q 243.326 444.143 242.773 443 L 242.773 443 L 242.773 443 Q 242.219 441.857 242.219 440.188 L 242.219 440.188 L 242.219 440.188 Q 242.219 438.482 242.834 437.226 L 242.834 437.226 L 242.834 437.226 Q 243.449 435.969 244.513 435.151 L 244.513 435.151 L 244.513 435.151 Q 245.576 434.334 247.009 433.938 L 247.009 433.938 L 247.009 433.938 Q 248.442 433.543 250.059 433.543 Z  M 34.393 458.68 L 32.688 453.178 L 22.897 453.178 L 21.209 458.68 L 18.045 458.68 L 25.885 433.982 L 29.963 433.982 L 37.803 458.68 L 34.393 458.68 Z  M 27.15 439.309 L 23.775 450.295 L 31.791 450.295 L 28.451 439.309 L 28.451 439.309 Q 28.346 439.01 28.249 438.544 L 28.249 438.544 L 28.249 438.544 Q 28.152 438.078 28.065 437.639 L 28.065 437.639 L 28.065 437.639 Q 27.977 437.129 27.871 436.584 L 27.871 436.584 L 27.731 436.584 L 27.731 436.584 Q 27.625 437.146 27.537 437.656 L 27.537 437.656 L 27.537 437.656 Q 27.449 438.096 27.344 438.553 L 27.344 438.553 L 27.344 438.553 Q 27.238 439.01 27.15 439.309 L 27.15 439.309 Z  M 59.559 433.982 L 59.559 450.646 L 59.559 450.646 Q 59.559 452.738 59.005 454.312 L 59.005 454.312 L 59.005 454.312 Q 58.451 455.885 57.397 456.957 L 57.397 456.957 L 57.397 456.957 Q 56.342 458.029 54.83 458.565 L 54.83 458.565 L 54.83 458.565 Q 53.318 459.102 51.42 459.102 L 51.42 459.102 L 51.42 459.102 Q 49.522 459.102 48.01 458.565 L 48.01 458.565 L 48.01 458.565 Q 46.498 458.029 45.443 456.957 L 45.443 456.957 L 45.443 456.957 Q 44.389 455.885 43.835 454.312 L 43.835 454.312 L 43.835 454.312 Q 43.281 452.738 43.281 450.646 L 43.281 450.646 L 43.281 433.982 L 46.445 433.982 L 46.445 450.84 L 46.445 450.84 Q 46.445 453.459 47.773 454.83 L 47.773 454.83 L 47.773 454.83 Q 49.1 456.201 51.42 456.201 L 51.42 456.201 L 51.42 456.201 Q 53.74 456.201 55.067 454.83 L 55.067 454.83 L 55.067 454.83 Q 56.395 453.459 56.395 450.84 L 56.395 450.84 L 56.395 433.982 L 59.559 433.982 Z  M 65.758 436.865 L 65.758 433.982 L 82.387 433.982 L 82.387 436.865 L 75.654 436.865 L 75.654 458.68 L 72.49 458.68 L 72.49 436.865 L 65.758 436.865 Z  M 97.586 433.543 L 97.586 433.543 L 97.586 433.543 Q 99.854 433.543 101.664 434.334 L 101.664 434.334 L 101.664 434.334 Q 103.475 435.125 104.723 436.725 L 104.723 436.725 L 104.723 436.725 Q 105.971 438.324 106.639 440.715 L 106.639 440.715 L 106.639 440.715 Q 107.307 443.105 107.307 446.322 L 107.307 446.322 L 107.307 446.322 Q 107.307 449.539 106.639 451.938 L 106.639 451.938 L 106.639 451.938 Q 105.971 454.338 104.723 455.929 L 104.723 455.929 L 104.723 455.929 Q 103.475 457.52 101.664 458.311 L 101.664 458.311 L 101.664 458.311 Q 99.854 459.102 97.586 459.102 L 97.586 459.102 L 97.586 459.102 Q 95.318 459.102 93.517 458.311 L 93.517 458.311 L 93.517 458.311 Q 91.715 457.52 90.467 455.929 L 90.467 455.929 L 90.467 455.929 Q 89.219 454.338 88.551 451.938 L 88.551 451.938 L 88.551 451.938 Q 87.883 449.539 87.883 446.322 L 87.883 446.322 L 87.883 446.322 Q 87.883 443.105 88.551 440.715 L 88.551 440.715 L 88.551 440.715 Q 89.219 438.324 90.467 436.725 L 90.467 436.725 L 90.467 436.725 Q 91.715 435.125 93.517 434.334 L 93.517 434.334 L 93.517 434.334 Q 95.318 433.543 97.586 433.543 Z  M 97.586 436.461 L 97.586 436.461 L 97.586 436.461 Q 96.109 436.461 94.923 437.015 L 94.923 437.015 L 94.923 437.015 Q 93.736 437.568 92.901 438.693 L 92.901 438.693 L 92.901 438.693 Q 92.067 439.818 91.627 441.497 L 91.627 441.497 L 91.627 441.497 Q 91.188 443.176 91.188 445.426 L 91.188 445.426 L 91.188 447.236 L 91.188 447.236 Q 91.188 449.486 91.627 451.174 L 91.627 451.174 L 91.627 451.174 Q 92.067 452.861 92.901 453.978 L 92.901 453.978 L 92.901 453.978 Q 93.736 455.094 94.923 455.647 L 94.923 455.647 L 94.923 455.647 Q 96.109 456.201 97.586 456.201 L 97.586 456.201 L 97.586 456.201 Q 99.08 456.201 100.267 455.647 L 100.267 455.647 L 100.267 455.647 Q 101.453 455.094 102.279 453.978 L 102.279 453.978 L 102.279 453.978 Q 103.106 452.861 103.554 451.174 L 103.554 451.174 L 103.554 451.174 Q 104.002 449.486 104.002 447.236 L 104.002 447.236 L 104.002 445.426 L 104.002 445.426 Q 104.002 443.176 103.554 441.497 L 103.554 441.497 L 103.554 441.497 Q 103.106 439.818 102.279 438.693 L 102.279 438.693 L 102.279 438.693 Q 101.453 437.568 100.267 437.015 L 100.267 437.015 L 100.267 437.015 Q 99.08 436.461 97.586 436.461 Z  M 130.873 433.982 L 130.873 458.68 L 128.236 458.68 L 119.008 442.947 L 119.008 442.947 Q 118.762 442.543 118.489 441.989 L 118.489 441.989 L 118.489 441.989 Q 118.217 441.436 117.971 440.908 L 117.971 440.908 L 117.971 440.908 Q 117.69 440.311 117.408 439.643 L 117.408 439.643 L 117.303 439.678 L 117.303 439.678 Q 117.338 440.328 117.373 440.926 L 117.373 440.926 L 117.373 440.926 Q 117.408 441.436 117.426 441.998 L 117.426 441.998 L 117.426 441.998 Q 117.443 442.561 117.443 442.947 L 117.443 442.947 L 117.443 458.68 L 114.596 458.68 L 114.596 433.982 L 117.338 433.982 L 126.531 449.486 L 126.531 449.486 Q 126.725 449.838 126.98 450.409 L 126.98 450.409 L 126.98 450.409 Q 127.234 450.98 127.481 451.508 L 127.481 451.508 L 127.481 451.508 Q 127.744 452.141 128.025 452.809 L 128.025 452.809 L 128.131 452.773 L 128.131 452.773 Q 128.096 452.07 128.078 451.438 L 128.078 451.438 L 128.078 451.438 Q 128.043 450.893 128.034 450.339 L 128.034 450.339 L 128.034 450.339 Q 128.025 449.785 128.025 449.486 L 128.025 449.486 L 128.025 433.982 L 130.873 433.982 Z  M 147.865 433.543 L 147.865 433.543 L 147.865 433.543 Q 150.133 433.543 151.943 434.334 L 151.943 434.334 L 151.943 434.334 Q 153.754 435.125 155.002 436.725 L 155.002 436.725 L 155.002 436.725 Q 156.25 438.324 156.918 440.715 L 156.918 440.715 L 156.918 440.715 Q 157.586 443.105 157.586 446.322 L 157.586 446.322 L 157.586 446.322 Q 157.586 449.539 156.918 451.938 L 156.918 451.938 L 156.918 451.938 Q 156.25 454.338 155.002 455.929 L 155.002 455.929 L 155.002 455.929 Q 153.754 457.52 151.943 458.311 L 151.943 458.311 L 151.943 458.311 Q 150.133 459.102 147.865 459.102 L 147.865 459.102 L 147.865 459.102 Q 145.598 459.102 143.796 458.311 L 143.796 458.311 L 143.796 458.311 Q 141.994 457.52 140.746 455.929 L 140.746 455.929 L 140.746 455.929 Q 139.498 454.338 138.83 451.938 L 138.83 451.938 L 138.83 451.938 Q 138.162 449.539 138.162 446.322 L 138.162 446.322 L 138.162 446.322 Q 138.162 443.105 138.83 440.715 L 138.83 440.715 L 138.83 440.715 Q 139.498 438.324 140.746 436.725 L 140.746 436.725 L 140.746 436.725 Q 141.994 435.125 143.796 434.334 L 143.796 434.334 L 143.796 434.334 Q 145.598 433.543 147.865 433.543 Z  M 147.865 436.461 L 147.865 436.461 L 147.865 436.461 Q 146.389 436.461 145.202 437.015 L 145.202 437.015 L 145.202 437.015 Q 144.016 437.568 143.181 438.693 L 143.181 438.693 L 143.181 438.693 Q 142.346 439.818 141.906 441.497 L 141.906 441.497 L 141.906 441.497 Q 141.467 443.176 141.467 445.426 L 141.467 445.426 L 141.467 447.236 L 141.467 447.236 Q 141.467 449.486 141.906 451.174 L 141.906 451.174 L 141.906 451.174 Q 142.346 452.861 143.181 453.978 L 143.181 453.978 L 143.181 453.978 Q 144.016 455.094 145.202 455.647 L 145.202 455.647 L 145.202 455.647 Q 146.389 456.201 147.865 456.201 L 147.865 456.201 L 147.865 456.201 Q 149.359 456.201 150.546 455.647 L 150.546 455.647 L 150.546 455.647 Q 151.733 455.094 152.559 453.978 L 152.559 453.978 L 152.559 453.978 Q 153.385 452.861 153.833 451.174 L 153.833 451.174 L 153.833 451.174 Q 154.281 449.486 154.281 447.236 L 154.281 447.236 L 154.281 445.426 L 154.281 445.426 Q 154.281 443.176 153.833 441.497 L 153.833 441.497 L 153.833 441.497 Q 153.385 439.818 152.559 438.693 L 152.559 438.693 L 152.559 438.693 Q 151.733 437.568 150.546 437.015 L 150.546 437.015 L 150.546 437.015 Q 149.359 436.461 147.865 436.461 Z  M 184.721 458.68 L 181.557 458.68 L 181.557 440.75 L 181.557 440.75 Q 181.557 440.434 181.592 439.792 L 181.592 439.792 L 181.592 439.792 Q 181.627 439.15 181.68 438.518 L 181.68 438.518 L 181.68 438.518 Q 181.733 437.779 181.803 436.936 L 181.803 436.936 L 181.662 436.936 L 181.662 436.936 Q 181.504 437.779 181.346 438.518 L 181.346 438.518 L 181.346 438.518 Q 181.205 439.15 181.065 439.792 L 181.065 439.792 L 181.065 439.792 Q 180.924 440.434 180.836 440.75 L 180.836 440.75 L 175.897 458.68 L 173.049 458.68 L 168.127 440.75 L 168.127 440.75 Q 168.092 440.627 168.039 440.39 L 168.039 440.39 L 168.039 440.39 Q 167.986 440.152 167.925 439.862 L 167.925 439.862 L 167.925 439.862 Q 167.863 439.572 167.793 439.238 L 167.793 439.238 L 167.793 439.238 Q 167.723 438.904 167.67 438.588 L 167.67 438.588 L 167.67 438.588 Q 167.529 437.832 167.371 436.936 L 167.371 436.936 L 167.213 436.936 L 167.213 436.936 Q 167.266 437.814 167.318 438.57 L 167.318 438.57 L 167.318 438.57 Q 167.354 439.221 167.398 439.854 L 167.398 439.854 L 167.398 439.854 Q 167.442 440.486 167.442 440.75 L 167.442 440.75 L 167.442 458.68 L 164.594 458.68 L 164.594 433.982 L 169.41 433.982 L 173.77 450.189 L 173.77 450.189 Q 173.858 450.523 173.937 450.945 L 173.937 450.945 L 173.937 450.945 Q 174.016 451.367 174.095 451.815 L 174.095 451.815 L 174.095 451.815 Q 174.174 452.264 174.244 452.729 L 174.244 452.729 L 174.244 452.729 Q 174.315 453.195 174.367 453.635 L 174.367 453.635 L 174.367 453.635 Q 174.49 454.654 174.596 455.727 L 174.596 455.727 L 174.754 455.727 L 174.754 455.727 Q 174.842 454.637 174.965 453.6 L 174.965 453.6 L 174.965 453.6 Q 175.07 452.721 175.211 451.78 L 175.211 451.78 L 175.211 451.78 Q 175.352 450.84 175.545 450.189 L 175.545 450.189 L 179.922 433.982 L 184.721 433.982 L 184.721 458.68 Z  M 201.432 433.543 L 201.432 433.543 L 201.432 433.543 Q 203.699 433.543 205.51 434.334 L 205.51 434.334 L 205.51 434.334 Q 207.32 435.125 208.568 436.725 L 208.568 436.725 L 208.568 436.725 Q 209.817 438.324 210.484 440.715 L 210.484 440.715 L 210.484 440.715 Q 211.152 443.105 211.152 446.322 L 211.152 446.322 L 211.152 446.322 Q 211.152 449.539 210.484 451.938 L 210.484 451.938 L 210.484 451.938 Q 209.817 454.338 208.568 455.929 L 208.568 455.929 L 208.568 455.929 Q 207.32 457.52 205.51 458.311 L 205.51 458.311 L 205.51 458.311 Q 203.699 459.102 201.432 459.102 L 201.432 459.102 L 201.432 459.102 Q 199.164 459.102 197.362 458.311 L 197.362 458.311 L 197.362 458.311 Q 195.561 457.52 194.313 455.929 L 194.313 455.929 L 194.313 455.929 Q 193.065 454.338 192.397 451.938 L 192.397 451.938 L 192.397 451.938 Q 191.729 449.539 191.729 446.322 L 191.729 446.322 L 191.729 446.322 Q 191.729 443.105 192.397 440.715 L 192.397 440.715 L 192.397 440.715 Q 193.065 438.324 194.313 436.725 L 194.313 436.725 L 194.313 436.725 Q 195.561 435.125 197.362 434.334 L 197.362 434.334 L 197.362 434.334 Q 199.164 433.543 201.432 433.543 Z  M 201.432 436.461 L 201.432 436.461 L 201.432 436.461 Q 199.955 436.461 198.769 437.015 L 198.769 437.015 L 198.769 437.015 Q 197.582 437.568 196.747 438.693 L 196.747 438.693 L 196.747 438.693 Q 195.912 439.818 195.473 441.497 L 195.473 441.497 L 195.473 441.497 Q 195.033 443.176 195.033 445.426 L 195.033 445.426 L 195.033 447.236 L 195.033 447.236 Q 195.033 449.486 195.473 451.174 L 195.473 451.174 L 195.473 451.174 Q 195.912 452.861 196.747 453.978 L 196.747 453.978 L 196.747 453.978 Q 197.582 455.094 198.769 455.647 L 198.769 455.647 L 198.769 455.647 Q 199.955 456.201 201.432 456.201 L 201.432 456.201 L 201.432 456.201 Q 202.926 456.201 204.112 455.647 L 204.112 455.647 L 204.112 455.647 Q 205.299 455.094 206.125 453.978 L 206.125 453.978 L 206.125 453.978 Q 206.951 452.861 207.4 451.174 L 207.4 451.174 L 207.4 451.174 Q 207.848 449.486 207.848 447.236 L 207.848 447.236 L 207.848 445.426 L 207.848 445.426 Q 207.848 443.176 207.4 441.497 L 207.4 441.497 L 207.4 441.497 Q 206.951 439.818 206.125 438.693 L 206.125 438.693 L 206.125 438.693 Q 205.299 437.568 204.112 437.015 L 204.112 437.015 L 204.112 437.015 Q 202.926 436.461 201.432 436.461 Z  M 234.719 433.982 L 234.719 450.646 L 234.719 450.646 Q 234.719 452.738 234.165 454.312 L 234.165 454.312 L 234.165 454.312 Q 233.611 455.885 232.557 456.957 L 232.557 456.957 L 232.557 456.957 Q 231.502 458.029 229.99 458.565 L 229.99 458.565 L 229.99 458.565 Q 228.479 459.102 226.58 459.102 L 226.58 459.102 L 226.58 459.102 Q 224.682 459.102 223.17 458.565 L 223.17 458.565 L 223.17 458.565 Q 221.658 458.029 220.604 456.957 L 220.604 456.957 L 220.604 456.957 Q 219.549 455.885 218.995 454.312 L 218.995 454.312 L 218.995 454.312 Q 218.442 452.738 218.442 450.646 L 218.442 450.646 L 218.442 433.982 L 221.606 433.982 L 221.606 450.84 L 221.606 450.84 Q 221.606 453.459 222.933 454.83 L 222.933 454.83 L 222.933 454.83 Q 224.26 456.201 226.58 456.201 L 226.58 456.201 L 226.58 456.201 Q 228.9 456.201 230.228 454.83 L 230.228 454.83 L 230.228 454.83 Q 231.555 453.459 231.555 450.84 L 231.555 450.84 L 231.555 433.982 L 234.719 433.982 Z " fill-rule="evenodd" fill="rgb(255,255,255)"/>
+</svg></a></footer>
+  </body>
+</html>

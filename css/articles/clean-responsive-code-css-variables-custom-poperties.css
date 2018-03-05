@@ -434,4 +434,34 @@ h1 a, h2 a, h3 a, h4 a {
   color: #2E2E2E;
   text-decoration: none; }
 
-/*# sourceMappingURL=article.css.map */
+figure img {
+  max-width: 100%; }
+
+.comparison-figure img, .side-by-side img, .stacked img {
+  border: 1px solid #CCCCCC; }
+.comparison-figure:after, .side-by-side:after, .stacked:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+@media (min-width: 481px) {
+  .comparison-figure, .side-by-side, .stacked {
+    box-sizing: border-box; }
+    .comparison-figure img, .side-by-side img, .stacked img {
+      border: 1px solid #CCCCCC; }
+    .comparison-figure:after, .side-by-side:after, .stacked:after {
+      content: "";
+      display: table;
+      clear: both; }
+
+  .side-by-side {
+    padding-right: 0.5rem;
+    width: 73.4%;
+    float: left; }
+
+  .stacked {
+    padding-left: 0.5rem;
+    width: 26.6%;
+    float: right; } }
+
+/*# sourceMappingURL=clean-responsive-code-css-variables-custom-poperties.css.map */
